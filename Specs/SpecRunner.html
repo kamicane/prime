@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>MooTools Spec Runner</title>
+
+	<link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
+	<script src="jasmine/jasmine.js"></script>
+	<script src="jasmine/jasmine-html.js"></script>
+
+	<script src="require.js"></script>
+
+	<script type="text/javascript">
+
+	require({
+		paths: {
+			'Test': 'spec',
+			'Core': '../Source'
+		},
+		ready: function(){
+			require([
+
+			], function(){
+				jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+				jasmine.getEnv().execute();
+			});
+		}
+	});
+	</script>
+
+</head>
+
+<body>
+</body>
+</html>
