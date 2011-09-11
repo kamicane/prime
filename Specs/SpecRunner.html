@@ -15,11 +15,19 @@
 	require({
 		paths: {
 			'Test': 'spec',
-			'Core': '../Source'
+			'Base': '../Source'
 		},
 		ready: function(){
 			require([
-
+				'Test/Core',
+				'Test/Core/Class',
+				'Test/Host/Array',
+				'Test/Host/Date',
+				'Test/Host/Function',
+				'Test/Host/Number',
+				'Test/Host/Object',
+				'Test/Host/RegExp',
+				'Test/Host/String',
 			], function(){
 				jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
 				jasmine.getEnv().execute();
