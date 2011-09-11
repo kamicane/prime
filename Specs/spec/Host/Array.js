@@ -1,5 +1,5 @@
 
-define(['Base/Host/Array', 'Core/Utility/typeOf'], function(Array, typeOf){
+define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	
 	describe('Array.forEach', function(){
 

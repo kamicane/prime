@@ -2,7 +2,7 @@
 Contains the Class Function for easily creating, extending, and implementing reusable Classes.
 */
 
-define(['../Utility/typeOf', '../Host/Object', '../Core/Accessor', '../Utility/merge'], function(typeOf, Object, Accessor){
+define(['../Utility/typeOf', '../Host/Object', '../Core/Accessor'], function(typeOf, Object, Accessor){
 
 var Class = function(params){
 
