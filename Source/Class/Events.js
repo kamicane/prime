@@ -7,9 +7,9 @@ provides: Events
 ...
 */
 
-define(['../Utility/uniqueID', '../Core/Class', '../Utility/Function', '../Data/Table'], function(uniqueID, Class, Function, Table){
+define(['../Core/Class', '../Utility/Function', '../Data/Table'], function(Class, Function, Table){
 
-var uid = '_' + uniqueID();
+var uid = '_events';
 
 return new Class({
 

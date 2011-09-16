@@ -7,9 +7,9 @@ provides: Store
 ...
 */
 
-define(['../Utility/uniqueID', '../Utility/Function'], function(uniqueID, Function){
+define(['../Core/Class', '../Utility/Function'], function(Class, Function){
 
-var uid = '_' + uniqueID();
+var uid = '_store';
 
 var storageOf = function(object){
 	return object[uid] || (object[uid] = {});
