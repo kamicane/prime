@@ -1,0 +1,30 @@
+{
+	"name": "Base",
+	"homepage": "http://mootools.net",
+	"version": "0.0.87",
+	"description": "Base of Milk, ES5, Class and pefect Utilities",
+	"keywords": ["framework", "ES5", "Class", "Utilities"],
+	"maintainers": [{
+		"name": "Valerio Proietti",
+		"email": "kamicane@gmail.com",
+		"web": "http://mad4milk.net"
+	}],
+	"contributors": [{}],
+	"bugs": "https://github.com/mootools/Base/issues",
+	"licenses": [{
+		"type": "MIT",
+		"url": "http://mootools.net/license.txt"
+	}],
+	"repositories": [{
+		"type": "git",
+		"url": "git://github.com/mootools/Base.git"
+	}],
+	"implements": ["CommonJS/Packages/1.0", "CommonJS/Modules/AsynchronousDefinition"],
+	"scripts": {
+		"build": "build"
+	},
+	"directories": {
+		"lib": "Source"
+	},
+	"icon": "http://mootools.net/assets/images/mootools.png"
+}
