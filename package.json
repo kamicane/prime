@@ -9,7 +9,16 @@
 		"email": "kamicane@gmail.com",
 		"web": "http://mad4milk.net"
 	}],
-	"contributors": [{}],
+	"contributors": [{
+		"name": "Olmo Maldonano",
+		"web": "http://github.com/ibolmo"
+	}, {
+		"name": "Christoph Pojer",
+		"web": "http://cpojer.net"
+	}, {
+		"name": "Arian Stolwijk",
+		"web": "http://aryweb.nl"
+	}],
 	"bugs": "https://github.com/mootools/Base/issues",
 	"licenses": [{
 		"type": "MIT",
