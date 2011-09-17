@@ -5,7 +5,7 @@ description: Function prototypes and generics.
 ...
 */
 
-define(['./typeOf', '../Core/Host', '../Host/Function', '../Host/Array'], function(typeOf, Host, Function, Array){
+define(['../Core/Host', '../Host/Function', '../Host/Array'], function(Host, Function, Array){
 
 var enumerables = true;
 for (var i in {toString: 1}) enumerables = null;
