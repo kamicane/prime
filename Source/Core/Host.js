@@ -20,7 +20,7 @@ var implement = Host.prototype.implement = function(key, fn){
 		var proto = this.prototype[key] = (this.guest.prototype[key] || fn);
 		extend.call(this, key, function(){
 			var args = slice.call(arguments);
-			return proto.apply(args.shift(0), args);
+			return proto.apply(args.shift(), args);
 		});
 	}
 	return this;
@@ -40,7 +40,7 @@ Host.prototype.install = function(){
 // Host class
 
 return function(object){
-	
+
 	if (object instanceof Host){
 		var host = create(object);
 		host.prototype = create(object.prototype);
