@@ -1,5 +1,5 @@
 
-define(['Base/Utility/Number'], function(Number){
+define(['Base/Utility/Number', 'Base/Utility/Object'], function(Number, Object){
 	
 	describe('Number.random', function(){
 
@@ -102,32 +102,30 @@ define(['Base/Utility/Number'], function(Number){
 
 	});
 
-	(function(math){
-		describe('Number Math methods', function(){
-			Object.each(math, function(value, key){
-				var b = value.test[1];
-				it('should return the ' + value.title + ' value of the number' + ((b) ? ' and the passed number' : ''), function(){
-					expect(Number[key](value.test[0][key], b)).toEqual(Math[key].apply(null, value.test));
-				});
+	describe('Number Math methods', function(){
+		Object.forEach({
+			abs: { test: [-1], title: 'absolute' },
+			acos: { test: [0], title: 'arc cosine' },
+			asin: { test: [0.5], title: 'arc sine' },
+			atan: { test: [0.5], title: 'arc tangent' },
+			atan2: { test: [0.1, 0.5], title: 'arc tangent' },
+			ceil: { test: [0.6], title: 'number closest to and not less than the' },
+			cos: { test: [30], title: 'cosine' },
+			exp: { test: [2], title: 'exponent' },
+			floor: { test: [2.4], title: 'integer closet to and not greater than' },
+			log: { test: [2], title: 'log' },
+			max: { test: [5, 3], title: 'maximum' },
+			min: { test: [-4, 2], title: 'minimum' },
+			pow: { test: [2, 2], title: 'power' },
+			sin: { test: [0.5], title: 'sine' },
+			sqrt: { test: [4], title: 'square root' },
+			tan: { test: [0.3], title: 'tangent' }
+		}, function(value, key){
+			var b = value.test[1];
+			it('should return the ' + value.title + ' value of the number' + ((b) ? ' and the passed number' : ''), function(){
+				expect(Number[key](value.test[0], b)).toEqual(Math[key].apply(null, value.test));
 			});
 		});
-	})({
-		abs: { test: [-1], title: 'absolute' },
-		acos: { test: [0], title: 'arc cosine' },
-		asin: { test: [0.5], title: 'arc sine' },
-		atan: { test: [0.5], title: 'arc tangent' },
-		atan2: { test: [0.1, 0.5], title: 'arc tangent' },
-		ceil: { test: [0.6], title: 'number closest to and not less than the' },
-		cos: { test: [30], title: 'cosine' },
-		exp: { test: [2], title: 'exponent' },
-		floor: { test: [2.4], title: 'integer closet to and not greater than' },
-		log: { test: [2], title: 'log' },
-		max: { test: [5, 3], title: 'maximum' },
-		min: { test: [-4, 2], title: 'minimum' },
-		pow: { test: [2, 2], title: 'power' },
-		sin: { test: [0.5], title: 'sine' },
-		sqrt: { test: [4], title: 'square root' },
-		tan: { test: [0.3], title: 'tangent' }
 	});
 
 });
