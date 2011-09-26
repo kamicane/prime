@@ -269,4 +269,42 @@ describe('Class toString', function(){
 
 });
 
+describe('Class Mutators', function(){
+
+	it('should inherit mutators', function(){
+
+		var Being = new Class({});
+		Being.defineMutator('Legs', function(legs){
+			this.prototype.legs = legs;
+		});
+
+		var Person = new Class({
+			Extends: Being,
+			Legs: 2,
+			BeerCapacity: 10
+		});
+		Person.defineMutator('BeerCapacity', function(beers){
+			this.prototype.beers = beers;
+		});
+
+		var Student = new Class({
+			Extends: Person,
+			Legs: 2,
+			BeerCapacity: 10
+		});
+
+		var olmo = new Person();
+
+		expect(olmo.legs).toEqual(2);
+		expect(olmo.beer).toBeUndefined();
+
+		var arian = new Student();
+
+		expect(arian.legs).toEqual(2);
+		expect(arian.beers).toEqual(10)
+
+	});
+
+});
+
 });

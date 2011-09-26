@@ -67,7 +67,7 @@ var wrap = function(self, key, method){
 };
 
 var implement_ = function(self, key, value, nowrap){
-	var mutator = Class.lookupMutator(key);
+	var mutator = self.lookupMutator(key);
 	if (mutator){
 		value = mutator.call(self, value);
 		if (value == null) return;
