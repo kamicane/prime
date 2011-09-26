@@ -7,7 +7,7 @@ description: Custom Array prototypes and generics.
 
 define(['../Core/Host', '../Host/Array'], function(Host, Array){
 	
-return Host(Array).implement({
+Array = Host(Array).implement({
 
 	invoke: function(name){
 		var args = Array.slice(arguments, 1), results = [];
@@ -56,5 +56,7 @@ return Host(Array).implement({
 	}
 
 });
+
+return Array;
 	
 });
