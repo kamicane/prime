@@ -33,15 +33,7 @@ define(['Base/Utility/typeOf'], function(typeOf){
 			expect(typeOf({a:2})).toEqual('object');
 		});
 
-		// disabled due to use of window.opera (requires Browser.js, which is not ready)
-		xit("should return 'arguments' for Function arguments", function(){
-			
-			if (typeof window != 'undefined' && window.opera){ // Seems like the Opera guys can't decide on this
-				var type = $type(arguments);
-				expect(type == 'array' || type == 'arguments').toBeTruthy();
-				return;
-			}
-		
+		it("should return 'arguments' for Function arguments", function(){
 			expect(typeOf(arguments)).toEqual('arguments');
 		});
 
@@ -52,6 +44,22 @@ define(['Base/Utility/typeOf'], function(typeOf){
 		it("should return 'null' for undefined objects", function(){
 			expect(typeOf(undefined)).toEqual('null');
 		});
+
+		if (window && window.document && document.createElement){
+
+			it("should return 'element' for element nodes", function(){
+				expect(typeOf(document.createElement('div'))).toEqual('element');
+			});
+
+			it("should return 'textnode' for text nodes", function(){
+				expect(typeOf(document.createTextNode())).toEqual('textnode');
+			});
+
+			it("should return 'nodelist' for nodelists", function(){
+				expect(typeOf(document.getElementsByTagName('div'))).toEqual('nodelist');
+			});
+
+		}
 
 	});
 
