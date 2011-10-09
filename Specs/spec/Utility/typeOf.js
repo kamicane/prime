@@ -52,7 +52,7 @@ define(['Base/Utility/typeOf'], function(typeOf){
 			});
 
 			it("should return 'textnode' for text nodes", function(){
-				expect(typeOf(document.createTextNode())).toEqual('textnode');
+				expect(typeOf(document.createTextNode('mmm'))).toEqual('textnode');
 			});
 
 			it("should return 'nodelist' for nodelists", function(){
