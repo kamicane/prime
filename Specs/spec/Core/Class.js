@@ -84,6 +84,7 @@ var Attributes = new Class({
 
 describe('Class creation', function(){
 
+	// Type is no more...
 	xit("Classes should be of type 'class'", function(){
 		expect(typeOf(Animal)).toEqual('class');
 		expect(Type.isClass(Animal)).toBeTruthy();
@@ -235,6 +236,43 @@ describe('Class::implement', function(){
 		expect(rover.color()).toEqual('attributes:color:rover');
 	});
 
+	it('should implement key-value objects', function(){
+		var Dog = new Class({
+			Extends: Animal
+		});
+
+		Dog.implement({
+			bark: function(){
+				return 'woof!';
+			},
+			jump: function(){
+				return 'jump';
+			}
+		});
+
+		var rover = new Dog('rover');
+
+		expect(rover.bark()).toEqual('woof!');
+		expect(rover.jump()).toEqual('jump');
+	});
+
+	it('should implement a new method', function(){
+		var Dog = new Class({
+			Extends: Animal
+		});
+
+		Dog.implement('bark', function(){
+			return 'woof!';
+		}).implement('jump', function(){
+			return 'jump';
+		})
+
+		var rover = new Dog('rover');
+
+		expect(rover.bark()).toEqual('woof!');
+		expect(rover.jump()).toEqual('jump');
+	});
+
 });
 
 describe('Class toString', function(){
@@ -302,6 +340,29 @@ describe('Class Mutators', function(){
 
 		expect(arian.legs).toEqual(2);
 		expect(arian.beers).toEqual(10)
+
+	});
+
+});
+
+describe('Protected methods', function(){
+
+	it('should throw an error when calling a protected method', function(){
+		var Person = new Class({
+			'protected parse': function(){
+				this.parsed = true;
+				return 'parsing...';
+			},
+			get: function(){
+				return this.parse();
+			}
+		});
+		var olmo = new Person;
+
+		expect(olmo.parse).toThrow();
+		expect(olmo.parsed).toBeFalsy();
+		expect(olmo.get()).toEqual('parsing...');
+		expect(olmo.parsed).toBeTruthy();
 
 	});
 
