@@ -44,11 +44,11 @@ var Accessor = function(singular, plural, accessor, matcher){
 			var argument = arguments[i];
 			results[argument] = lookupSingular(argument);
 		}
-		return result;
+		return results;
 	},
 	
 	eachSingular = self[each + singular] = function(fn, context){
-		for (var key in accessor) fn.call(context, this[key], key, this);
+		for (var key in accessor) fn.call(context, accessor[key], key, this);
 	};
 	
 	return self;
