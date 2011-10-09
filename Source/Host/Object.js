@@ -37,8 +37,8 @@ Object_.implement({
 
 //methods that we want available only on environments that already supports them on the native object
 
-var names = 'defineProperty,defineProperties,getPrototypeOf,getOwnPropertyDescriptor,getOwnPropertyNames,preventExtensions,isExtensible,'/
-'seal,isSealed,freeze,isFrozen'.split(',');
+var names = 'defineProperty,defineProperties,getPrototypeOf,getOwnPropertyDescriptor,\
+getOwnPropertyNames,preventExtensions,isExtensible,seal,isSealed,freeze,isFrozen'.split(',');
 
 for (var i = 0; i < names.length; i++){
 	var name = names[i], method = Object[name];
