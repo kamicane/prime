@@ -9,6 +9,6 @@
 */
 
 define({
-	version: '1.99dev',
+	version: '0.0.87',
 	build: '%build%'
 });
