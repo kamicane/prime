@@ -1,13 +1,33 @@
 
-define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
-	
+define(['Base/Host/Array'], function(Array_){
+
+	describe('Array.isArray', function(){
+
+		it('should test if a value is an Array', function(){
+			expect(Array_.isArray([])).toBe(true);
+			expect(Array_.isArray(new Array())).toBe(true);
+			expect(Array_.isArray(Array())).toBe(true);
+			expect(Array_.isArray('abc'.match(/(a)*/g))).toBe(true);
+			expect((function(){ return Array_.isArray(arguments); })()).toBe(false);
+			expect(Array_.isArray()).toBe(false);
+			expect(Array_.isArray(null)).toBe(false);
+			expect(Array_.isArray(undefined)).toBe(false);
+			expect(Array_.isArray(true)).toBe(false);
+			expect(Array_.isArray(false)).toBe(false);
+			expect(Array_.isArray('a string')).toBe(false);
+			expect(Array_.isArray({})).toBe(false);
+			expect(Array_.isArray({length: 5})).toBe(false);
+			expect(Array_.isArray({__proto__: Array.prototype, length:1, 0:1, 1:2})).toBe(false);
+		});
+
+	});
+
 	describe('Array.forEach', function(){
 
-		// disabled since Array.from does not exist
-		xit('should call the function for each item in Function arguments', function(){
+		it('should call the function for each item in Function arguments', function(){
 			var daysArr = [];
 			(function(){
-				Array.forEach(Array.from(arguments), function(value, key){
+				Array_.forEach(arguments, function(value, key){
 					daysArr[key] = value;
 				});
 			})('Sun','Mon','Tue');
@@ -17,7 +37,7 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 
 		it('should call the function for each item in the array', function(){
 			var daysArr = [];
-			Array.forEach(['Sun','Mon','Tue'], function(value, i){
+			Array_.forEach(['Sun','Mon','Tue'], function(value, i){
 				daysArr.push(value);
 			});
 
@@ -30,7 +50,7 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 			delete array[1];
 			delete array[2];
 
-			Array.forEach(array, function(value){
+			Array_.forEach(array, function(value){
 				testArray.push(value);
 			});
 
@@ -47,21 +67,21 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	}
 	
 	function isNumber(value){
-		return typeOf(value) == 'number';
+		return typeof value == 'number';
 	}
 
 	describe('Array.filter', function(){
 
 		it('should filter an array', function(){
 			var array = [1,2,3,0,0,0];
-			var arr = Array.filter(array.concat([false, null, 4]), isNumber);
+			var arr = Array_.filter(array.concat([false, null, 4]), isNumber);
 			expect(arr).toEqual(array.concat(4));
 		});
 
 		it('filter should skip deleted elements', function(){
 			var i = 0;
 			
-			Array.filter(getTestArray(), function(){
+			Array_.filter(getTestArray(), function(){
 				i++;
 				return true;
 			});
@@ -74,11 +94,11 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	describe('Array.indexOf', function(){
 
 		it('should return the index of the item', function(){
-			expect(Array.indexOf([1,2,3,0,0,0], 0)).toEqual(3);
+			expect(Array_.indexOf([1,2,3,0,0,0], 0)).toEqual(3);
 		});
 
 		it('should return -1 if the item is not found in the array', function(){
-			expect(Array.indexOf([1,2,3,0,0,0], 'not found')).toEqual(-1);
+			expect(Array_.indexOf([1,2,3,0,0,0], 'not found')).toEqual(-1);
 		});
 
 	});
@@ -86,7 +106,7 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	describe('Array.map', function(){
 
 		it('should return a mapping of an array', function(){
-			var arr = Array.map([1,2,3,0,0,0], function(item){
+			var arr = Array_.map([1,2,3,0,0,0], function(item){
 				return (item + 1);
 			});
 
@@ -95,7 +115,7 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 
 		it('should skip deleted elements', function(){
 			var i = 0;
-			Array.map(getTestArray(), function(){
+			Array_.map(getTestArray(), function(){
 				return i++;
 			});
 
@@ -107,14 +127,14 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	describe('Array.every', function(){
 
 		it('should return true if every item matches the comparator, otherwise false', function(){
-			expect(Array.every([1,2,3,0,0,0], isNumber)).toBeTruthy();
+			expect(Array_.every([1,2,3,0,0,0], isNumber)).toBeTruthy();
 
-			expect(Array.every(['1',2,3,0], isNumber)).toBeFalsy();
+			expect(Array_.every(['1',2,3,0], isNumber)).toBeFalsy();
 		});
 
 		it('should skip deleted elements', function(){
 			var i = 0;
-			Array.every(getTestArray(), function(){
+			Array_.every(getTestArray(), function(){
 				i++;
 				return true;
 			});
@@ -127,10 +147,10 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 	describe('Array.some', function(){
 
 		it('should return true if some of the items in the array match the comparator, otherwise false', function(){
-			expect(Array.some(['1',2,3,0], isNumber)).toBeTruthy();
+			expect(Array_.some(['1',2,3,0], isNumber)).toBeTruthy();
 
-			var array = Array.map([1,2,3,0,0,0], String);
-			expect(Array.some(array, isNumber)).toBeFalsy();
+			var array = Array_.map([1,2,3,0,0,0], String);
+			expect(Array_.some(array, isNumber)).toBeFalsy();
 		});
 
 		it('should skip deleted elements', function(){
@@ -139,7 +159,7 @@ define(['Base/Host/Array', 'Base/Utility/typeOf'], function(Array, typeOf){
 			delete a[0];
 
 			// skips the first three elements
-			Array.some(a, function(value, index){
+			Array_.some(a, function(value, index){
 				i = index;
 				return true;
 			});

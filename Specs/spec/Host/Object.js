@@ -31,4 +31,18 @@ define(['Base/Host/Object'], function(Object){
 
 	});
 
+	describe('ES5 object methods', function(){
+		
+		it('should have the ES5 object methods on the Object object and should work when available', function(){
+			var obj = {a: 1, b: 'foo'};
+			if (({}).constructor.seal){
+				var res = Object.seal(obj);
+				expect(obj).toBe(res);
+				expect(Object.isSealed(obj)).toEqual(true);
+			}
+		});
+		
+	});
+
+
 });
