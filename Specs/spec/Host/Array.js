@@ -3,7 +3,7 @@ define(['Base/Host/Array'], function(Array_){
 
 	describe('Array.isArray', function(){
 
-		it('should test if an value is an Array', function(){
+		it('should test if a value is an Array', function(){
 			expect(Array_.isArray([])).toBe(true);
 			expect(Array_.isArray(new Array())).toBe(true);
 			expect(Array_.isArray(Array())).toBe(true);

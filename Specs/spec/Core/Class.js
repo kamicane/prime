@@ -84,12 +84,6 @@ var Attributes = new Class({
 
 describe('Class creation', function(){
 
-	// Type is no more...
-	xit("Classes should be of type 'class'", function(){
-		expect(typeOf(Animal)).toEqual('class');
-		expect(Type.isClass(Animal)).toBeTruthy();
-	});
-
 	it("should call initialize upon instantiation", function(){
 		var animal = new Animal('lamina');
 		expect(animal.name).toEqual('lamina');
