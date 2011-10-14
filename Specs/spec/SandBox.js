@@ -1,5 +1,5 @@
 
-define(['Base/Core/SandBox'], function(SB){
+define(['Base/SandBox'], function(SB){
 
 	describe('Sandbox', function(){
 

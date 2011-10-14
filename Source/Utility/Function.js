@@ -5,7 +5,7 @@ description: Function prototypes and generics.
 ...
 */
 
-define(['../Core/Host', '../Host/Function'], function(Host, Function){
+define(['../Host', '../Host/Function'], function(Host, Function){
 
 var enumerables = true;
 for (var i in {toString: 1}) enumerables = null;

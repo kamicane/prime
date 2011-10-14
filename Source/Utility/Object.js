@@ -5,7 +5,7 @@ description: custom Object prototypes and generics
 ...
 */
 
-define(['../Core/Host', '../Host/Object'], function(Host, Object){
+define(['../Host', '../Host/Object'], function(Host, Object){
 	
 Object = Host(Object);
 

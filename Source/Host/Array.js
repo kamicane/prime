@@ -5,7 +5,7 @@ description: ES5 Array methods
 ...
 */
 
-define(['../Core/Host'], function(Host){
+define(['../Host'], function(Host){
 
 //methods that we want available only on environments that already supports them on the native object
 

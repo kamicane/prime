@@ -1,5 +1,5 @@
 
-define(['Base/Core/Class'], function(Class){
+define(['Base/Class'], function(Class){
 
 var Animal = new Class({
 
@@ -259,7 +259,7 @@ describe('Class::implement', function(){
 			return 'woof!';
 		}).implement('jump', function(){
 			return 'jump';
-		})
+		});
 
 		var rover = new Dog('rover');
 
@@ -287,7 +287,7 @@ describe('Class toString', function(){
 		var Italian = new Class({
 
 			Extends: Person,
-			
+
 			toString: function(){
 				return "It's me, " + this.name;
 			}
@@ -333,7 +333,7 @@ describe('Class Mutators', function(){
 		var arian = new Student();
 
 		expect(arian.legs).toEqual(2);
-		expect(arian.beers).toEqual(10)
+		expect(arian.beers).toEqual(10);
 
 	});
 

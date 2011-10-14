@@ -5,7 +5,7 @@ description: custom Number prototypes and generics.
 ...
 */
 
-define(['../Core/Host', '../Host/Number'], function(Host, Number){
+define(['../Host', '../Host/Number'], function(Host, Number){
 	
 Number = Host(Number);
 
