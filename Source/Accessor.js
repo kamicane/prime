@@ -2,14 +2,14 @@
 Access things
 */
 
-define(['../Utility/typeOf', '../Host/Object', '../Host/Array'], function(typeOf, Object, Array){
+define(['./Utility/typeOf', './Host/Object', './Host/Array'], function(typeOf, Object, Array){
 
 var Accessor = function(singular, plural, accessor, matcher){
 
 	singular = singular || ''; plural = plural || singular + 's'; accessor = accessor || {}; matcher = matcher || {};
 
 	var define = 'define', lookup = 'lookup', match = 'match', each = 'each',
-	
+
 	self = function(){
 		return Accessor(singular, plural, Object.create(accessor), Object.create(matcher));
 	},
@@ -19,12 +19,12 @@ var Accessor = function(singular, plural, accessor, matcher){
 		else accessor[key] = value;
 		return this;
 	},
-	
+
 	definePlural = self[define + plural] = function(object){
 		for (var key in object) accessor[key] = object[key];
 		return this;
 	},
-	
+
 	lookupSingular = self[lookup + singular] = function(key){
 		if (accessor[key]) return accessor[key];
 		for (var m in matcher){
@@ -37,7 +37,7 @@ var Accessor = function(singular, plural, accessor, matcher){
 		}
 		return null;
 	},
- 
+
 	lookupPlural = self[lookup + plural] = function(){
 		var results = {};
 		for (var i = 0; i < arguments.length; i++){
@@ -46,11 +46,11 @@ var Accessor = function(singular, plural, accessor, matcher){
 		}
 		return results;
 	},
-	
+
 	eachSingular = self[each + singular] = function(fn, context){
 		for (var key in accessor) fn.call(context, accessor[key], key, this);
 	};
-	
+
 	return self;
 };
 

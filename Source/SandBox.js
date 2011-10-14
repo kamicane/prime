@@ -6,9 +6,9 @@ description: simple Sandbox
 */
 
 define([
-	'../Utility/typeOf', '../Host/Array', '../Host/Date', '../Host/Function', '../Host/Number', '../Host/Object', '../Host/RegExp', '../Host/String'
+	'./Utility/typeOf', './Host/Array', './Host/Date', './Host/Function', './Host/Number', './Host/Object', './Host/RegExp', './Host/String'
 ], function(typeOf, A, D, F, N, O, R, S){
-	
+
 var hosts = {ARRAY: A, DATE: D, FUNCTION: F, NUMBER: N, OBJECT: O, REGEXP: R, STRING: S},
 	sandboxes = {};
 
@@ -37,7 +37,7 @@ for (var h in hosts) (function(host, h){
 	sandbox.prototype.valueOf = function(){
 		return this.self.valueOf();
 	};
-	
+
 	sandbox.prototype.toString = function(){
 		return this.self.toString();
 	};
@@ -52,5 +52,5 @@ var sb = function(item){
 };
 
 return sb;
-	
+
 });

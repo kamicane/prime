@@ -1,5 +1,5 @@
 
-define(['Base/Core/Accessor'], function(Accessor){
+define(['Base/Accessor'], function(Accessor){
 
 	describe('Accessor', function(){
 

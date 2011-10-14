@@ -5,7 +5,7 @@ description: Custom Array prototypes and generics.
 ...
 */
 
-define(['../Core/Host', '../Host/Array'], function(Host, Array){
+define(['../Host', '../Host/Array'], function(Host, Array){
 	
 Array = Host(Array).implement({
 

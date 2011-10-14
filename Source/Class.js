@@ -2,7 +2,7 @@
 Contains the Class Function for easily creating, extending, and implementing reusable Classes.
 */
 
-define(['../Utility/typeOf', '../Host/Object', '../Core/Accessor'], function(typeOf, Object, Accessor){
+define(['./Utility/typeOf', './Host/Object', './Accessor'], function(typeOf, Object, Accessor){
 
 var Class = function(params){
 
@@ -20,15 +20,15 @@ var Class = function(params){
 	newClass.parent = parent;
 	newClass.prototype = instance;
 	newClass.prototype.constructor = newClass;
-	
+
 	newClass.implement = implement;
 	newClass.addAccessor = Class.addAccessor;
-	
+
 	var accessors = parent.accessors;
 	for (var i = 0; i < accessors.length; i++) newClass.addAccessor(accessors[i]);
 
 	newClass.implement(params);
-	
+
 	return newClass;
 };
 
@@ -50,7 +50,7 @@ Class.addAccessor = function(accessor){
 
 var wrap = function(self, key, method){
 	if (method.origin_) method = method.origin_;
-	
+
 	var wrapped = function(){
 		if (method.protected_ && this.caller_ == null) throw new Error('The method "' + key + '" cannot be called.');
 		var old = this.caller_; this.caller_ = wrapped;
@@ -58,11 +58,11 @@ var wrap = function(self, key, method){
 		if (old != null) this.caller_ = old; else delete this.caller_;
 		return result;
 	};
-	
+
 	wrapped.owner_ = self;
 	wrapped.name_ = key;
 	wrapped.origin_ = method;
-	
+
 	return wrapped;
 };
 

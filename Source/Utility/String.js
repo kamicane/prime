@@ -5,7 +5,7 @@ description: custom String prototypes and generics.
 ...
 */
 
-define(['../Core/Host', '../Host/String'], function(Host, String){
+define(['../Host', '../Host/String'], function(Host, String){
 	
 return Host(String).implement({
 
