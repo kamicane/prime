@@ -95,7 +95,7 @@ define(['Base/Utility/Function'], function(Function){
 				a: 1,
 				b: 2
 			});
-		})
+		});
 
 	});
 
@@ -242,7 +242,7 @@ define(['Base/Utility/Function'], function(Function){
 			var argumentCount = null;
 			var spy = function(){
 				argumentCount = arguments.length;
-			}
+			};
 			spy.delay(50);
 
 			this.clock.tick(100);
@@ -297,7 +297,7 @@ define(['Base/Utility/Function'], function(Function){
 			var argumentCount = null;
 			var spy = function(){
 				argumentCount = arguments.length;
-			}
+			};
 			var timer = spy.periodical(50);
 
 			this.clock.tick(100);

@@ -125,7 +125,7 @@ define(['Base/Utility/Object'], function(Object){
 			expect(Object.subset({a: 1}, ['a', 'b'])).toEqual({
 				a: 1,
 				b: null
-			})
+			});
 		});
 
 	});
@@ -140,7 +140,7 @@ define(['Base/Utility/Object'], function(Object){
 				b: true,
 				c: false
 			});
-		})
+		});
 
 	});
 
