@@ -129,6 +129,8 @@ describe('Host.implement', function(){
 
 describe('Host.install', function(){
 
+	beforeEach(reset);
+
 	it('should extend the host object with the static method', function(){
 		var Host_ = Host(FakeHost);
 		var newStaticMethod = function(){};
