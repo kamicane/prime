@@ -127,4 +127,37 @@ describe('Host.implement', function(){
 
 });
 
+describe('Host.install', function(){
+
+	it('should extend the host object with the static method', function(){
+		var Host_ = Host(FakeHost);
+		var newStaticMethod = function(){};
+		Host_.extend('newStaticMethod', newStaticMethod);
+		Host_.extend('staticMethod', newStaticMethod);
+
+		var oldStaticMethod = FakeHost.staticMethod;
+		Host_.install();
+
+		expect(FakeHost.newStaticMethod).toBe(newStaticMethod);
+		expect(FakeHost.staticMethod).toBe(oldStaticMethod);
+	});
+
+	it('should extend the host object with the instance method', function(){
+		var Host_ = Host(FakeHost);
+		var newInstanceMethod = function(){};
+		Host_.implement('newInstanceMethod', newInstanceMethod);
+		Host_.implement('instanceMethod', newInstanceMethod);
+
+		var oldInstanceMethod = FakeHost.prototype.instanceMethod;
+		var oldGenericMethod = FakeHost.instanceMethod;
+		Host_.install();
+
+		expect(FakeHost.prototype.newInstanceMethod).toBe(newInstanceMethod);
+		expect(FakeHost.newInstanceMethod).toBeDefined();
+		expect(FakeHost.prototype.instanceMethod).toBe(oldInstanceMethod);
+		expect(FakeHost.instanceMethod).toBe(oldGenericMethod);
+	});
+
+})
+
 });
