@@ -7,8 +7,6 @@ var FakeHost, reset = function(){
 	FakeHost.staticMethod = function(){};
 };
 
-beforeEach(reset);
-
 describe('Host', function(){
 
 	beforeEach(reset);
@@ -161,5 +159,74 @@ describe('Host.install', function(){
 	});
 
 })
+
+describe('Host(Host)', function(){
+
+	it('should inherit methods from parent', function(){
+		var Parent = Host(FakeHost);
+		var newStaticMethod = function(){};
+		var newInstanceMethod = function(){};
+		Parent.extend('newStaticMethod', newStaticMethod);
+		Parent.implement('newInstanceMethod', newInstanceMethod);
+
+		var Child = Host(Parent);
+		expect(Child.newStaticMethod).toBeDefined();
+		expect(Child.newStaticMethod).toBe(newStaticMethod);
+		expect(Child.prototype.newInstanceMethod).toBeDefined();
+		expect(Child.prototype.newInstanceMethod).toBe(newInstanceMethod);
+
+		expect(Child.staticMethod).toBeDefined();
+		expect(Child.staticMethod).toBe(FakeHost.staticMethod);
+		expect(Child.prototype.instanceMethod).toBeDefined();
+		expect(Child.prototype.instanceMethod).toBe(FakeHost.prototype.instanceMethod);
+
+		jasmine.log('should also inherit any new methods');
+		var newerStaticMethod = function(){};
+		var newerInstanceMethod = function(){};
+		Parent.extend('newerStaticMethod', newerStaticMethod);
+		Parent.implement('newerInstanceMethod', newerInstanceMethod);
+
+		expect(Child.newerStaticMethod).toBeDefined();
+		expect(Child.newerStaticMethod).toBe(newerStaticMethod);
+		expect(Child.prototype.newerInstanceMethod).toBeDefined();
+		expect(Child.prototype.newerInstanceMethod).toBe(newerInstanceMethod);
+	});
+
+	it('should exclude new methods in child to parent', function(){
+		var Parent = Host(FakeHost);
+		var Child = Host(Parent);
+		var newStaticMethod = function(){};
+		var newInstanceMethod = function(){};
+		Child.extend('newStaticMethod', newStaticMethod);
+		Child.implement('newInstanceMethod', newInstanceMethod);
+
+		expect(Parent.newStaticMethod).toBeUndefined();
+		expect(Parent.prototype.newInstanceMethod).toBeUndefined();
+	});
+
+});
+
+describe('Host(Host).install', function(){
+
+	it('should install all child methods and generics to the base host', function(){
+		var Parent = Host(FakeHost);
+		var Child = Host(Parent);
+		var newStaticMethod = function(){};
+		var newInstanceMethod = function(){};
+		Child.extend('newStaticMethod', newStaticMethod);
+		Child.implement('newInstanceMethod', newInstanceMethod);
+
+		expect(FakeHost.newStaticMethod).toBeUndefined();
+		expect(FakeHost.prototype.newInstanceMethod).toBeUndefined();
+
+		Child.install();
+
+		expect(FakeHost.newStaticMethod).toBeDefined();
+		expect(FakeHost.newStaticMethod).toBe(newStaticMethod);
+		expect(FakeHost.prototype.newInstanceMethod).toBeDefined();
+		expect(FakeHost.prototype.newInstanceMethod).toBe(newInstanceMethod);
+	});
+
+});
 
 });
