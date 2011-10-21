@@ -172,7 +172,10 @@ describe('Host(Host)', function(){
 		var Parent = Host(FakeHost);
 		var newStaticMethod = function(){};
 		var newInstanceMethod = function(){};
-		Parent.extend('newStaticMethod', newStaticMethod);
+		Parent.extend({
+			newStaticMethod: newStaticMethod,
+			staticMethod: newStaticMethod
+		});
 		Parent.implement({
 			newInstanceMethod: newInstanceMethod,
 			instanceMethod: newInstanceMethod
@@ -183,9 +186,8 @@ describe('Host(Host)', function(){
 		expect(Child.newStaticMethod).toBe(newStaticMethod);
 		expect(Child.prototype.newInstanceMethod).toBeDefined();
 		expect(Child.prototype.newInstanceMethod).toBe(newInstanceMethod);
-		// case 3
-		//expect(Child.staticMethod).toBeDefined();
-		//expect(Child.staticMethod).toBe(FakeHost.staticMethod);
+		expect(Child.staticMethod).toBeDefined();
+		expect(Child.staticMethod).toBe(FakeHost.staticMethod);
 		expect(Child.prototype.instanceMethod).toBeDefined();
 		expect(Child.prototype.instanceMethod).toBe(FakeHost.prototype.instanceMethod);
 
@@ -232,7 +234,7 @@ describe('Host(Host).install', function(){
 
 		Child.install();
 
-		// case 4 (case 2)
+		// case 3 (case 2)
 		//expect(FakeHost.newStaticMethod).toBeDefined();
 		//expect(FakeHost.newStaticMethod).toBe(newStaticMethod);
 		expect(FakeHost.prototype.newInstanceMethod).toBeDefined();
