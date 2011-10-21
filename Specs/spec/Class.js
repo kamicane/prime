@@ -269,7 +269,7 @@ describe('Class::implement', function(){
 
 });
 
-describe('Class toString', function(){
+xdescribe('Class toString', function(){
 
 	it('should allow to implement toString', function(){
 		var Person = new Class({
