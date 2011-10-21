@@ -58,7 +58,7 @@ describe('Host.extend', function(){
 		Host_.extend({
 			staticMethod: staticMethod,
 			newStaticMethod: staticMethod
-		})
+		});
 		expect(Host_.staticMethod).toBe(FakeHost.staticMethod);
 		expect(Host_.newStaticMethod).toBeDefined();
 		expect(Host_.newStaticMethod).toBe(staticMethod);
@@ -91,7 +91,7 @@ describe('Host.implement', function(){
 		expect(results[0]).toEqual('a');
 		expect(results[1]).toEqual(['b', 'c']);
 
-		var results = Host_.prototype.newInstanceMethod.apply('a', ['b', 'c']);
+		results = Host_.prototype.newInstanceMethod.apply('a', ['b', 'c']);
 		expect(results[0]).toEqual('a');
 		expect(results[1]).toEqual(['b', 'c']);
 	});
@@ -112,12 +112,13 @@ describe('Host.implement', function(){
 		Host_.implement({
 			instanceMethod: instanceMethod,
 			newInstanceMethod: instanceMethod
-		})
+		});
+		var results = Host_.newInstanceMethod('a', 'b', 'c');
+
 		expect(Host_.instanceMethod).toBe(FakeHost.instanceMethod);
 		expect(Host_.prototype.newInstanceMethod).toBeDefined();
 		expect(Host_.prototype.newInstanceMethod).toBe(instanceMethod);
 		expect(Host_.newInstanceMethod).toBeDefined();
-		var results = Host_.newInstanceMethod('a', 'b', 'c');
 		expect(results[0]).toEqual('a');
 		expect(results[1]).toEqual(['b', 'c']);
 
