@@ -45,7 +45,7 @@ define(['Base/Utility/typeOf'], function(typeOf){
 			expect(typeOf(undefined)).toEqual('null');
 		});
 
-		if (window && window.document && document.createElement){
+		if (typeof window != 'undefined' && window.document && document.createElement){
 
 			it("should return 'element' for element nodes", function(){
 				expect(typeOf(document.createElement('div'))).toEqual('element');
