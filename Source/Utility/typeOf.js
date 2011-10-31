@@ -6,7 +6,9 @@ description: type of
 */
 
 define(function(){
-	
+
+"use strict";
+
 var toString = Object.prototype.toString,
 	types = {'[object Text]': 'textnode'},
 	_types = 'Array,String,Function,Date,NodeList,Arguments,RegExp,Boolean'.split(',');

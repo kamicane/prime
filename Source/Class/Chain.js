@@ -7,6 +7,8 @@ description: Chain
 
 define(['../Core/Class'], function(Class){
 
+"use strict";
+
 return new Class({
 
 	chain: function(fn){

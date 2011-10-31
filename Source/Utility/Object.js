@@ -6,7 +6,9 @@ description: custom Object prototypes and generics
 */
 
 define(['../Host', '../Host/Object'], function(Host, Object){
-	
+
+"use strict";
+
 Object = Host(Object);
 
 Object.extend({

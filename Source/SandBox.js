@@ -9,6 +9,8 @@ define([
 	'./Utility/typeOf', './Host/Array', './Host/Date', './Host/Function', './Host/Number', './Host/Object', './Host/RegExp', './Host/String'
 ], function(typeOf, A, D, F, N, O, R, S){
 
+"use strict";
+
 var hosts = {ARRAY: A, DATE: D, FUNCTION: F, NUMBER: N, OBJECT: O, REGEXP: R, STRING: S},
 	sandboxes = {};
 

@@ -1,6 +1,8 @@
 
 define(['Base/Host/Object'], function(Object){
 
+	"use strict";
+
 	describe('Object.create', function(){
 
 		it('create should create a new object with a specified prototype', function(){

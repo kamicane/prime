@@ -9,6 +9,8 @@ provides: Store
 
 define(['../Core/Class', '../Utility/Function'], function(Class, Function){
 
+"use strict";
+
 var uid = '_store';
 
 var storageOf = function(object){

@@ -1,6 +1,8 @@
 
 define(['Base/Utility/Array'], function(Array){
 
+	"use strict";
+
 	// disabled (what happened to Array.pair?)
 	xdescribe('Array.pair', function(){
 

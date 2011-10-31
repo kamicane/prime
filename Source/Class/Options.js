@@ -7,6 +7,8 @@ description: Options
 
 define(['../Utility/typeOf', '../Utility/merge', '../Utility/Function', '../Core/Class'], function(typeOf, merge, Function, Class){
 
+"use strict";
+
 var classSetOption = function(key, value){
 	if (!this.options) this.options = {};
 	if (this.listen && (/^on[A-Z]/).test(key) && typeOf(value) == 'function') this.listen(key.replace(/^on([A-Z])/, function(full, first){

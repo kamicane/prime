@@ -1,6 +1,8 @@
 
 define(['Base/Utility/Function'], function(Function){
 
+	"use strict";
+
 	describe('Function.overloadSetter', function(){
 
 		var collector, setter;

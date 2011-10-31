@@ -1,6 +1,8 @@
 
 define(['Base/Host/String'], function(String){
 
+	"use strict";
+
 	describe('String.trim', function(){
 
 		it('should trim left and right whitespace from the string', function(){

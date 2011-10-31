@@ -1,6 +1,8 @@
 
 define(['Base/Class'], function(Class){
 
+"use strict";
+
 var Animal = new Class({
 
 	initialized: false,

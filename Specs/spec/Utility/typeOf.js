@@ -1,6 +1,8 @@
 
 define(['Base/Utility/typeOf'], function(typeOf){
 
+	"use strict";
+
 	describe('typeOf', function(){
 
 		it("should return 'array' for Array objects", function(){

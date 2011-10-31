@@ -1,6 +1,8 @@
 
 define(['Base/Utility/Object'], function(Object){
 
+	"use strict";
+
 	describe('Object.isEnumerable', function(){
 
 		it('isEnumerable method on Type should return true for arrays, arguments, objects with a numerical length property', function(){

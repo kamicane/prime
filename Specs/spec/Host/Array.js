@@ -1,6 +1,8 @@
 
 define(['Base/Host/Array'], function(Array_){
 
+	"use strict";
+
 	describe('Array.isArray', function(){
 
 		it('should test if a value is an Array', function(){
