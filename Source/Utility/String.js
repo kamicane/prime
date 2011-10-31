@@ -6,7 +6,9 @@ description: custom String prototypes and generics.
 */
 
 define(['../Host', '../Host/String'], function(Host, String){
-	
+
+"use strict";
+
 return Host(String).implement({
 
 	contains: function(string, separator){

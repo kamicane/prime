@@ -1,6 +1,8 @@
 
 define(['Base/Utility/clone', 'Base/Host/Array', 'Base/Host/Object'], function(clone, Array, Object){
 
+	"use strict";
+
 	describe('clone', function(){
 
 		it('should recursively clone and dereference arrays and objects, while mantaining the primitive values', function(){

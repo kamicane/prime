@@ -9,6 +9,8 @@ provides: Events
 
 define(['../Core/Class', '../Utility/Function', '../Data/Table'], function(Class, Function, Table){
 
+"use strict";
+
 var uid = '_events';
 
 return new Class({

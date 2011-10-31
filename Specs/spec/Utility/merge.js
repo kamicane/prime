@@ -1,6 +1,8 @@
 
 define(['Base/Utility/merge'], function(merge){
 
+	"use strict";
+
 	describe('merge', function(){
 
 		it('should merge any object inside the passed in object, and should return the passed in object', function(){

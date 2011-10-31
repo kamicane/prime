@@ -6,7 +6,9 @@ description: custom Number prototypes and generics.
 */
 
 define(['../Host', '../Host/Number'], function(Host, Number){
-	
+
+"use strict";
+
 Number = Host(Number);
 
 Number.extend('random', function(min, max){

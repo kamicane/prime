@@ -1,6 +1,8 @@
 
 define(['Base/Core'], function(Core){
 
+	"use strict";
+
 	describe('Core', function(){
 
 		var toString = Object.prototype.toString;

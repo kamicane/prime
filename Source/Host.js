@@ -4,6 +4,8 @@ The Host object
 
 define(function(){
 
+"use strict";
+
 var slice = Array.prototype.slice, create = Object.create || function(self){
 	var F = function(){};
 	F.prototype = self;

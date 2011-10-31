@@ -1,6 +1,8 @@
 
 define(['Base/Accessor'], function(Accessor){
 
+	"use strict";
+
 	describe('Accessor', function(){
 
 		it('should define accessor methods', function(){

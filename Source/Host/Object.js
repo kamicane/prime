@@ -7,6 +7,8 @@ description: ES5 Object methods
 
 define(['../Host'], function(Host){
 
+"use strict";
+
 var Object_ = Host(Object), slice = Array.prototype.slice;
 
 var prototypize = function(generic){

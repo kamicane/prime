@@ -1,6 +1,8 @@
 
 define(['Base/Host/Function'], function(Function){
-	
+
+	"use strict";
+
 	describe('Function.bind', function(){
 
 		it('should return the function bound to an object', function(){

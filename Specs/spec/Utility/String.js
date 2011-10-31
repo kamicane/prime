@@ -1,6 +1,8 @@
 
 define(['Base/Utility/String'], function(String){
-	
+
+	"use strict";
+
 	// disabled (What happpened to String.test?)
 	xdescribe('String.test', function(){
 

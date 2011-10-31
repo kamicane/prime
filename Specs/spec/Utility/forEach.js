@@ -1,6 +1,8 @@
 
 define(['Base/Utility/forEach'], function(forEach){
 
+	"use strict";
+
 	describe('forEach', function(){
 
 		it('should call the function for each item in the object', function(){

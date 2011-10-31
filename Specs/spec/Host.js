@@ -1,5 +1,7 @@
 define(['Base/Host'], function(Host){
 
+"use strict";
+
 var FakeHost, reset = function(){
 	FakeHost = function(){};
 	FakeHost.prototype.instanceMethod = function(){};

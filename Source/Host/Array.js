@@ -7,6 +7,8 @@ description: ES5 Array methods
 
 define(['../Host'], function(Host){
 
+"use strict";
+
 //methods that we want available only on environments that already supports them on the native object
 
 var names = 'pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,lastIndexOf,reduce,reduceRight'.split(','),

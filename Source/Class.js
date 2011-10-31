@@ -4,6 +4,8 @@ Contains the Class Function for easily creating, extending, and implementing reu
 
 define(['./Utility/typeOf', './Host/Object', './Accessor'], function(typeOf, Object, Accessor){
 
+"use strict";
+
 var Class = function(params){
 
 	if (!params) params = {};

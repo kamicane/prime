@@ -1,6 +1,8 @@
 
 define(['Base/Utility/uniqueID'], function(uniqueID){
-	
+
+	"use strict";
+
 	describe('uniqueID', function(){
 
 		it('should be a string', function(){

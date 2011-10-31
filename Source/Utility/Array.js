@@ -6,7 +6,9 @@ description: Custom Array prototypes and generics.
 */
 
 define(['../Host', '../Host/Array'], function(Host, Array){
-	
+
+"use strict";
+
 Array = Host(Array).implement({
 
 	invoke: function(name){

@@ -7,6 +7,8 @@ description: ES5 Function methods
 
 define(['../Host'], function(Host){
 
+"use strict";
+
 var slice = Array.prototype.slice, Function_ = Host(Function);
 
 Function_.bind = function(self){

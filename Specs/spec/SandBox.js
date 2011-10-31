@@ -1,6 +1,8 @@
 
 define(['Base/SandBox'], function(SB){
 
+	"use strict";
+
 	describe('Sandbox', function(){
 
 		it('should sandbox a value where all Host methods are available', function(){
