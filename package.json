@@ -1,39 +1,20 @@
 {
-	"name": "Base",
+	"name": "mootools",
 	"homepage": "http://mootools.net",
-	"version": "0.0.87",
-	"description": "Base of Milk, ES5, Class and pefect Utilities",
-	"keywords": ["framework", "ES5", "Class", "Utilities"],
-	"maintainers": [{
-		"name": "Valerio Proietti",
-		"email": "kamicane@gmail.com",
-		"web": "http://mad4milk.net"
-	}],
-	"contributors": [{
-		"name": "Olmo Maldonano",
-		"web": "http://github.com/ibolmo"
-	}, {
-		"name": "Christoph Pojer",
-		"web": "http://cpojer.net"
-	}, {
-		"name": "Arian Stolwijk",
-		"web": "http://aryweb.nl"
-	}],
-	"bugs": "https://github.com/mootools/Base/issues",
-	"licenses": [{
-		"type": "MIT",
-		"url": "http://mootools.net/license.txt"
-	}],
-	"repositories": [{
+	"version": "1.9.9-beta",
+	"main": "./mootools.js",
+	"description": "mootools, a javascript framework for node and the web",
+	"keywords": ["framework", "es5", "class", "array", "object"],
+	"author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
+	"contributors": [
+		"Arian Stolwijk <@arian> (http://aryweb.nl)"
+		"Olmo Maldonado <@ibolmo> (http://github.com/ibolmo)",
+		"Christoph Pojer <@cpojer> (http://cpojer.net)"
+	],
+	"bugs": "https://github.com/mootools/mootools/issues",
+	"license": "MIT (http://mootools.net/license.txt)",
+	"repository": {
 		"type": "git",
-		"url": "git://github.com/mootools/Base.git"
-	}],
-	"implements": ["CommonJS/Packages/1.0", "CommonJS/Modules/AsynchronousDefinition"],
-	"scripts": {
-		"build": "build"
-	},
-	"directories": {
-		"lib": "Source"
-	},
-	"icon": "http://mootools.net/assets/images/mootools.png"
+		"url": "https://github.com/mootools/mootools.git"
+	}
 }
