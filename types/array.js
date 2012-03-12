@@ -52,8 +52,11 @@ array.implement({
 	},/*:*/
 	
 	/*(array.erase)?*/
-	erase: function(item){
-		for (var i = this.length; i--; i) if (this[i] === item) this.splice(i, 1)
+	erase: function(item, one){
+		for (var i = this.length; i--;) if (this[i] === item){
+			this.splice(i, 1)
+			if (one) break
+		}
 		return this
 	},/*:*/
 	

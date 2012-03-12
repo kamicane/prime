@@ -2,9 +2,11 @@
 Array shell
 */
 
-var array = require("../util/shell")(Array),
-	toString = Object.prototype.toString
-
+var array = require("../util/shell")(Array)
+	
+/*(es5 && array.isArray)?*/
+var toString = Object.prototype.toString
+/*:*/
 
 array.extend('isArray', /*(es5 && array.isArray)?*/function(object){
 	return toString.call(object) == '[object Array]'
