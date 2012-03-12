@@ -1,9 +1,11 @@
 /*
-JSON pod
+JSON shell
 */
 
-var json = require("./")((typeof JSON === 'undefined') ? {} : JSON),
-	array = require("./array"),
+var json = require("../util/shell")((typeof JSON === 'undefined') ? {} : JSON)
+
+//=json
+var array = require("./array"),
 	type = require("../util/type")
 
 var special = {'\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"' : '\\"', '\\': '\\\\'}
@@ -49,4 +51,5 @@ json.extend("parse", function(string/*, reviver: todo*/){
 	return eval('(' + string + ')')
 })
 
+//.
 module.exports = json

@@ -1,5 +1,5 @@
 /*
-Pod
+shell
 */
 
 var slice = Array.prototype.slice,
@@ -11,33 +11,33 @@ var slice = Array.prototype.slice,
 
 module.exports = function(base){
 
-	var pod = create(base),
+	var shell = create(base),
 		proto = base.prototype || {},
-		prototype = pod.prototype = create(proto)
+		prototype = shell.prototype = create(proto)
 
-	var extend = pod.extend = function(key, fn){
+	var extend = shell.extend = function(key, fn){
 		if (typeof key !== 'string') for (var k in key) extend(k, key[k])
-		else if (fn) pod[key] = pod[key] || fn
-		return pod
+		else if (fn) shell[key] = shell[key] || fn
+		return shell
 	}
 
-	var implement = pod.implement = function(key, fn){
+	var implement = shell.implement = function(key, fn){
 		if (typeof key !== 'string') for (var k in key) implement(k, key[k])
 		else if (fn){
 			prototype[key] = prototype[key] || fn
-			pod.extend(key, function(){
+			shell.extend(key, function(){
 				var args = slice.call(arguments)
 				return pro.apply(args.shift(), args)
 			})
 		}
-		return pod
+		return shell
 	}
 
-	pod.install = function(){
+	shell.install = function(){
 		for (var key in prototype) if (!proto[key]) proto[key] = prototype[key]
-		return pod
+		return shell
 	}
 
-	return pod
+	return shell
 
 }

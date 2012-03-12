@@ -1,14 +1,18 @@
 /*
-Function pod
+Function shell
 */
 
-var slice = Array.prototype.slice, fn = require("./")(Function)
+var method = require("../util/shell")(Function)
 
-fn.bind = function(self){
-	return fn.prototype.bind.apply(self, slice.call(arguments, 1))
+//=method.bind
+
+var slice = Array.prototype.slice
+
+method.bind = function(self){
+	return method.prototype.bind.apply(self, slice.call(arguments, 1))
 }
 
-module.exports = fn.implement("bind", function(bind){
+method.implement("bind", function(bind){
 	var self = this, args = (arguments.length > 1) ? slice.call(arguments, 1) : null;
 
 	return function(){
@@ -17,3 +21,7 @@ module.exports = fn.implement("bind", function(bind){
 		return self.apply(bind, args || arguments)
 	}
 })
+
+//.
+
+module.exports = method

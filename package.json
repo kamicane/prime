@@ -2,7 +2,6 @@
 	"name": "mootools",
 	"homepage": "http://mootools.net",
 	"version": "1.9.9-beta",
-	"main": "./mootools.js",
 	"description": "mootools, a javascript framework for node and the web",
 	"keywords": ["framework", "es5", "class", "array", "object"],
 	"author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",

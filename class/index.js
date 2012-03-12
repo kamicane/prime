@@ -2,13 +2,13 @@
 Class
 */
 
-var object = require("../pod/object"),
+var object = require("../es5/object"),
 	type = require("../util/type")
 
 var Class = function(superclass, proto){
 	if (!proto) proto = superclass, superclass = null
 	if (type(proto) === "method") proto = {constructor: proto}
-	else proto.hasOwnProperty("constructor") || (proto.constructor = function(){})
+	else if (!object.hasOwnProperty(proto, "constructor")) proto.constructor = function(){}
 	var subclass = proto.constructor
 
 	if (!superclass) superclass = proto.inherits || Class

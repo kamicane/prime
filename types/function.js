@@ -1,9 +1,12 @@
 /*
-Function pod with custom methods
+Function shell with custom methods
 */
 
-var fn = require("../")(require("../function")),
-	slice = Array.prototype.slice
+var fn = require("../util/shell")(require("../function"))
+
+//=function.attempt
+
+var slice = Array.prototype.slice
 
 fn.extend("attempt", function(){
 	for (var i = 0, l = arguments.length; i < l; i++) try {
@@ -19,5 +22,7 @@ fn.implement("attempt", function(context){
 	} catch (e){}
 	return null
 })
+
+//.
 
 module.exports = fn

@@ -3,12 +3,15 @@ box
 */
 
 var type = require("./type"),
-	object = require("../pod/object")
+	object = require("../es5/object")
 
 var box = function(self){
 	var boxee = box[type(self)]
 	return boxee ? new boxee(self) : self
 }
+
+var checks = [],
+	shells = []
 
 box.prototype.toString = function(){
 	return this.valueOf() + ""
