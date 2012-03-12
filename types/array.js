@@ -62,6 +62,11 @@ array.implement({
 		var length = this.length
 		if (at < 0) at = (at % length) + length
 		return (at < 0 || at >= length || this[at] == null) ? null : this[at]
+	},//.
+		
+	//=array.type
+	type: function(){
+		return array.isArray(this) ? "array" : "list"
 	}//.
 
 })

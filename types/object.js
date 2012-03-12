@@ -96,6 +96,11 @@ object.implement({
 	//=object.contains
 	contains: function(value){
 		return object.key(this, value) != null
+	},//.
+	
+	//=object.type
+	type: function(){
+		return "object"
 	}//.
 
 })

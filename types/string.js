@@ -35,6 +35,11 @@ string.implement({
 		return (this + '').replace(/\b[a-z]/g, function(match){
 			return match.toUpperCase()
 		})
+	},//.
+	
+	//=string.type
+	type: function(){
+		return "string"
 	}//.
 
 })
