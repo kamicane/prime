@@ -4,7 +4,7 @@ Function shell
 
 var method = require("../util/shell")(Function)
 
-//=method.bind
+//=es5,method.bind
 
 var slice = Array.prototype.slice
 

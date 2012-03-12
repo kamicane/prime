@@ -4,8 +4,7 @@ Function shell with custom methods
 
 var method = require("../util/shell")(require("../es5/method"))
 
-//=function.attempt
-
+//=method.attempt
 var slice = Array.prototype.slice
 
 method.extend("attempt", function(){
@@ -13,10 +12,11 @@ method.extend("attempt", function(){
 		return arguments[i]()
 	} catch (e){}
 	return null
-})
+})//.
 
 method.implement({
-
+	
+	//=method.attempt
 	attempt: function(context){
 		var args = slice.call(arguments)
 		try {
@@ -31,7 +31,5 @@ method.implement({
 	}//.
 	
 })
-
-//.
 
 module.exports = method

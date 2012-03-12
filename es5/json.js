@@ -4,7 +4,7 @@ JSON shell
 
 var json = require("../util/shell")((typeof JSON === 'undefined') ? {} : JSON)
 
-//=json
+//=es5,json
 var array = require("./array"),
 	type = require("../util/type")
 
