@@ -32,14 +32,14 @@ if (typeof JSON === 'undefined'){
 			case 'string':
 				return '"' + obj.replace(/[\x00-\x1f\\"]/g, escape) + '"'
 			case 'array':
-				return '[' + array.filter(array.map(obj, json.stringify), function(item){
+				return '[' + array.filter(array.map(obj, JSON.stringify), function(item){
 					return item != null
 				}) + ']'
 			case 'object':
 				var string = []
 				for (var key in obj){
-					var json = json.stringify(obj[key])
-					if (json) string.push(json.stringify(key) + ':' + json)
+					var json = JSON.stringify(obj[key])
+					if (json) string.push(JSON.stringify(key) + ':' + json)
 				}
 				return '{' + string + '}'
 			case 'number': case 'boolean': return '' + obj
