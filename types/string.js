@@ -4,6 +4,13 @@ String shell with custom methods
 
 var string = require("../util/shell")(require("../es5/string"))
 
+//=string.decode
+var json = require("../es5/json")
+string.implement("decode", function(){
+	return json.parse(this)
+})
+//.
+
 string.implement({
 	
 	//=string.contains
@@ -35,6 +42,16 @@ string.implement({
 		return (this + '').replace(/\b[a-z]/g, function(match){
 			return match.toUpperCase()
 		})
+	},//.
+	
+	//=string.toInt
+	toInt: function(){
+		return parseInt(this, 10)
+	},//.
+	
+	//=string.toFloat
+	toFloat: function(){
+		return parseFloat(this)
 	},//.
 	
 	//=string.type

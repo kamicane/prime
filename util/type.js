@@ -13,3 +13,5 @@ var type = function(object){
 	if (!types.test(string)) string = "object"
 	return ((string === "object") && (object.length != null) && (type(object.length) === "number")) ? "list" : string
 }
+
+module.exports = type

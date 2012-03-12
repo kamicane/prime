@@ -4,6 +4,13 @@ Object shell with custom methods
 
 var object = require("../util/shell")(require("../es5/object"))
 
+//=object.encode
+var json = require("../es5/json")
+object.implement("encode", function(){
+	return json.stringify(this)
+})
+//.
+
 object.implement({
 	
 	//=object.forEach

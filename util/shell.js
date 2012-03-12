@@ -32,11 +32,12 @@ module.exports = function(base){
 		}
 		return shell
 	}
-
-	shell.install = function(){
+	
+	//=shell.install
+	if (base !== Object) shell.install = function(){
 		for (var key in prototype) if (!proto[key]) proto[key] = prototype[key]
 		return shell
-	}
+	}//.
 
 	return shell
 

@@ -2,7 +2,7 @@
 String shell
 */
 
-var string = require("../shell")(String)
+var string = require("../util/shell")(String)
 
 //=string.trim
 string.implement('trim', function(){
