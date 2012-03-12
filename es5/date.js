@@ -4,9 +4,9 @@ Date shell
 
 var date = require("../util/shell")(Date)
 
-//=es5,date.now
-date.extend('now', function(){
+
+date.extend('now', /*(es5 && date.now)?*/function(){
 	return +(new Date)
-})//.
+}/*:null*/)
 
 module.exports = date

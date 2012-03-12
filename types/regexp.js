@@ -6,19 +6,9 @@ RegExp shell with custom methods
 
 var regexp = require("../util/shell")(RegExp)
 
-regexp.implement({
-
-	//=regexp.escape
-	escape: function(){
-		return String(this).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
-	},//.
-	
-	//=regexp.type
-	type: function(){
-		return "regexp"
-	}//.
-	
-})
-	
+/*(regexp.escape)?*/
+regexp.implement("escape", function(){
+	return String(this).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
+})/*:*/	
 
 module.exports = regexp

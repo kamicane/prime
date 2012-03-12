@@ -17,15 +17,15 @@ module.exports = function(base){
 
 	var extend = shell.extend = function(key, fn){
 		if (typeof key !== 'string') for (var k in key) extend(k, key[k])
-		else if (fn) shell[key] = shell[key] || fn
+		else shell[key] = shell[key] || fn
 		return shell
 	}
 
 	var implement = shell.implement = function(key, fn){
 		if (typeof key !== 'string') for (var k in key) implement(k, key[k])
-		else if (fn){
-			prototype[key] = prototype[key] || fn
-			shell.extend(key, function(){
+		else {
+			var pro = prototype[key] = prototype[key] || fn
+			extend(key, function(){
 				var args = slice.call(arguments)
 				return pro.apply(args.shift(), args)
 			})
@@ -33,11 +33,12 @@ module.exports = function(base){
 		return shell
 	}
 	
-	//=shell.install
+	/*(shell.install)?*/
+
 	if (base !== Object) shell.install = function(){
 		for (var key in prototype) if (!proto[key]) proto[key] = prototype[key]
 		return shell
-	}//.
+	}/*:*/
 
 	return shell
 

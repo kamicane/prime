@@ -9,24 +9,21 @@ object.hasOwnProperty = function(self, key){
 	return hop.call(self, key)
 }
 
-//=es5,object.defineProperty
-object.extend("defineProperty", function(self, name, descriptor){
+object.extend("defineProperty", /*(es5 && object.defineProperty)?*/function(self, name, descriptor){
 	self[name] = descriptor.value
 	return self
-})//.
+}/*:null*/)
 
-//=es5,object.create
-object.extend("create", function(self){
+object.extend("create", /*(es5 && object.create)?*/function(self){
 	var F = function(){}
 	F.prototype = self
 	return new F
-})//.
+}/*:null*/)
 
-//=es5,object.keys
-object.implement("keys", function(){
+object.implement("keys", /*(es5 && object.keys)?*/function(){
 	var keys = []
 	for (var key in this) if (object.hasOwnProperty(this, key)) keys.push(key)
 	return keys
-})//.
+}/*:null*/)
 
 module.exports = object

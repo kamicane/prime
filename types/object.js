@@ -4,73 +4,73 @@ Object shell with custom methods
 
 var object = require("../util/shell")(require("../es5/object"))
 
-//=object.encode
+/*(object.encode)?*/
 var json = require("../es5/json")
 object.implement("encode", function(){
 	return json.stringify(this)
-})
-//.
+})/*:*/
 
 object.implement({
 	
-	//=object.forEach
+	/*(object.forEach)?*/
 	forEach: function(fn, context){
 		for (var key in this) if (object.hasOwnProperty(this, key)) fn.call(context, this[key], key, this)
-	},
-
+	},/*:*/
+	
+	/*(object.each)?*/
 	each: function(fn, context){
 		object.forEach(this, fn, context)
 		return this
-	},//.
+	},/*:*/
 	
-	//=object.map
+	/*(object.map)?*/
 	map: function(fn, bind){
 		var results = {}
 		for (var key in this) results[key] = fn.call(bind, this[key], key, this)
 		return results
-	},//.
+	},/*:*/
 	
-	//=object.filter
+	/*(object.filter)?*/
 	filter: function(fn, bind){
 		var results = {}
 		for (var key in this) if (fn.call(bind, this[key], key, this)) results[key] = this[key]
 		return results
-	},//.
+	},/*:*/
 	
-	//=object.every
+	/*(object.every)?*/
 	every: function(fn, bind){
 		for (var key in this) if (!fn.call(bind, this[key], key)) return false
 		return true
-	},//.
+	},/*:*/
 	
-	//=object.some
+	/*(object.some)?*/
 	some: function(fn, bind){
 		for (var key in this) if (fn.call(bind, this[key], key)) return true
 		return false
-	},//.
+	},/*:*/
 	
-	//=object.has
+	/*(object.has)?*/
 	has: function(key){
 		return object.hasOwnProperty(this, key)
-	},//.
+	},/*:*/
 	
-	//=object.length
+	/*(object.length)?*/
 	length: function(){
 		var length = 0
 		for (var key in this) length++
 		return length
-	},//.
+	},/*:*/
 	
-	//=object.append
+	/*(object.append)?*/
 	append: function(){
 		for (var i = 0, l = arguments.length; i < l; i++){
 			var extended = arguments[i] || {}
 			for (var key in extended) this[key] = extended[key]
 		}
 		return this
-	},//.
+	},/*:*/
 	
-	//=object.subset
+	/*(object.subset)?*/
 	subset: function(keys){
 		var results = {}
 		for (var i = 0, l = keys.length; i < l; i++){
@@ -78,37 +78,37 @@ object.implement({
 			results[k] = (value != null) ? value : null
 		}
 		return results
-	},//.
+	},/*:*/
 	
-	//=object.reverse
+	/*(object.reverse)?*/
 	reverse: function(){
 		var results = {}
 		for (var key in this) results[this[key]] = key
 		return results
-	},//.
+	},/*:*/
 	
-	//=object.values
+	/*(object.values)?*/
 	values: function(){
 		var values = []
 		for (var key in this) if (object.hasOwnProperty(this, key)) values.push(this[key])
 		return values
-	},//.
+	},/*:*/
 	
-	//=object.key
+	/*(object.key)?*/
 	key: function(value){
 		for (var key in this) if (object.hasOwnProperty(this, key) && this[key] === value) return key
 		return null
-	},//.
+	},/*:*/
 	
-	//=object.contains
+	/*(object.contains)?*/
 	contains: function(value){
 		return object.key(this, value) != null
-	},//.
+	},/*:*/
 	
-	//=object.type
+	/*(object.type)?*/
 	type: function(){
 		return "object"
-	}//.
+	}/*:*/
 
 })
 

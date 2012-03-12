@@ -4,9 +4,8 @@ String shell
 
 var string = require("../util/shell")(String)
 
-//=es5,string.trim
-string.implement('trim', function(){
+string.implement('trim', /*(es5 && string.trim)?*/function(){
 	return (this + '').replace(/^\s+|\s+$/g, '')
-})//.
+}/*:null*/)
 
 module.exports = string
