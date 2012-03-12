@@ -2,7 +2,7 @@
 Array shell with custom methods
 */
 
-var array = require("../util/shell")(require("../array"))
+var array = require("../util/shell")(require("../es5/array"))
 
 module.exports = array.implement({
 	

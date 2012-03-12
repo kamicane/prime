@@ -2,7 +2,7 @@
 Function shell with custom methods
 */
 
-var fn = require("../util/shell")(require("../function"))
+var fn = require("../util/shell")(require("../es5/method"))
 
 //=function.attempt
 

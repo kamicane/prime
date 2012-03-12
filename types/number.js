@@ -2,7 +2,7 @@
 Number shell with custom methods
 */
 
-var number = require("../util/shell")(require("../number"))
+var number = require("../util/shell")(Number)
 
 //=numer.random
 number.extend('random', function(min, max){

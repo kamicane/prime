@@ -2,8 +2,7 @@
 Object shell with custom methods
 */
 
-var shell = require("../util/shell"),
-	object = shell(require("../object"))
+var object = require("../util/shell")(require("../es5/object"))
 
 object.implement({
 	

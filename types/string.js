@@ -2,7 +2,7 @@
 String shell with custom methods
 */
 
-var string = require("../util/shell")(require("../string"))
+var string = require("../util/shell")(require("../es5/string"))
 
 module.exports = string.implement({
 	
