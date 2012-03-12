@@ -6,7 +6,8 @@ var types = {
 	method: require("./method"),
 	number: require("./number"),
 	object: require("./object"),
-	regexp: require("./regexp")
+	regexp: require("./regexp"),
+	date: require("./date")
 }
 
 box.define("list", types.array)

@@ -44,13 +44,8 @@ string.implement({
 		})
 	},//.
 	
-	//=string.toInt
-	toInt: function(){
-		return parseInt(this, 10)
-	},//.
-	
-	//=string.toFloat
-	toFloat: function(){
+	//=string.number
+	number: function(){
 		return parseFloat(this)
 	},//.
 	
