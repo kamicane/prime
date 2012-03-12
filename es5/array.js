@@ -61,3 +61,5 @@ array.implement({
 	}//.
 
 })
+
+module.exports = array

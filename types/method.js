@@ -2,20 +2,20 @@
 Function shell with custom methods
 */
 
-var fn = require("../util/shell")(require("../es5/method"))
+var method = require("../util/shell")(require("../es5/method"))
 
 //=function.attempt
 
 var slice = Array.prototype.slice
 
-fn.extend("attempt", function(){
+method.extend("attempt", function(){
 	for (var i = 0, l = arguments.length; i < l; i++) try {
 		return arguments[i]()
 	} catch (e){}
 	return null
 })
 
-fn.implement("attempt", function(context){
+method.implement("attempt", function(context){
 	var args = slice.call(arguments)
 	try {
 		return this.apply(args.shift(), args)
@@ -25,4 +25,4 @@ fn.implement("attempt", function(context){
 
 //.
 
-module.exports = fn
+module.exports = method

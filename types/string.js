@@ -4,7 +4,7 @@ String shell with custom methods
 
 var string = require("../util/shell")(require("../es5/string"))
 
-module.exports = string.implement({
+string.implement({
 	
 	//=string.contains
 	contains: function(string, separator){
@@ -38,3 +38,5 @@ module.exports = string.implement({
 	}//.
 
 })
+
+module.exports = string

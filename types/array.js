@@ -4,7 +4,7 @@ Array shell with custom methods
 
 var array = require("../util/shell")(require("../es5/array"))
 
-module.exports = array.implement({
+array.implement({
 	
 	//=array.each
 	each: function(fn, context){
@@ -65,3 +65,5 @@ module.exports = array.implement({
 	}//.
 
 })
+
+module.exports = array
