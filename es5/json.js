@@ -5,7 +5,7 @@ JSON
 /*(es5 && json)?*/
 
 if (typeof JSON === 'undefined'){
-	
+
 	var JSON = {}
 
 	var array = require("./array"),

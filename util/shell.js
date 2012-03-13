@@ -32,7 +32,7 @@ module.exports = function(base){
 		}
 		return shell
 	}
-	
+
 	/*(shell.install)?*/
 
 	if (base !== Object) shell.install = function(){

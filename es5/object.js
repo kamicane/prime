@@ -4,7 +4,7 @@ Object shell
 
 var object = require("../util/shell")(Object),
 	hop = Object.hasOwnProperty
-	
+
 object.hasOwnProperty = function(self, key){
 	return hop.call(self, key)
 }

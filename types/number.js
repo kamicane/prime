@@ -10,12 +10,12 @@ number.extend('random', function(min, max){
 })/*:*/
 
 number.implement({
-	
+
 	/*(number.limit)?*/
 	limit: function(min, max){
 		return Math.min(max, Math.max(min, this));
 	},/*:*/
-	
+
 	/*(number.round)?*/
 	round: function(precision){
 		precision = Math.pow(10, precision || 0)
