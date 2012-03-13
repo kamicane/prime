@@ -4,11 +4,11 @@ RegExp shell with custom methods
 
 // « https://github.com/slevithan/XRegExp/blob/master/src/xregexp.js
 
-var regexp = require("../util/shell")(RegExp)
+var regexp = require("../util/ghost").regexp
 
 /*(regexp.escape)?*/
 regexp.implement("escape", function(){
-	return String(this).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
+	return (this + "").replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
 })/*:*/
 
 module.exports = regexp

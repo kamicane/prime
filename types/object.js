@@ -2,7 +2,7 @@
 Object shell with custom methods
 */
 
-var object = require("../util/shell")(require("../es5/object"))
+var object = require("../es5/object")
 
 /*(object.encode)?*/
 var json = require("../es5/json")

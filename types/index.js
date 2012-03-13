@@ -1,21 +1,8 @@
-var box = require("../util/box")
+require("./array")
+require("./string")
+require("./method")
+require("./number")
+require("./object")
+require("./regexp")
 
-var types = {
-	array: require("./array"),
-	string: require("./string"),
-	method: require("./method"),
-	number: require("./number"),
-	object: require("./object"),
-	regexp: require("./regexp"),
-	date: require("./date")
-}
-
-box.define("list", types.array)
-
-for (var name in types){
-	var type = types[name]
-	box.define(name, type)
-	box[name].install = type.install
-}
-
-module.exports = box
+module.exports = require("../util/ghost")

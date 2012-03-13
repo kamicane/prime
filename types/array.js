@@ -2,13 +2,13 @@
 Array shell with custom methods
 */
 
-var array = require("../util/shell")(require("../es5/array"))
+var array = require("../es5/array")
 
 array.implement({
 
 	/*(array.each)?*/
 	each: function(fn, context){
-		array.prototype.forEach.call(this, fn, context)
+		array.forEach(this, fn, context)
 		return this
 	},/*:*/
 

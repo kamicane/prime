@@ -2,10 +2,11 @@
 String shell
 */
 
-var string = require("../util/shell")(String)
+var string = require("../util/ghost").string
 
-string.implement('trim', /*(es5 && string.trim)?*/function(){
+/*(es5 && string.trim)?*/
+if (!string.trim) string.implement('trim', function(){
 	return (this + '').replace(/^\s+|\s+$/g, '')
-}/*:null*/)
+})/*:*/
 
 module.exports = string

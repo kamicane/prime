@@ -2,7 +2,7 @@
 String shell with custom methods
 */
 
-var string = require("../util/shell")(require("../es5/string"))
+var string = require("../es5/string")
 
 /*(string.decode)?*/
 var json = require("../es5/json")
