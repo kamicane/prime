@@ -85,7 +85,7 @@ module.exports = function(proto){
 	for (var method in superclass) subclass[method] = superclass[method]
 
 	// resetting subproto.constructor to subclass, since it's been overridden by the prototype set
-	subproto.constructor =subclass
+	subproto.constructor = subclass
 
 	// setting subclass.parent to superclass.prototype
 	// because it's the shortest possible absolute reference
