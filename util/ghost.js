@@ -58,16 +58,16 @@ var define = function(name, base, methods, generics){
 	box.implement = function(key, method){
 		return implement(key, method)
 	}
-	
+
 	if (methods) for (var i = 0, method; method = methods[i]; i++) box.implement(method, proto[method])
 	if (generics) for (var i = 0, generic; generic = generics[i]; i++) box.extend(generic, base[generic])
 
 	box.toString = function(self){
-		return self.toString()
+		return proto.toString.call(self)
 	}
 
 	box.valueOf = function(self){
-		return self.valueOf()
+		return proto.valueOf.call(self)
 	}
 
 	return ghost[name] = box
