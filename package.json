@@ -1,20 +1,20 @@
 {
-	"name": "mootools",
+	"name": "prime",
 	"homepage": "http://mootools.net",
-	"version": "1.9.9-beta",
-	"description": "mootools, a javascript framework for node and the web",
-	"keywords": ["framework", "es5", "class", "array", "object"],
+	"version": "0.0.1-alpha",
+	"description": "prime, an OOP javascript library for node and the web.",
+	"keywords": ["library", "framework", "es5", "class", "array", "object"],
 	"author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
 	"contributors": [
 		"Arian Stolwijk <@arian> (http://aryweb.nl)",
 		"Olmo Maldonado <@ibolmo> (http://github.com/ibolmo)",
 		"Christoph Pojer <@cpojer> (http://cpojer.net)"
 	],
-	"bugs": "https://github.com/mootools/mootools/issues",
+	"bugs": "https://github.com/mootools/prime/issues",
 	"license": "MIT (http://mootools.net/license.txt)",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mootools/mootools.git"
+		"url": "https://github.com/mootools/prime.git"
 	},
 	"scripts": {
 		"test": "./node_modules/mocha/bin/mocha test/es5/*.js"
