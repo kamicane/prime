@@ -19,9 +19,9 @@ module.exports = function(){
 	}
 
 	_.register = function(responder, base){
-		var io = array.indexOf(responders, responder)
-		if (io === -1) responders.push(responder)
-		else return map[io].ghost
+		var index = array.indexOf(responders, responder)
+		if (index === -1) responders.push(responder)
+		else return _
 
 		var m = {}
 		map.push(m)
@@ -35,6 +35,12 @@ module.exports = function(){
 			}
 			this.eq = function(object){
 				return self === object
+			}
+			this.gt = function(n){
+				return self > n
+			}
+			this.lt = function(n){
+				return self < n
 			}
 		}
 
@@ -57,18 +63,18 @@ module.exports = function(){
 
 		m.implement = __implement
 		m.base = base
-		return m.ghost = ghost
+
+		return _
 	}
 
 	_.unregister = function(responder){
-		var io = array.indexOf(responders, responder), ghost
-		if (io > -1){
-			responders.splice(io, 1)
-			var m = map.splice(io, 1)
-			ghost = m.ghost
+		var index = array.indexOf(responders, responder)
+		if (index > -1){
+			responders.splice(index, 1)
+			var m = map.splice(index, 1)
 			m.base.implement = m.implement //reset implement to original value
 		}
-		return ghost
+		return _
 	}
 
 	return _

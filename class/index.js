@@ -7,7 +7,7 @@ var create = require("../util/create"),
 
 var _implement = function(obj){
 	for (var k in obj) this.prototype[k] = obj[k]
-	//TODO: fix stupid enum bug here
+	//TODO: fix stupid enum 🐛 here
 	return this
 }
 
