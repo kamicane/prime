@@ -2,14 +2,7 @@
 Number shell with custom methods
 */
 
-var number = require("../util/ghost").number
-
-/*(numer.random)?*/
-number.extend('random', function(min, max){
-	return Math.floor(Math.random() * (max - min + 1) + min)
-})/*:*/
-
-number.implement({
+var number = require("../util/shell")(require("../es5/number")).implement({
 
 	/*(number.limit)?*/
 	limit: function(min, max){
@@ -25,6 +18,11 @@ number.implement({
 	/*(number.times)?*/
 	times: function(fn, bind){
 		for (var i = 0; i < this; i++) fn.call(bind, i, null, this)
+	},/*:*/
+	
+	/*(numer.random)?*/
+	random: function(max){
+		return Math.floor(Math.random() * (max - this + 1) + this)
 	}/*:*/
 
 })

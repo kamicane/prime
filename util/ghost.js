@@ -1,96 +1,74 @@
 /*
-ghost
+ghost swooooshhhh
 */
 
-var type = require("./type")
+var array = require("../es5/array")
 
-var boxed = {},
-	slice = Array.prototype.slice
+module.exports = function(){
 
-var ghost = function(self){
-	var name = type(self)
-	if (name === "list") name = "array"
-	var box = boxed[name]
-	return box ? new box(self) : self
-}
+	var responders = [], map = []
 
-var define = function(name, base, methods, generics){
-
-	var proto = base.prototype
-
-	methods = methods ? methods.split(",") : null
-	generics = generics ? generics.split(",") : null
-
-	var box = boxed[name] = function(self){
-		this.valueOf = function(){
-			return self
+	var _ = function(self){
+		var ghost
+		for (var i = responders.length, responder; responder = responders[--i];) if (responder(self)){
+			ghost = map[i].ghost
+			break
 		}
-		this.toString = function(){
-			return self + ""
-		}
-		this.type = function(){
-			return name
-		}
+
+		return ghost ? new ghost(self) : self
 	}
 
-	var boxproto = box.prototype
+	_.register = function(responder, base){
 
-	var implement = function(key, method, generic){
-		if (type(key) !== 'string') for (var k in key) implement(k, key[k], method)
-		else if (method){
-			boxproto[key] = generic ? function(){
-				return ghost(method.apply(base, [this.valueOf()].concat(arguments)))
-			} : function(){
-				return ghost(method.apply(this.valueOf(), arguments))
+		if (array.indexOf(responders, responder) == -1) responders.push(responder)
+		else return map[io].ghost
+
+		var m = {}
+		map.push(m)
+
+		var ghost = function(self){
+			this.valueOf = function(){
+				return self
 			}
-			box[key] = generic ? method : function(self){
-				var args = slice.call(arguments)
-				return method.apply(args.shift(), args)
+			this.toString = function(){
+				return self + ""
 			}
 		}
-		return box
+
+		var gi = function(name, method){
+			ghost.prototype[name] = function(){
+				return _(method.apply(this.valueOf(), arguments))
+			}
+		}
+
+		var _implement = base.implement
+
+		var implement = base.implement = function(key, method){
+			if (typeof key !== 'string') for (var k in key) implement.call(this, k, key[k])
+			else {
+				_implement.call(this, key, method)
+				gi(key, method)
+			}
+		}
+
+		for (var name in base.prototype) gi(name, base.prototype[name])
+
+		m.implement = _implement
+		m.base = base
+		return m.ghost = ghost
 	}
 
-	box.extend = function(key, method){
-		return implement(key, method, true)
+	_.unregister = function(responder){
+		var io = array.indexOf(responders, responder), ghost
+		if (io > -1){
+			responders.splice(io, 1)
+			var m = map.splice(io, 1)
+			ghost = m.ghost
+			m.base.implement = m.implement //reset implement to original value
+		}
+		return ghost
 	}
 
-	box.implement = function(key, method){
-		return implement(key, method)
-	}
-
-	if (methods) for (var i = 0, method; method = methods[i]; i++) box.implement(method, proto[method])
-	if (generics) for (var i = 0, generic; generic = generics[i]; i++) box.extend(generic, base[generic])
-
-	box.toString = function(self){
-		return proto.toString.call(self)
-	}
-
-	box.valueOf = function(self){
-		return proto.valueOf.call(self)
-	}
-
-	return ghost[name] = box
+	return _
 
 }
-
-ghost.define = function(name, base){
-	return define(name, base)
-}
-
-define("array", Array, "pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,lastIndexOf,reduce,reduceRight," +
-	"filter,indexOf,map,every,some,forEach", "isArray")
-
-define("string", String, "charAt,charCodeAt,concat,indexOf,lastIndexOf,match,quote,replace,search,slice," +
-	"split,substr,substring,toLowerCase,toUpperCase,trim")
-
-define("method", Function, "call,apply")
-
-define("object", Object, "hasOwnProperty", "create,keys,defineProperty,defineProperties,getPrototypeOf," +
-	"getOwnPropertyDescriptor,getOwnPropertyNames,preventExtensions,isExtensible,seal,isSealed,freeze,isFrozen")
-
-define("regexp", RegExp, "test,exec")
-
-define("number", Number, "toExponential,toFixed,toLocaleString,toPrecision")
-
-module.exports = ghost

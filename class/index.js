@@ -1,13 +1,15 @@
 /*
-Class
+SuperClass!
 */
 
-var object = require("../es5/object"),
-	type = require("../util/type")
+var type = require("../util/type"),
+	create = require("../util/create"),
+	has = Object.hasOwnProperty
 
-var Class = noop = function(){}
+var Super = function(){},
+	empty = function(){}
 
-var implement = Class.implement = function(any, value){
+var implement = Super.implement = function(any, value){
 	var impl = as[type(any)]
 	if (impl) impl.call(this, any, value)
 	return this
@@ -16,6 +18,7 @@ var implement = Class.implement = function(any, value){
 // this is what happens when someone implements stuff in a class, depending on type
 
 var as = {
+
 	// when implementing as string we check for the definition first
 	// if found, we skip setting the prototype and call the defined function instead
 	string: function(key, value){
@@ -34,62 +37,65 @@ var as = {
 	},
 
 	method: function(method){
-		as.object.call(this, object.create(method.prototype))
+		as.object.call(this, create(method.prototype))
 	}
 
 }
 
 // special class properties that do not necessarily result in prototypes
-// can be set with MyClass.define()
+// can be set with MySuper.define()
 
-Class.definitions = {
-	inherits: noop,
-	constructor: noop,
-	implement: function(){
+Super.definitions = {
+	inherits: empty,
+	constructor: empty,
+	mixin: function(){
 		implement.array.call(this, arguments)
 	}
 }
 
-Class.define = function(key, value){
+Super.define = function(key, value){
 	this.definitions[key] = value
 	return this
 }
 
 module.exports = function(proto){
-	// if the current class doesnt inherit from anything
-	// then we make it inherit from Class
-	var superclass = proto.inherits || Class
 
-	var superproto = superclass.prototype
+	if (!proto) proto = {}
+	else if (type(proto) === "function") proto = {constructor: proto}
+
+	var superclass = proto.inherits, superproto
+	if (superclass) superproto = superclass.prototype
 
 	// if our nice proto object has no own constructor property
 	// then we proceed using a ghosting constructor that all it does is
-	// call the parent's constructor
+	// call the parent's constructor if it has a superclass, else an empty constructor
 	// this way proto.constructor becomes the effective constructor (subclass)
-	var subclass = (object.hasOwnProperty(proto, "constructor")) ? proto.constructor : function(){
+	var subclass = (has.call(proto, "constructor")) ? proto.constructor : (superclass) ? function(){
 		return superproto.constructor.apply(this, arguments)
-	}
+	} : function(){}
 
-	// inherit from the superclass
-	var subproto = subclass.prototype = object.create(superproto)
+	if (superclass){
+		var subproto = subclass.prototype = create(superproto)
+
+		// resetting subclass.prototype.constructor to subclass, since it's been overridden by the prototype set
+		subproto.constructor = subclass
+
+		// setting subclass.parent to superclass.prototype
+		// because it's the shortest possible absolute reference
+		subclass.parent = superproto
+	} else superclass = Super //set superclass to Super to inherit definitions and methods
 
 	// inherit definitions from the superclass definitions
-	subclass.definitions = object.create(superclass.definitions)
+	subclass.definitions = create(superclass.definitions)
 
 	// implement passed methods to subclass
 	as.object.call(subclass, proto)
 
 	// simple property copy from subclass to superclass
 	// this sets stuff like define and implement
-	// and other extensions anyone might have added to their parent classes
-	for (var method in superclass) subclass[method] = superclass[method]
-
-	// resetting subproto.constructor to subclass, since it's been overridden by the prototype set
-	subproto.constructor = subclass
-
-	// setting subclass.parent to superclass.prototype
-	// because it's the shortest possible absolute reference
-	subclass.parent = superproto
+	// and other static extensions anyone might have added to their parent classes
+	for (var name in superclass) if (!subclass[name]) subclass[name] = superclass[name]
 
 	return subclass
+
 }

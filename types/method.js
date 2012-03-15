@@ -2,19 +2,19 @@
 Function shell with custom methods
 */
 
-var array = require("../util/ghost").array,
-	method = require("../es5/method")
+var slice = Array.prototype.slice
 
-/*(method.attempt)?*/
+var method = require("../util/shell")(require("../es5/method")).implement({
 
-method.implement("attempt", function(context){
-	var args = array.slice(arguments)
-	try {
-		return this.apply(args.shift(), args)
-	} catch (e){}
-	return null
+	/*(method.attempt)?*/
+	attempt: function(context){
+		var args = slice.call(arguments)
+		try {
+			return this.apply(args.shift(), args)
+		} catch (e){}
+		return null
+	}/*:*/
+
 })
-
-/*:*/
 
 module.exports = method

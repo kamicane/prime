@@ -2,13 +2,14 @@
 RegExp shell with custom methods
 */
 
-// « https://github.com/slevithan/XRegExp/blob/master/src/xregexp.js
+var regexp = require("../util/shell")(require("../es5/regexp")).implement({
 
-var regexp = require("../util/ghost").regexp
+	/*(regexp.escape)?*/
+	// « https://github.com/slevithan/XRegExp/blob/master/src/xregexp.js
+	escape: function(){
+		return (this + "").replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
+	}/*:*/
 
-/*(regexp.escape)?*/
-regexp.implement("escape", function(){
-	return (this + "").replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
-})/*:*/
+})
 
 module.exports = regexp

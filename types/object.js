@@ -2,15 +2,7 @@
 Object shell with custom methods
 */
 
-var object = require("../es5/object")
-
-/*(object.encode)?*/
-var json = require("../es5/json")
-object.implement("encode", function(){
-	return json.stringify(this)
-})/*:*/
-
-object.implement({
+var object = require("../util/shell")(require("../es5/object")).implement({
 
 	/*(object.forEach)?*/
 	forEach: function(fn, context){
@@ -111,5 +103,11 @@ object.implement({
 	}/*:*/
 
 })
+
+/*(object.encode)?*/
+var json = require("../es5/json")
+object.implement("encode", function(){
+	return json.stringify(this)
+})/*:*/
 
 module.exports = object

@@ -2,9 +2,7 @@
 Array shell with custom methods
 */
 
-var array = require("../es5/array")
-
-array.implement({
+var array = require("../util/shell")(require("../es5/array")).implement({
 
 	/*(array.each)?*/
 	each: function(fn, context){
@@ -14,7 +12,7 @@ array.implement({
 
 	/*(array.invoke)?*/
 	invoke: function(name){
-		var args = array.slice(arguments, 1), results = []
+		var args = this.slice.call(arguments, 1), results = []
 		for (var i = 0, j = this.length; i < j; i++){
 			var item = this[i]
 			results.push(item[name].apply(item, args))
@@ -23,8 +21,8 @@ array.implement({
 	},/*:*/
 
 	/*(array.append)?*/
-	append: function(array){
-		this.push.apply(this, array)
+	append: function(list){
+		this.push.apply(this, list)
 		return this
 	},/*:*/
 

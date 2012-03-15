@@ -2,20 +2,27 @@
 Function shell
 */
 
-var ghost = require("../util/ghost"),
-	method = ghost.method,
-	array = ghost.array
+var shell = require("../util/shell")
 
-/*(es5 && method.bind)?*/
-if (!method.prototype.bind) method.implement("bind", function(bind){
-	var self = this, args = (arguments.length > 1) ? array.slice(arguments, 1) : null;
+var proto = Function.prototype,
+	slice = Array.prototype.slice
 
-	return function(){
-		if (!args && !arguments.length) return self.call(bind)
-		if (args && arguments.length) return self.apply(bind, args.concat(array.slice(arguments)))
-		return self.apply(bind, args || arguments)
-	}
+var method = shell().implement({
+
+	apply: proto.apply,
+
+	call: proto.call,
+
+	bind: proto.bind/*(es5 && method.bind)?*/ || function(bind){
+		var self = this, args = (arguments.length > 1) ? slice.call(arguments, 1) : null;
+
+		return function(){
+			if (!args && !arguments.length) return self.call(bind)
+			if (args && arguments.length) return self.apply(bind, args.concat(slice.call(arguments)))
+			return self.apply(bind, args || arguments)
+		}
+	}/*:*/
+
 })
-/*:*/
 
 module.exports = method
