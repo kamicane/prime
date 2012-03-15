@@ -2,12 +2,10 @@
 Function shell
 */"use strict"
 
-var shell = require("../util/shell")
-
 var proto = Function.prototype,
 	slice = Array.prototype.slice
 
-var method = shell().implement({
+module.exports = require("../util/shell")().implement({
 
 	apply: proto.apply,
 
@@ -24,5 +22,3 @@ var method = shell().implement({
 	}/*:*/
 
 })
-
-module.exports = method

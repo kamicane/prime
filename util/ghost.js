@@ -1,5 +1,5 @@
 /*
-ghost swooooshhhh
+ghost 👻
 */"use strict"
 
 var array = require("../es5/array")
@@ -33,27 +33,29 @@ module.exports = function(){
 			this.toString = function(){
 				return self + ""
 			}
-		}
-
-		var gi = function(name, method){
-			ghost.prototype[name] = function(){
-				return _(method.apply(this.valueOf(), arguments))
+			this.eq = function(object){
+				return self === object
 			}
 		}
 
-		var _implement = base.implement
-
-		var implement = base.implement = function(key, method){
-			if (typeof key !== 'string') for (var k in key) implement.call(this, k, key[k])
-			else {
-				_implement.call(this, key, method)
-				gi(key, method)
-			}
+		var _implement = function(props){
+			for (var key in props) (function(key, method){
+				ghost.prototype[key] = function(){
+					return _(method.apply(this.valueOf(), arguments))
+				}
+			})(key, props[key])
 		}
 
-		for (var name in base.prototype) gi(name, base.prototype[name])
+		var __implement = base.implement
 
-		m.implement = _implement
+		base.implement = function(props){
+			_implement(props)
+			__implement.call(this, props)
+		}
+
+		_implement.call(ghost, base.prototype)
+
+		m.implement = __implement
 		m.base = base
 		return m.ghost = ghost
 	}

@@ -23,6 +23,15 @@ var number = require("../util/shell")(require("../es5/number")).implement({
 	/*(numer.random)?*/
 	random: function(max){
 		return Math.floor(Math.random() * (max - this + 1) + this)
+	},/*:*/
+
+	/*(numer.random)?*/
+	gt: function(n){
+		return this > n
+	},/*:*/
+
+	lt: function(n){
+		return this < n
 	}/*:*/
 
 })
