@@ -1,9 +1,8 @@
 /*
 JSON
-*/
+*/"use strict"
 
 /*(es5 && json)?*/
-
 if (typeof JSON === 'undefined'){
 
 	var JSON = {}

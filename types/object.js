@@ -1,6 +1,6 @@
 /*
-Object shell with custom methods
-*/
+Object methods
+*/"use strict"
 
 var object = require("../util/shell")(require("../es5/object")).implement({
 

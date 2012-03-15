@@ -1,3 +1,7 @@
+/*
+Map
+*/"use strict"
+
 var Class = require("../class"),
 	array = require("../es5/array")
 

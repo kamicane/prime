@@ -1,6 +1,6 @@
 /*
 SuperClass!
-*/
+*/"use strict"
 
 var type = require("../util/type"),
 	create = require("../util/create"),

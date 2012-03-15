@@ -1,6 +1,6 @@
 /*
 Shell
-*/
+*/"use strict"
 
 var create = require("../util/create"),
 	slice = Array.prototype.slice

@@ -1,6 +1,6 @@
 /*
-RegExp shell with custom methods
-*/
+RegExp methods
+*/"use strict"
 
 var regexp = require("../util/shell")(require("../es5/regexp")).implement({
 

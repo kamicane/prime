@@ -1,6 +1,6 @@
 /*
 RegExp
-*/
+*/"use strict"
 
 var shell = require("../util/shell")
 

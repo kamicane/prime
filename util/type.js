@@ -1,6 +1,6 @@
 /*
 type
-*/
+*/"use strict"
 
 var toString = Object.prototype.toString,
 	types = /number|object|array|string|function|date|regexp|boolean/

@@ -1,6 +1,6 @@
 /*
-Array shell with custom methods
-*/
+Array methods
+*/"use strict"
 
 var array = require("../util/shell")(require("../es5/array")).implement({
 

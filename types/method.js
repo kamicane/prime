@@ -1,6 +1,6 @@
 /*
-Function shell with custom methods
-*/
+Function methods
+*/"use strict"
 
 var slice = Array.prototype.slice
 

@@ -1,4 +1,6 @@
-// emi: a stupidly tiny event emitter
+/*
+Emitter
+*/"use strict"
 
 var Class = require("./"),
 	array = require("../es5/array")

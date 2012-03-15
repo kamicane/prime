@@ -1,7 +1,6 @@
 /*
 Number
-*/
-
+*/"use strict"
 
 var shell = require("../util/shell")
 

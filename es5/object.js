@@ -1,19 +1,19 @@
 /*
 Object shell
-*/
+*/"use strict"
 
 var shell = require("../util/shell")
 
 var hasOwnProperty = Object.prototype.hasOwnProperty
 
+var object = shell()
+
 var protoize = function(method){
 	return function(){
 		var args = (arguments.length) ? slice.call(arguments) : null
-		return args ? method.apply(null, [this].concat(args)) : method.call(null, this)
+		return args ? method.apply(object, [this].concat(args)) : method.call(object, this)
 	}
 }
-
-var object = shell()
 
 object.create = require("../util/create")
 

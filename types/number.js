@@ -1,6 +1,6 @@
 /*
-Number shell with custom methods
-*/
+Number methods
+*/"use strict"
 
 var number = require("../util/shell")(require("../es5/number")).implement({
 
@@ -19,7 +19,7 @@ var number = require("../util/shell")(require("../es5/number")).implement({
 	times: function(fn, bind){
 		for (var i = 0; i < this; i++) fn.call(bind, i, null, this)
 	},/*:*/
-	
+
 	/*(numer.random)?*/
 	random: function(max){
 		return Math.floor(Math.random() * (max - this + 1) + this)

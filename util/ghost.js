@@ -1,6 +1,6 @@
 /*
 ghost swooooshhhh
-*/
+*/"use strict"
 
 var array = require("../es5/array")
 

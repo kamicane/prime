@@ -1,6 +1,6 @@
 /*
 Array shell
-*/
+*/"use strict"
 
 var shell = require("../util/shell")
 var proto = Array.prototype

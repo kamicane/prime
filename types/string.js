@@ -1,6 +1,6 @@
 /*
-String shell with custom methods
-*/
+String methods
+*/"use strict"
 
 var string = require("../util/shell")(require("../es5/string")).implement({
 

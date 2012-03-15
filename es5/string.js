@@ -1,6 +1,6 @@
 /*
 String shell
-*/
+*/"use strict"
 
 var shell = require("../util/shell")
 
