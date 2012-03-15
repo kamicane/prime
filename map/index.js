@@ -9,42 +9,54 @@ module.exports = Class({
 
 	constructor: function(){
 		this.length = 0
-		this.keys = []
-		this.values = []
+		this._keys = []
+		this._values = []
 	},
 
 	set: function(key, value){
-		var index = array.indexOf(this.keys, key)
+		var index = array.indexOf(this._keys, key)
 
 		if (index === -1){
-			this.keys[++this.length] = key
-			this.values[this.length] = value
+			this._keys[++this.length] = key
+			this._values[this.length] = value
 		} else {
-			this.values[index] = value
+			this._values[index] = value
 		}
 
 		return this
 	},
 
-	get: function(key){
-		var index = array.indexOf(this.keys, key)
-		return (index === -1) ? null : this.values[index]
+	has: function(key){
+		return array.indexOf(this._keys, key) > -1
 	},
 
-	unset: function(key){
-		var index = array.indexOf(this.keys, key)
+	get: function(key){
+		var index = array.indexOf(this._keys, key)
+		return (index === -1) ? null : this._values[index]
+	},
+
+	remove: function(key){
+		var index = array.indexOf(this._keys, key)
 
 		if (index !== -1){
 			--this.length
-			this.keys.splice(index, 1)
-			return this.values.splice(index, 1)[0]
+			this._keys.splice(index, 1)
+			return this._values.splice(index, 1)[0]
 		}
 
 		return null
 	},
 
+	keys: function(){
+		return this._keys.slice()
+	},
+
+	values: function(){
+		return this._values.slice()
+	},
+
 	each: function(fn, context){
-		for (var i = 0, l = this.length; i < l; i++) fn.call(context, this.values[i], this.keys[i], this);
+		for (var i = 0, l = this.length; i < l; i++) fn.call(context, this._values[i], this._keys[i], this);
 		return this
 	}
 

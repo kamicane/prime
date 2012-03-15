@@ -2,9 +2,10 @@
 Object shell
 */"use strict"
 
-var shell = require("../util/shell")
+var shell = require("../util/shell"),
+	slice = Array.prototype.slice
 
-var hasOwnProperty = Object.prototype.hasOwnProperty
+var has = Object.prototype.hasOwnProperty
 
 var object = shell()
 
@@ -26,12 +27,12 @@ object.keys = Object.keys/*(es5 && object.keys)?*/ || function(self){
 var names = "getPrototypeOf,getOwnPropertyDescriptor,getOwnPropertyNames,preventExtensions,isExtensible,seal,isSealed,freeze,isFrozen".split(",")
 for (var i = 0, name, method; name = names[i++];) if ((method = Object[name])) object[name] = method
 
-for (var name in object) if (name !== "prototype") object.prototype[name] = protoize(object[name])
+for (name in object) if (name !== "prototype") object.prototype[name] = protoize(object[name])
 
 object.hasOwnProperty = function(self, k){
-	return hasOwnProperty.call(self, k)
+	return has.call(self, k)
 }
 
-object.prototype.hasOwnProperty = hasOwnProperty
+object.prototype.hasOwnProperty = has
 
 module.exports = object

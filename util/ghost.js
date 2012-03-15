@@ -19,8 +19,8 @@ module.exports = function(){
 	}
 
 	_.register = function(responder, base){
-
-		if (array.indexOf(responders, responder) == -1) responders.push(responder)
+		var io = array.indexOf(responders, responder)
+		if (io === -1) responders.push(responder)
 		else return map[io].ghost
 
 		var m = {}

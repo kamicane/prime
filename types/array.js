@@ -28,7 +28,7 @@ var array = require("../util/shell")(require("../es5/array")).implement({
 
 	/*(array.contains)?*/
 	contains: function(item, from){
-		return array.indexOf(this, item, from) != -1
+		return array.indexOf(this, item, from) !== -1
 	},/*:*/
 
 	/*(array.last)?*/

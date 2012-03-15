@@ -13,7 +13,7 @@ if (typeof JSON === 'undefined'){
 	var special = {'\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"' : '\\"', '\\': '\\\\'}
 
 	var escape = function(chr){
-		return special[chr] || '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4)
+		return special[chr] || '\\u' + ('0000' + chr.charCodeAt(0).toString(16)).slice(-4)
 	}
 
 	var validate = function(string){
