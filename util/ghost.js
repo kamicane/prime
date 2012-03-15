@@ -36,12 +36,6 @@ module.exports = function(){
 			this.eq = function(object){
 				return self === object
 			}
-			this.gt = function(n){
-				return self > n
-			}
-			this.lt = function(n){
-				return self < n
-			}
 		}
 
 		var _implement = function(props){
