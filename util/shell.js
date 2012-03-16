@@ -10,11 +10,12 @@ var prime = require("../prime"),
 var shell = prime({
 
 	mutator: function(key, method){
-		this.prototype[key] = method
 		this[key] = function(self){
 			var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
 			return method.apply(self, args)
 		}
+		
+		return method
 	},
 
 	constructor: {prototype: {}} // tricks of the trade

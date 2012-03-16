@@ -30,7 +30,7 @@ module.exports = function(){
 		var Ghost = prime({ // yes, a prime in a prime
 
 			mutator: function(key, method){
-				this.prototype[key] = function(){
+				return function(){
 					return ghost(method.apply(this.valueOf(), arguments))
 				}
 			},

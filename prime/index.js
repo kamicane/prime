@@ -6,12 +6,15 @@ var create = require("../util/create"),
 	has = Object.hasOwnProperty
 
 var _mutator = function(key, value){
-	this.prototype[key] = value
+	return value
 }
 
 var _implement = function(obj){
 	//cant implement special properties
-	for (var k in obj) if (k !== "constructor" && k !== "inherits" && k !== "mutator") this.mutator(k, obj[k])
+	for (var k in obj) if (k !== "constructor" && k !== "inherits" && k !== "mutator"){
+		var value = this.mutator(k, obj[k])
+		if (value != null) this.prototype[k] = value
+	}
 	//TODO: fix stupid enum 🐛 here
 	return this
 }
