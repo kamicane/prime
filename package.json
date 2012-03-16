@@ -2,6 +2,7 @@
 	"name": "prime",
 	"homepage": "https://github.com/mootools/prime",
 	"version": "0.0.1-alpha",
+	"main": "./main.js",
 	"description": "prime, an OOP javascript library for node and the web.",
 	"keywords": ["library", "framework", "es5", "class", "array", "object"],
 	"author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",

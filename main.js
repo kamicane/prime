@@ -1,4 +1,7 @@
 // require pretty much everything that isnt internal
+"use strict"
+
+var prime = require("./prime")
 
 var type = require("./util/type")
 
@@ -11,9 +14,8 @@ var regexp = require("./types/regexp")
 
 var json = require("./es5/json")
 
-var map = require("./map")
-var Class = require("./class")
-var Emitter = require("./class/emitter")
+var Map = require("./map")
+var Emitter = require("./util/emitter")
 
 // instantiate a new ghost
 
@@ -50,25 +52,26 @@ ghost.register(function(self){
 }, object)
 
 ghost.register(function(self){
-	return type(self) === "list" && type(self.values) === "array" && type(self.keys) === "array"
-}, map)
+	return type(self) === "list" && type(self._values) === "array" && type(self._keys) === "array"
+}, Map)
 
-// attach misc stuff to ghost
+// attach stuff to prime
 
-ghost.array = array
-ghost.number = number
-ghost.string = string
-ghost.object = object
-ghost.regexp = regexp
-ghost.method = method
+prime.array = array
+prime.number = number
+prime.string = string
+prime.object = object
+prime.regexp = regexp
+prime.method = method
 
-ghost.map = map
+prime.type = type
 
-ghost.type = type
-ghost.Class = Class
-ghost.Emitter = Emitter
-ghost.JSON = json
+prime.Map = Map
+prime.Emitter = Emitter
+prime.JSON = json
 
-// export ghost
+prime.ghost = ghost
 
-module.exports = ghost
+// export prime
+
+module.exports = prime
