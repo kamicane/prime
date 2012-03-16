@@ -2,20 +2,8 @@
 Prime
 */"use strict"
 
-var has = Object.hasOwnProperty
-
-var _mutator = function(key, value){
-	return value
-}
-
-var _implement = function(obj){
-	//cant implement special properties
-	for (var k in obj) if (k !== "constructor" && k !== "inherits" && k !== "mutator"){
-		var value = this.mutator(k, obj[k])
-		if (value != null) this.prototype[k] = value
-	}
-	//TODO: fix stupid enum 🐛 here
-	return this
+var has = function(key){
+	return Object.hasOwnProperty.call(self, key)
 }
 
 var create = Object.create/*(es5)?*/ || function(self){
@@ -23,6 +11,42 @@ var create = Object.create/*(es5)?*/ || function(self){
 	F.prototype = self
 	return new F
 }/*:*/
+
+var forIn = function(object, method, context){
+	for (var key in object) method.call(context, key, object[key], object)
+	return object
+}
+
+/*(es5)?*/
+if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
+
+	var enumBugProps = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(","),
+		proto = Object.prototype
+		_forIn = forIn
+
+	forIn = function(object, method, context){
+		_forIn(object, method, context)
+		var i = enumBugProps.length
+		while (i--){
+			var key, value = object[(key = enumBugProps[i])]
+			if (value !== proto[key]) method.call(context, key, value, object)
+		}
+	}
+
+}/*:*/
+
+var mutator = function(key, value){
+	this.prototype[key] = value
+}
+
+var implement = function(obj){
+	forIn(obj, function(key, value){
+		if (key !== "constructor" && key !== "inherits" && key !== "mutator"){
+			this.mutator(key, value)
+		}
+	}, this)
+	return this
+}
 
 var prime = function(proto){
 
@@ -33,7 +57,7 @@ var prime = function(proto){
 	// then we proceed using a ghosting constructor that all it does is
 	// call the parent's constructor if it has a superprime, else an empty constructor
 	// proto.constructor becomes the effective constructor
-	var constructor = (has.call(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
+	var constructor = (has(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
 		return superproto.constructor.apply(this, arguments)
 	} : function(){}
 
@@ -49,15 +73,17 @@ var prime = function(proto){
 	}
 
 	// inherit (kindof inherit) mutator
-	constructor.mutator = proto.mutator || (superprime && superprime.mutator) || _mutator
+	constructor.mutator = proto.mutator || (superprime && superprime.mutator) || mutator
 	// copy implement (this should never change)
-	constructor.implement = _implement
+	constructor.implement = implement
 
 	// finally implement proto and return constructor
 	return constructor.implement(proto)
 
 }
 
+prime.forIn = forIn
+prime.has = has
 prime.create = create
 
 module.exports = prime
