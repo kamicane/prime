@@ -1,6 +1,6 @@
 
-var array = require('../../es5/array')
 var expect = require('expect.js')
+var array = require('../../es5/array')
 
 describe('es5/array', function(){
 
