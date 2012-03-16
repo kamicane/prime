@@ -16,12 +16,13 @@ var number = shell({
 
 	/*(number.round)?*/
 	round: function(precision){
-		return parseFloat(this.toPrecision(precision))
+		return parseFloat(number.toPrecision(this, precision))
 	},/*:*/
 
 	/*(number.times)?*/
-	times: function(fn, bind){
-		for (var i = 0; i < this; i++) fn.call(bind, i, null, this)
+	times: function(fn, context){
+		for (var i = 0; i < this; i++) fn.call(context, i, null, this)
+		return this
 	},/*:*/
 
 	/*(numer.random)?*/
