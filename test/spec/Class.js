@@ -93,7 +93,7 @@ describe('Class creation', function(){
 		expect(animal.say()).toEqual('animal:say:lamina');
 	});
 
-	it("should use 'Extend' property to extend another class", function(){
+	it("should use 'Extend' property to extend another prime", function(){
 		var cat = new Cat('fluffy');
 		expect(cat.name).toEqual('fluffy');
 		expect(cat.sound).toEqual('miao');
@@ -103,7 +103,7 @@ describe('Class creation', function(){
 		expect(cat.play()).toEqual('cat:play:fluffy');
 	});
 
-	it("should use 'Extend' property to extend an extended class", function(){
+	it("should use 'Extend' property to extend an extended prime", function(){
 		var leo = new Lion('leo');
 		expect(leo.name).toEqual('leo');
 		expect(leo.sound).toEqual('rarr');
@@ -113,7 +113,7 @@ describe('Class creation', function(){
 		expect(leo.play()).toEqual('cat:play:leo');
 	});
 
-	it("should use 'Implements' property to implement another class", function(){
+	it("should use 'Implements' property to implement another prime", function(){
 		var Dog = new Class({
 			Implements: Animal
 		});
@@ -124,7 +124,7 @@ describe('Class creation', function(){
 		expect(rover.eat()).toEqual('animal:eat:rover');
 	});
 
-	it("should use 'Implements' property to implement any number of classes", function(){
+	it("should use 'Implements' property to implement any number of primes", function(){
 		var Dog = new Class({
 			Extends: Animal,
 			Implements: [Actions, Attributes]
@@ -159,7 +159,7 @@ describe('Class creation', function(){
 		expect(rover.jump()).toEqual('dog:jump:rover');
 	});
 
-	it("should alter the Class's prototype when implementing new methods into the super class", function(){
+	it("should alter the Class's prototype when implementing new methods into the super prime", function(){
 		var Dog = new Class({
 			Extends: Animal
 		});
@@ -178,7 +178,7 @@ describe('Class creation', function(){
 		expect(rover.jump()).toEqual('animal:jump:rover');
 	});
 
-	it("should alter the Class's prototype when overwriting methods in the super class", function(){
+	it("should alter the Class's prototype when overwriting methods in the super prime", function(){
 		var Dog = new Class({
 			Extends: Animal
 		});
