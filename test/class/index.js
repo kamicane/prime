@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var Class = require('../../class'),
+var Class = require('../../prime'),
 	create = require("../../util/create");
 
 var Animal = Class({
