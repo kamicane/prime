@@ -10,8 +10,9 @@ var array = shell({
 
 	filter: proto.filter/*(es5 && array.filter)?*/ || function(fn, context){
 		var results = []
-		for (var i = 0, l = this.length >>> 0; i < l; i++){
-			if ((i in this) && fn.call(context, this[i], i, this)) results.push(this[i])
+		for (var i = 0, l = this.length >>> 0; i < l; i++) if (i in this){
+			var value = this[i]
+			if (fn.call(context, value, i, this)) results.push(value)
 		}
 		return results
 	}/*:*/,
