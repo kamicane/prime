@@ -3,7 +3,7 @@ ghost 👻
 */"use strict"
 
 var prime = require("../prime"),
-	Map = require("../map")
+	Map = require("../util/map")
 
 module.exports = function(){
 
@@ -30,7 +30,7 @@ module.exports = function(){
 		var Ghost = prime({ // yes, a prime in a prime
 
 			mutator: function(key, method){
-				return function(){
+				this.prototype[key] = function(){
 					return ghost(method.apply(this.valueOf(), arguments))
 				}
 			},
