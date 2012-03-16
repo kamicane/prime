@@ -1,19 +1,22 @@
 /*
-Prime!
+Prime
 */"use strict"
 
 var create = require("../util/create"),
 	has = Object.hasOwnProperty
 
+var _mutator = function(key, value){
+	this.prototype[key] = value
+}
+
 var _implement = function(obj){
-	for (var k in obj) if (k !== "constructor" && k !== "inherits"){ //cant implement special properties
-		this.prototype[k] = obj[k]
-	}
+	//cant implement special properties
+	for (var k in obj) if (k !== "constructor" && k !== "inherits" && k !== "mutator") this.mutator(k, obj[k])
 	//TODO: fix stupid enum 🐛 here
 	return this
 }
 
-module.exports = function(proto){
+var prime = function(proto){
 
 	var superclass = proto.inherits, superproto
 	if (superclass) superproto = superclass.prototype
@@ -37,13 +40,14 @@ module.exports = function(proto){
 		cproto.constructor = constructor
 	}
 
-	// implement passed methods to subclass, using either superclass.implement or our own implement
-	var implement = (superclass && superclass.implement) || _implement
-	implement.call(constructor, proto)
+	// inherit (kindof inherit) mutator
+	constructor.mutator = proto.mutator || (superclass && superclass.mutator) || _mutator
+	// copy implement (this should never change)
+	constructor.implement = _implement
 
-	// and attach implement
-	constructor.implement = implement
-
-	return constructor
+	// finally implement proto and return constructor
+	return constructor.implement(proto)
 
 }
+
+module.exports = prime
