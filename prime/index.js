@@ -21,30 +21,30 @@ var _implement = function(obj){
 
 var prime = function(proto){
 
-	var superclass = proto.inherits, superproto
-	if (superclass) superproto = superclass.prototype
+	var superprime = proto.inherits, superproto
+	if (superprime) superproto = superprime.prototype
 
 	// if our nice proto object has no own constructor property
 	// then we proceed using a ghosting constructor that all it does is
-	// call the parent's constructor if it has a superclass, else an empty constructor
+	// call the parent's constructor if it has a superprime, else an empty constructor
 	// proto.constructor becomes the effective constructor
-	var constructor = (has.call(proto, "constructor")) ? proto.constructor : (superclass) ? function(){
+	var constructor = (has.call(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
 		return superproto.constructor.apply(this, arguments)
 	} : function(){}
 
-	if (superclass){
+	if (superprime){
 
-		// inherit from superclass
+		// inherit from superprime
 		var cproto = constructor.prototype = create(superproto)
 
-		// setting constructor.parent to superclass.prototype
+		// setting constructor.parent to superprime.prototype
 		// because it's the shortest possible absolute reference
 		constructor.parent = superproto
 		cproto.constructor = constructor
 	}
 
 	// inherit (kindof inherit) mutator
-	constructor.mutator = proto.mutator || (superclass && superclass.mutator) || _mutator
+	constructor.mutator = proto.mutator || (superprime && superprime.mutator) || _mutator
 	// copy implement (this should never change)
 	constructor.implement = _implement
 
