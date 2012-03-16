@@ -2,10 +2,10 @@
 Map
 */"use strict"
 
-var Class = require("../class"),
+var prime = require("../prime"),
 	array = require("../es5/array")
 
-module.exports = Class({
+module.exports = prime({
 
 	constructor: function(){
 		this.length = 0
@@ -24,10 +24,6 @@ module.exports = Class({
 		}
 
 		return this
-	},
-
-	has: function(key){
-		return array.indexOf(this._keys, key) > -1
 	},
 
 	get: function(key){
