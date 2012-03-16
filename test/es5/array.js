@@ -89,6 +89,10 @@ describe('es5/array', function(){
 			expect(array.indexOf([1,2,3,0,0,0], 'not found')).to.equal(-1)
 		})
 
+		it('should return -1 for undefined when the array is sparse', function(){
+			expect(array.indexOf(new Array(4), undefined)).to.equal(-1)
+		})
+
 	})
 
 	describe('Array.map', function(){

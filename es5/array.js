@@ -19,7 +19,7 @@ var array = shell({
 
 	indexOf: proto.indexOf/*(es5 && array.indexOf)?*/ || function(item, from){
 		for (var l = this.length >>> 0, i = (from < 0) ? Math.max(0, l + from) : from || 0; i < l; i++){
-			if (this[i] === item) return i
+			if ((i in this) && this[i] === item) return i
 		}
 		return -1
 	}/*:*/,
