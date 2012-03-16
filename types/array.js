@@ -17,7 +17,7 @@ var array = shell({
 
 	/*(array.invoke)?*/
 	invoke: function(name){
-		var args = this.slice.call(arguments, 1), results = []
+		var args = array.slice(arguments, 1), results = []
 		for (var i = 0, j = this.length; i < j; i++){
 			var item = this[i]
 			results.push(item[name].apply(item, args))
@@ -27,7 +27,7 @@ var array = shell({
 
 	/*(array.append)?*/
 	append: function(list){
-		this.push.apply(this, list)
+		array.prototype.push.apply(this, list)
 		return this
 	},/*:*/
 
@@ -57,7 +57,7 @@ var array = shell({
 	/*(array.erase)?*/
 	erase: function(item, one){
 		for (var i = this.length; i--;) if (this[i] === item){
-			this.splice(i, 1)
+			array.splice(this, i, 1)
 			if (one) break
 		}
 		return this
