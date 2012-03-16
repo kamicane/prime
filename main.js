@@ -14,7 +14,7 @@ var regexp = require("./types/regexp")
 
 var json = require("./es5/json")
 
-var Map = require("./map")
+var Map = require("./util/map")
 var Emitter = require("./util/emitter")
 
 // instantiate a new ghost
