@@ -17,15 +17,13 @@ var protoize = function(method){
 
 var object = shell({})
 
-object.create = require("../util/create")
-
 object.keys = Object.keys/*(es5 && object.keys)?*/ || function(self){
 	var keys = []
-	for (var key in self) if (object.hasOwnProperty(this, key)) keys.push(key)
+	for (var key in self) if (has.call(this, key)) keys.push(key)
 	return keys
 }/*:*/
 
-var names = "defineProperty,defineProperties,getPrototypeOf,getOwnPropertyDescriptor,getOwnPropertyNames," +
+var names = "create,defineProperty,defineProperties,getPrototypeOf,getOwnPropertyDescriptor,getOwnPropertyNames," +
 			"preventExtensions,isExtensible,seal,isSealed,freeze,isFrozen".split(",")
 
 for (var i = 0, name, method; name = names[i++];) if ((method = Object[name])) object[name] = method
