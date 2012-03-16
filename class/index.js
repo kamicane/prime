@@ -6,7 +6,9 @@ var create = require("../util/create"),
 	has = Object.hasOwnProperty
 
 var _implement = function(obj){
-	for (var k in obj) this.prototype[k] = obj[k]
+	for (var k in obj) if (k !== "constructor" && k !== "inherits"){ //cant implement special properties
+		this.prototype[k] = obj[k]
+	}
 	//TODO: fix stupid enum 🐛 here
 	return this
 }
@@ -20,12 +22,7 @@ module.exports = function(proto){
 	// then we proceed using a ghosting constructor that all it does is
 	// call the parent's constructor if it has a superclass, else an empty constructor
 	// proto.constructor becomes the effective constructor
-	var constructor
-
-	if (has.call(proto, "constructor")){
-		constructor = proto.constructor
-		delete proto.constructor
-	} else constructor = superclass ? function(){
+	var constructor = (has.call(proto, "constructor")) ? proto.constructor : (superclass) ? function(){
 		return superproto.constructor.apply(this, arguments)
 	} : function(){}
 
@@ -38,8 +35,6 @@ module.exports = function(proto){
 		// because it's the shortest possible absolute reference
 		constructor.parent = superproto
 		cproto.constructor = constructor
-
-		delete proto.inherits
 	}
 
 	// implement passed methods to subclass, using either superclass.implement or our own implement
