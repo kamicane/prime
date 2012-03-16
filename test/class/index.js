@@ -129,7 +129,7 @@ describe('Class creation', function(){
 		expect(animal.say()).to.be('animal:say:lamina');
 	});
 
-	it("should use 'inherits' property to extend another class", function(){
+	it("should use 'inherits' property to extend another prime", function(){
 		var cat = new Cat('fluffy');
 		expect(cat.name).to.be('fluffy');
 		expect(cat.sound).to.be('miao');
@@ -139,7 +139,7 @@ describe('Class creation', function(){
 		expect(cat.play()).to.be('cat:play:fluffy');
 	});
 
-	it("should use 'inherits' property to extend an extended class", function(){
+	it("should use 'inherits' property to extend an extended prime", function(){
 		var leo = new Lion('leo');
 		expect(leo.name).to.be('leo');
 		expect(leo.sound).to.be('rarr');
@@ -149,7 +149,7 @@ describe('Class creation', function(){
 		expect(leo.play()).to.be('cat:play:leo');
 	});
 
-	// it("should implement another class", function(){
+	// it("should implement another prime", function(){
 	// 	var Dog = Class({mixin: Animal})
 	//
 	// 	var rover = new Dog('rover');
@@ -158,7 +158,7 @@ describe('Class creation', function(){
 	// 	expect(rover.eat()).to.be('animal:eat:rover');
 	// });
 	//
-	// it("should use 'Implements' property to implement any number of classes", function(){
+	// it("should use 'Implements' property to implement any number of primes", function(){
 	// 	var Dog = Class({
 	// 		inherit: Animal,
 	// 		mixin: [Actions, Attributes]
@@ -193,7 +193,7 @@ describe('Class creation', function(){
 		expect(rover.jump()).to.be('dog:jump:rover');
 	});
 
-	it("should alter the Class's prototype when implementing new methods into the super class", function(){
+	it("should alter the Class's prototype when implementing new methods into the super prime", function(){
 		var Dog = Class({
 			inherits: Animal
 		});
@@ -212,7 +212,7 @@ describe('Class creation', function(){
 		expect(rover.jump()).to.be('animal:jump:rover');
 	});
 
-	it("should alter the Class's prototype when overwriting methods in the super class", function(){
+	it("should alter the Class's prototype when overwriting methods in the super prime", function(){
 		var Dog = Class({
 			inherits: Animal
 		});
