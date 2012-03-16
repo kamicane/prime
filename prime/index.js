@@ -2,8 +2,7 @@
 Prime
 */"use strict"
 
-var create = require("../util/create"),
-	has = Object.hasOwnProperty
+var has = Object.hasOwnProperty
 
 var _mutator = function(key, value){
 	return value
@@ -18,6 +17,12 @@ var _implement = function(obj){
 	//TODO: fix stupid enum 🐛 here
 	return this
 }
+
+var create = Object.create/*(es5)?*/ || function(self){
+	var F = function(){}
+	F.prototype = self
+	return new F
+}/*:*/
 
 var prime = function(proto){
 
@@ -52,5 +57,7 @@ var prime = function(proto){
 	return constructor.implement(proto)
 
 }
+
+prime.create = create
 
 module.exports = prime
