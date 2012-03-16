@@ -2,9 +2,11 @@
 Array shell
 */"use strict"
 
+var shell = require("../util/shell")
+
 var proto = Array.prototype
 
-var array = require("../util/shell")().implement({
+var array = shell({
 
 	filter: proto.filter/*(es5 && array.filter)?*/ || function(fn, context){
 		var results = []
@@ -51,15 +53,14 @@ var array = require("../util/shell")().implement({
 
 })
 
-
 array.isArray = Array.isArray/*(es5 && array.isArray)?*/ || function(self){
 	return Object.prototype.toString.call(self) === "[object Array]"
 }/*:*/
 
 var methods = {}
-array.forEach("pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,lastIndexOf,reduce,reduceRight".split(","), function(name){
-	var method = proto[name]
-	if (method) methods[name] = method
-})
+var names = "pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,lastIndexOf,reduce,reduceRight".split(",")
+for (var i = 0, name, method; name = names[i++];) if ((method = proto[name])) methods[name] = method
 
-module.exports = array.implement(methods)
+array.implement(methods)
+
+module.exports = array

@@ -2,10 +2,12 @@
 Function shell
 */"use strict"
 
+var shell = require("../util/shell")
+
 var proto = Function.prototype,
 	slice = Array.prototype.slice
 
-module.exports = require("../util/shell")().implement({
+module.exports = shell({
 
 	apply: proto.apply,
 

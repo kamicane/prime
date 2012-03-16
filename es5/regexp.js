@@ -2,6 +2,10 @@
 RegExp
 */"use strict"
 
+var shell = require("../util/shell")
+
 var proto = RegExp.prototype
 
-module.exports = require("../util/shell")().implement({test: proto.test, exec: proto.exec})
+var regexp = shell({test: proto.test, exec: proto.exec})
+
+module.exports = regexp

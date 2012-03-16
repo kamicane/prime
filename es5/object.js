@@ -2,10 +2,10 @@
 Object shell
 */"use strict"
 
-var object = require("../util/shell")(),
-	slice = Array.prototype.slice
+var shell = require("../util/shell")
 
-var has = Object.hasOwnProperty
+var slice = Array.prototype.slice,
+	has = Object.hasOwnProperty
 
 var protoize = function(method){
 	return function(){
@@ -13,6 +13,9 @@ var protoize = function(method){
 		return args ? method.apply(object, [this].concat(args)) : method.call(object, this)
 	}
 }
+
+
+var object = shell({})
 
 object.create = require("../util/create")
 
