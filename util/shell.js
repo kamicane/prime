@@ -3,8 +3,7 @@ shell 🐚
 */"use strict"
 
 var prime = require("../prime"),
-	slice = Array.prototype.slice,
-	has = Object.hasOwnProperty
+	slice = Array.prototype.slice
 
 var shell = prime({
 
@@ -14,7 +13,7 @@ var shell = prime({
 			return method.apply(self, args)
 		}
 
-		return method
+		this.prototype[key] = method
 	},
 
 	constructor: {prototype: {}}
