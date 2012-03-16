@@ -48,9 +48,8 @@ var string = shell({
 })
 
 /*(string.decode)?*/
-var json = require("../es5/json")
-string.implement({decode: function(){
-	return json.parse(this)
+if (typeof JSON !== 'undefined') string.implement({decode: function(){
+	return JSON.parse(this)
 }})/*:*/
 
 module.exports = string
