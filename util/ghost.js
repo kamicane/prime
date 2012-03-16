@@ -2,75 +2,75 @@
 ghost 👻
 */"use strict"
 
-var array = require("../es5/array")
+var prime = require("../prime"),
+	Map = require("../map")
 
 module.exports = function(){
 
-	var responders = [], map = []
+	var map = new Map
 
-	var _ = function(self){
-		var ghost
-		for (var i = responders.length, responder; responder = responders[--i];) if (responder(self)){
-			ghost = map[i].ghost
+	var ghost = function(self){
+		var keys = map.keys(),
+			values = map.values()
+
+		var Ghost
+
+		for (var i = keys.length, responder; responder = keys[--i];) if (responder(self)){
+			Ghost = values[i].ghost
 			break
 		}
 
-		return ghost ? new ghost(self) : self
+		return Ghost ? new Ghost(self) : self
 	}
 
-	_.register = function(responder, base){
-		var index = array.indexOf(responders, responder)
-		if (index === -1) responders.push(responder)
-		else return _
+	ghost.register = function(responder, base){
 
-		var m = {}
-		map.push(m)
+		if (map.get(responder)) return ghost
 
-		var ghost = function(self){
-			this.valueOf = function(){
-				return self
-			}
-			this.toString = function(){
-				return self + ""
-			}
-			this.eq = function(object){
-				return self === object
-			}
-		}
+		var Ghost = prime({ // yes, a prime in a prime
 
-		var _implement = function(props){
-			for (var key in props) (function(key, method){
-				ghost.prototype[key] = function(){
-					return _(method.apply(this.valueOf(), arguments))
+			mutator: function(key, method){
+				this.prototype[key] = function(){
+					return ghost(method.apply(this.valueOf(), arguments))
 				}
-			})(key, props[key])
+			},
+
+			constructor: function(self){
+				this.valueOf = function(){
+					return self
+				}
+				this.toString = function(){
+					return self + ""
+				}
+				this.eq = function(object){
+					return self === object
+				}
+			}
+
+		})
+
+		var mutator = base.mutator
+
+		// override base mutator, so it automagically implements stuff in the ghost
+		// when base changes
+		base.mutator = function(key, method){
+			mutator.call(this, key, method)
+			Ghost.mutator(key, method)
 		}
 
-		var __implement = base.implement
+		Ghost.implement(base.prototype)
 
-		base.implement = function(props){
-			_implement(props)
-			__implement.call(this, props)
-		}
+		map.set(responder, {base: base, ghost: Ghost, mutator: mutator})
 
-		_implement.call(ghost, base.prototype)
-
-		m.implement = __implement
-		m.base = base
-
-		return _
+		return ghost
 	}
 
-	_.unregister = function(responder){
-		var index = array.indexOf(responders, responder)
-		if (index > -1){
-			responders.splice(index, 1)
-			var m = map.splice(index, 1)
-			m.base.implement = m.implement //reset implement to original value
-		}
-		return _
+	ghost.unregister = function(responder){
+		var value = map.remove(responder)
+		if (value) value.base.mutator = value.mutator
+		return ghost
 	}
 
-	return _
+	return ghost
 
 }
