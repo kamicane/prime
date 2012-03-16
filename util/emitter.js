@@ -2,10 +2,10 @@
 Emitter
 */"use strict"
 
-var Class = require("./"),
+var prime = require("../prime"),
 	array = require("../es5/array")
 
-module.exports = Class({
+module.exports = prime({
 
 	on: function(event, fn){
 		var listeners = this._listeners || (this._listeners = {}),
@@ -17,8 +17,8 @@ module.exports = Class({
 	off: function(event, fn){
 		var listeners = this._listeners, events
 		if (listeners && (events = listeners[event]) && events.length){
-			var io = array.indexOf(events, fn)
-			if (io > -1) events.splice(io, 1)
+			var index = array.indexOf(events, fn)
+			if (index > -1) events.splice(index, 1)
 		}
 		return this
 	},
@@ -35,4 +35,3 @@ module.exports = Class({
 	}
 
 })
-
