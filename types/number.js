@@ -2,7 +2,12 @@
 Number methods
 */"use strict"
 
-var number = require("../util/shell")(require("../es5/number")).implement({
+var shell = require("../util/shell"),
+	_number = require("../es5/number")
+
+var number = shell({
+
+	inherits: _number,
 
 	/*(number.limit)?*/
 	limit: function(min, max){
@@ -11,8 +16,7 @@ var number = require("../util/shell")(require("../es5/number")).implement({
 
 	/*(number.round)?*/
 	round: function(precision){
-		precision = Math.pow(10, precision || 0)
-		return Math.round(this * precision) / precision
+		return parseFloat(this.toPrecision(precision))
 	},/*:*/
 
 	/*(number.times)?*/

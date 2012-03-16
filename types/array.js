@@ -2,7 +2,12 @@
 Array methods
 */"use strict"
 
-var array = require("../util/shell")(require("../es5/array")).implement({
+var shell = require("../util/shell"),
+	_array = require("../es5/array")
+
+var array = shell({
+
+	inherits: _array,
 
 	/*(array.each)?*/
 	each: function(fn, context){

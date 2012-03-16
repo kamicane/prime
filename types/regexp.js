@@ -2,7 +2,12 @@
 RegExp methods
 */"use strict"
 
-var regexp = require("../util/shell")(require("../es5/regexp")).implement({
+var shell = require("../util/shell"),
+	_regexp = require("../es5/regexp")
+
+var regexp = shell({
+
+	inherits: _regexp,
 
 	/*(regexp.escape)?*/
 	// « https://github.com/slevithan/XRegExp/blob/master/src/xregexp.js

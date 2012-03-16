@@ -2,7 +2,12 @@
 String methods
 */"use strict"
 
-var string = require("../util/shell")(require("../es5/string")).implement({
+var shell = require("../util/shell"),
+	_string = require("../es5/string")
+
+var string = shell({
+
+	inherits: _string,
 
 	/*(string.contains)?*/
 	contains: function(string, separator){
@@ -44,8 +49,8 @@ var string = require("../util/shell")(require("../es5/string")).implement({
 
 /*(string.decode)?*/
 var json = require("../es5/json")
-string.implement("decode", function(){
+string.implement({decode: function(){
 	return json.parse(this)
-})/*:*/
+}})/*:*/
 
 module.exports = string

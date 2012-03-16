@@ -2,9 +2,14 @@
 Function methods
 */"use strict"
 
+var shell = require("../util/shell"),
+	_method = require("../es5/method")
+
 var slice = Array.prototype.slice
 
-var method = require("../util/shell")(require("../es5/method")).implement({
+var method = shell({
+
+	inherits: _method,
 
 	/*(method.attempt)?*/
 	attempt: function(context){

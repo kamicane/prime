@@ -2,7 +2,12 @@
 Object methods
 */"use strict"
 
-var object = require("../util/shell")(require("../es5/object")).implement({
+var shell = require("../util/shell"),
+	_object = require("../es5/object")
+
+var object = shell({
+
+	inherits: _object,
 
 	/*(object.forEach)?*/
 	forEach: function(fn, context){
@@ -106,8 +111,8 @@ var object = require("../util/shell")(require("../es5/object")).implement({
 
 /*(object.encode)?*/
 var json = require("../es5/json")
-object.implement("encode", function(){
+object.implement({encode: function(){
 	return json.stringify(this)
-})/*:*/
+}})/*:*/
 
 module.exports = object
