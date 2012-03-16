@@ -3,58 +3,64 @@ Object methods
 */"use strict"
 
 var shell = require("../util/shell"),
-	_object = require("../es5/object")
+	prime = require("../prime")
 
 var object = shell({
 
-	inherits: _object,
-
-	/*(object.forEach)?*/
-	forEach: function(fn, context){
-		for (var key in this) if (object.hasOwnProperty(this, key)) fn.call(context, this[key], key, this)
-	},/*:*/
-
 	/*(object.each)?*/
-	each: function(fn, context){
-		object.forEach(this, fn, context)
-		return this
+	each: function(method, context){
+		return prime.forIn(this, function(key, value, self){
+			method.call(context, value, key, self)
+		})
 	},/*:*/
 
 	/*(object.map)?*/
-	map: function(fn, bind){
+	map: function(method, context){
 		var results = {}
-		for (var key in this) results[key] = fn.call(bind, this[key], key, this)
+		prime.forIn(this, function(key, value, self){
+			results[key] = method.call(context, value, key, self)
+		})
 		return results
 	},/*:*/
 
 	/*(object.filter)?*/
-	filter: function(fn, bind){
+	filter: function(method, context){
 		var results = {}
-		for (var key in this) if (fn.call(bind, this[key], key, this)) results[key] = this[key]
+		prime.forIn(this, function(key, value, self){
+			if (method.call(context, value, key, self)) results[key] = value
+		})
 		return results
 	},/*:*/
 
 	/*(object.every)?*/
 	every: function(fn, bind){
-		for (var key in this) if (!fn.call(bind, this[key], key)) return false
-		return true
+		var every = true
+		prime.forIn(this, function(key, value, self){
+			if (every && !fn.call(context, value, key, self)) every = false
+		})
+		return every
 	},/*:*/
 
 	/*(object.some)?*/
 	some: function(fn, bind){
-		for (var key in this) if (fn.call(bind, this[key], key)) return true
-		return false
+		var some = false
+		prime.forIn(this, function(key, value, self){
+			if (!some && fn.call(context, value, key, self)) some = true
+		})
+		return some
 	},/*:*/
 
 	/*(object.has)?*/
 	has: function(key){
-		return object.hasOwnProperty(this, key)
+		return prime.has(this, key)
 	},/*:*/
 
 	/*(object.length)?*/
 	length: function(){
 		var length = 0
-		for (var key in this) length++
+		prime.forIn(this, function(){
+			length++
+		})
 		return length
 	},/*:*/
 
@@ -62,7 +68,9 @@ var object = shell({
 	append: function(){
 		for (var i = 0, l = arguments.length; i < l; i++){
 			var extended = arguments[i] || {}
-			for (var key in extended) this[key] = extended[key]
+			prime.forIn(extended, function(value, key, self){
+				self[key] = value
+			})
 		}
 		return this
 	},/*:*/
@@ -80,39 +88,36 @@ var object = shell({
 	/*(object.reverse)?*/
 	reverse: function(){
 		var results = {}
-		for (var key in this) results[this[key]] = key
+		prime.forIn(this, function(key, value){
+			results[value] = key
+		})
 		return results
 	},/*:*/
 
 	/*(object.values)?*/
 	values: function(){
 		var values = []
-		for (var key in this) if (object.hasOwnProperty(this, key)) values.push(this[key])
+		prime.forIn(this, function(key, value){
+			values.push(value)
+		})
 		return values
 	},/*:*/
 
-	/*(object.key)?*/
-	key: function(value){
-		for (var key in this) if (object.hasOwnProperty(this, key) && this[key] === value) return key
-		return null
-	},/*:*/
+	/*(object.keys)?*/
+	keys: function(value){
+		var keys = []
+		prime.forIn(this, function(key){
+			keys.push(key)
+		})
+		return keys
 
-	/*(object.contains)?*/
-	contains: function(value){
-		return object.key(this, value) != null
-	},/*:*/
-
-	/*(object.type)?*/
-	type: function(){
-		return "object"
 	}/*:*/
 
 })
 
 /*(object.encode)?*/
-var json = require("../es5/json")
-object.implement({encode: function(){
-	return json.stringify(this)
+if (typeof JSON !== 'undefined') object.implement({encode: function(){
+	return JSON.stringify(this)
 }})/*:*/
 
 module.exports = object
