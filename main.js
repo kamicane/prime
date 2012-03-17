@@ -12,8 +12,6 @@ var method = require("./types/method")
 var number = require("./types/number")
 var regexp = require("./types/regexp")
 
-var json = require("./es5/json")
-
 var Map = require("./util/map")
 var Emitter = require("./util/emitter")
 
@@ -68,7 +66,6 @@ prime.type = type
 
 prime.Map = Map
 prime.Emitter = Emitter
-prime.JSON = json
 
 prime.ghost = ghost
 

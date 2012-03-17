@@ -3,9 +3,12 @@ Object methods
 */"use strict"
 
 var shell = require("../util/shell"),
+	_object = require("../es5/object"),
 	prime = require("../prime")
 
 var object = shell({
+
+	inherits: _object,
 
 	/*(object.each)?*/
 	each: function(method, context){

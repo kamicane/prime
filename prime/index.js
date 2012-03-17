@@ -2,7 +2,7 @@
 Prime
 */"use strict"
 
-var has = function(key){
+var has = function(self, key){
 	return Object.hasOwnProperty.call(self, key)
 }
 
