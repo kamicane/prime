@@ -1,5 +1,6 @@
 /*
-String shell
+string
+ - es5 string shell
 */"use strict"
 
 var shell = require("../util/shell")

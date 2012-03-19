@@ -3,20 +3,22 @@ ghost 👻
 */"use strict"
 
 var prime = require("../prime"),
-	Map = require("../util/map")
+	map = require("../collection/map"),
+	list = require("../es5/array")
 
 module.exports = function(){
 
-	var map = new Map
+	var ghosts = map()
 
 	var ghost = function(self){
-		var keys = map.keys(),
-			values = map.values()
+
+		var responders = ghosts._keys,
+			hashes = ghosts._values
 
 		var Ghost
 
-		for (var i = keys.length, responder; responder = keys[--i];) if (responder(self)){
-			Ghost = values[i].ghost
+		for (var i = responders.length, responder; responder = responders[--i];) if (responder(self)){
+			Ghost = hashes[i].ghost
 			break
 		}
 
@@ -25,7 +27,7 @@ module.exports = function(){
 
 	ghost.register = function(responder, base){
 
-		if (map.get(responder)) return ghost
+		if (ghosts.get(responder)) return ghost
 
 		var Ghost = prime({ // yes, a prime in a prime
 
@@ -42,7 +44,7 @@ module.exports = function(){
 				this.toString = function(){
 					return self + ""
 				}
-				this.eq = function(object){
+				this.is = function(object){
 					return self === object
 				}
 			}
@@ -60,14 +62,14 @@ module.exports = function(){
 
 		Ghost.implement(base.prototype)
 
-		map.set(responder, {base: base, ghost: Ghost, mutator: mutator})
+		ghosts.set(responder, {base: base, ghost: Ghost, mutator: mutator})
 
 		return ghost
 	}
 
 	ghost.unregister = function(responder){
-		var value = map.remove(responder)
-		if (value) value.base.mutator = value.mutator
+		var hash = ghosts.remove(responder)
+		if (hash) hash.base.mutator = hash.mutator
 		return ghost
 	}
 

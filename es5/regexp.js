@@ -1,5 +1,6 @@
 /*
-RegExp
+regexp
+ - es5 regexp shell
 */"use strict"
 
 var shell = require("../util/shell")

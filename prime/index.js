@@ -1,10 +1,34 @@
 /*
-Prime
+prime
+ - prototypal inheritance
 */"use strict"
 
 var has = function(self, key){
 	return Object.hasOwnProperty.call(self, key)
 }
+
+var each = function(object, method, context){
+	for (var key in object) if (method.call(context, object[key], key, object) === false) break
+	return object
+}
+
+/*(es5 && fixEnumBug)?*/
+if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
+
+	var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(","),
+		proto = Object.prototype
+
+	each = function(object, method, context){
+		for (var key in object) if (method.call(context, object[key], key, object) === false) return object
+		var i = enumBugProps.length
+		while (i--){
+			var key = buggy[i], value = object[key]
+			if (value !== proto[key] && method.call(context, value, key, object) === false) break
+		}
+		return object
+	}
+
+}/*:*/
 
 var create = Object.create/*(es5)?*/ || function(self){
 	var F = function(){}
@@ -12,38 +36,21 @@ var create = Object.create/*(es5)?*/ || function(self){
 	return new F
 }/*:*/
 
-var forIn = function(object, method, context){
-	for (var key in object) method.call(context, key, object[key], object)
-	return object
+var extend = function(object, props){
+	var self = create(object)
+	each(props, function(v, k){
+		self[k] = v
+	})
+	return self
 }
-
-/*(es5)?*/
-if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
-
-	var enumBugProps = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(","),
-		proto = Object.prototype
-		_forIn = forIn
-
-	forIn = function(object, method, context){
-		_forIn(object, method, context)
-		var i = enumBugProps.length
-		while (i--){
-			var key, value = object[(key = enumBugProps[i])]
-			if (value !== proto[key]) method.call(context, key, value, object)
-		}
-	}
-
-}/*:*/
 
 var mutator = function(key, value){
 	this.prototype[key] = value
 }
 
 var implement = function(obj){
-	forIn(obj, function(key, value){
-		if (key !== "constructor" && key !== "inherits" && key !== "mutator"){
-			this.mutator(key, value)
-		}
+	each(obj, function(value, key){
+		if (key !== "constructor" && key !== "inherits" && key !== "mutator") this.mutator(key, value)
 	}, this)
 	return this
 }
@@ -82,7 +89,7 @@ var prime = function(proto){
 
 }
 
-prime.forIn = forIn
+prime.each = each
 prime.has = has
 prime.create = create
 

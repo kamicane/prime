@@ -1,13 +1,13 @@
 /*
-Number methods
+number methods
+ - inherits from es5/number
 */"use strict"
 
-var shell = require("../util/shell"),
-	_number = require("../es5/number")
+var shell = require("../util/shell")
 
 var number = shell({
 
-	inherits: _number,
+	inherits: require("../es5/number"),
 
 	/*(number.limit)?*/
 	limit: function(min, max){

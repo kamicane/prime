@@ -1,13 +1,13 @@
 /*
-String methods
+string methods
+ - inherits from es5/string
 */"use strict"
 
-var shell = require("../util/shell"),
-	_string = require("../es5/string")
+var shell = require("../util/shell")
 
 var string = shell({
 
-	inherits: _string,
+	inherits: require("../es5/string"),
 
 	/*(string.contains)?*/
 	contains: function(string, separator){
@@ -38,6 +38,12 @@ var string = shell({
 		return (this + '').replace(/\b[a-z]/g, function(match){
 			return match.toUpperCase()
 		})
+	},/*:*/
+
+	/*(string.escape)?*/
+	// « https://github.com/slevithan/XRegExp/blob/master/src/xregexp.js
+	escape: function(){
+		return (this + "").replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
 	},/*:*/
 
 	/*(string.number)?*/

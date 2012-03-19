@@ -1,5 +1,6 @@
 /*
-Array shell
+array
+ - es5 array shell
 */"use strict"
 
 var shell = require("../util/shell")

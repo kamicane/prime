@@ -1,5 +1,6 @@
 /*
-Number
+number
+ - es5 number shell
 */"use strict"
 
 var shell = require("../util/shell")
