@@ -62,7 +62,6 @@ array.isArray = Array.isArray/*(es5 && array.isArray)?*/ || function(self){
 var methods = {}
 var names = "pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,lastIndexOf,reduce,reduceRight".split(",")
 for (var i = 0, name, method; name = names[i++];) if ((method = proto[name])) methods[name] = method
-
 array.implement(methods)
 
 module.exports = array

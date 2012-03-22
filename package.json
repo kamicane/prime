@@ -1,7 +1,7 @@
 {
 	"name": "prime",
 	"homepage": "https://github.com/mootools/prime",
-	"version": "0.0.2-alpha",
+	"version": "0.0.3-alpha",
 	"main": "./main.js",
 	"description": "prime, an OOP javascript library for node and the web.",
 	"keywords": ["library", "framework", "es5", "class", "array", "object"],
@@ -11,7 +11,9 @@
 		"Olmo Maldonado <@ibolmo> (http://github.com/ibolmo)",
 		"Christoph Pojer <@cpojer> (http://cpojer.net)"
 	],
-	"bugs": "https://github.com/mootools/prime/issues",
+	"bugs": {
+		"url": "https://github.com/mootools/prime/issues"
+	},
 	"license": "MIT (http://mootools.net/license.txt)",
 	"repository": {
 		"type": "git",

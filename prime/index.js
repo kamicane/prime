@@ -36,14 +36,6 @@ var create = Object.create/*(es5)?*/ || function(self){
 	return new F
 }/*:*/
 
-var extend = function(object, props){
-	var self = create(object)
-	each(props, function(v, k){
-		self[k] = v
-	})
-	return self
-}
-
 var mutator = function(key, value){
 	this.prototype[key] = value
 }
