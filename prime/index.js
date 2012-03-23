@@ -19,10 +19,11 @@ if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
 		proto = Object.prototype
 
 	each = function(object, method, context){
-		for (var key in object) if (method.call(context, object[key], key, object) === false) return object
-		var i = enumBugProps.length
+		var i = buggy.length, key, value
+		for (key in object) if (method.call(context, object[key], key, object) === false) return object
 		while (i--){
-			var key = buggy[i], value = object[key]
+			key = buggy[i]
+			value = object[key]
 			if (value !== proto[key] && method.call(context, value, key, object) === false) break
 		}
 		return object
