@@ -1,9 +1,9 @@
 "use strict";
 
 var expect = require('expect.js')
-var Class = require('../../prime');
+var prime = require('../../prime')
 
-var Animal = Class({
+var Animal = prime({
 
 	initialized: false,
 
@@ -23,7 +23,7 @@ var Animal = Class({
 
 });
 
-var Cat = Class({
+var Cat = prime({
 
 	inherits: Animal,
 
@@ -43,7 +43,7 @@ var Cat = Class({
 
 });
 
-var Lion = Class({
+var Lion = prime({
 
 	inherits: Cat,
 
@@ -59,7 +59,7 @@ var Lion = Class({
 
 });
 
-var Actions = Class({
+var Actions = prime({
 
 	jump: function(){
 		return 'actions:jump:' + this.name;
@@ -71,7 +71,7 @@ var Actions = Class({
 
 });
 
-var Attributes = Class({
+var Attributes = prime({
 
 	color: function(){
 		return 'attributes:color:' + this.name;
@@ -83,13 +83,13 @@ var Attributes = Class({
 
 });
 
-var One = Class({})
-var Two = Class({inherits: One, constructor: function(){
+var One = prime({})
+var Two = prime({inherits: One, constructor: function(){
 	this.id = "TWO"
 }})
-var Three = Class({inherits: Two})
+var Three = prime({inherits: Two})
 
-describe("Class constructors", function(){
+describe("prime constructors", function(){
 
 	it("should have the correct constructor", function(){
 		var one = new One();
@@ -120,7 +120,7 @@ describe("Class constructors", function(){
 
 })
 
-describe('Class creation', function(){
+describe('prime creation', function(){
 
 	it("should call the constructor upon instantiation", function(){
 		var animal = new Animal('lamina');
@@ -150,7 +150,7 @@ describe('Class creation', function(){
 	});
 
 	// it("should implement another prime", function(){
-	// 	var Dog = Class({mixin: Animal})
+	// 	var Dog = prime({mixin: Animal})
 	//
 	// 	var rover = new Dog('rover');
 	// 	expect(rover.name).to.be('rover');
@@ -159,7 +159,7 @@ describe('Class creation', function(){
 	// });
 	//
 	// it("should use 'Implements' property to implement any number of primes", function(){
-	// 	var Dog = Class({
+	// 	var Dog = prime({
 	// 		inherit: Animal,
 	// 		mixin: [Actions, Attributes]
 	// 	});
@@ -174,8 +174,8 @@ describe('Class creation', function(){
 	// 	expect(rover.color()).to.be('attributes:color:rover');
 	// });
 
-	it("should alter the Class's prototype when implementing new methods", function(){
-		var Dog = Class({
+	it("should alter the prime's prototype when implementing new methods", function(){
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -193,8 +193,8 @@ describe('Class creation', function(){
 		expect(rover.jump()).to.be('dog:jump:rover');
 	});
 
-	it("should alter the Class's prototype when implementing new methods into the super prime", function(){
-		var Dog = Class({
+	it("should alter the prime's prototype when implementing new methods into the super prime", function(){
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -212,8 +212,8 @@ describe('Class creation', function(){
 		expect(rover.jump()).to.be('animal:jump:rover');
 	});
 
-	it("should alter the Class's prototype when overwriting methods in the super prime", function(){
-		var Dog = Class({
+	it("should alter the prime's prototype when overwriting methods in the super prime", function(){
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -234,10 +234,10 @@ describe('Class creation', function(){
 
 });
 
-describe('Class::implement', function(){
+describe('prime::implement', function(){
 
 	it('should implement an object', function(){
-		var Dog = Class({
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -251,7 +251,7 @@ describe('Class::implement', function(){
 	});
 
 	it('should implement any number of objects', function(){
-		var Dog = Class({
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -267,7 +267,7 @@ describe('Class::implement', function(){
 	});
 
 	it('should implement key-value objects', function(){
-		var Dog = Class({
+		var Dog = prime({
 			inherits: Animal
 		});
 
@@ -288,11 +288,11 @@ describe('Class::implement', function(){
 
 });
 
-describe('Class toString', function(){
+describe('prime toString', function(){
 
 	it('should allow to implement toString', function(){
 
-		var Person = Class({
+		var Person = prime({
 
 			constructor: function(name){
 				this.name = name;
@@ -304,7 +304,7 @@ describe('Class toString', function(){
 
 		});
 
-		var Italian = Class({
+		var Italian = prime({
 
 			inherits: Person,
 
@@ -321,16 +321,16 @@ describe('Class toString', function(){
 
 });
 
-// describe('Class Mutators', function(){
+// describe('prime Mutators', function(){
 //
 // 	it('should inherit mutators', function(){
 //
-// 		var Being = Class({});
+// 		var Being = prime({});
 // 		Being.defineMutator('Legs', function(legs){
 // 			this.prototype.legs = legs;
 // 		});
 //
-// 		var Person = Class({
+// 		var Person = prime({
 // 			inherits: Being,
 // 			Legs: 2,
 // 			BeerCapacity: 10
@@ -339,7 +339,7 @@ describe('Class toString', function(){
 // 			this.prototype.beers = beers;
 // 		});
 //
-// 		var Student = Class({
+// 		var Student = prime({
 // 			inherits: Person,
 // 			Legs: 2,
 // 			BeerCapacity: 10
@@ -362,7 +362,7 @@ describe('Class toString', function(){
 // describe('Protected methods', function(){
 //
 // 	it('should throw an error when calling a protected method', function(){
-// 		var Person = Class({
+// 		var Person = prime({
 // 			'protected parse': function(){
 // 				this.parsed = true;
 // 				return 'parsing...';
