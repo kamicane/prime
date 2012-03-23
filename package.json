@@ -1,22 +1,35 @@
 {
-	"name": "prime",
-	"homepage": "https://github.com/mootools/prime",
-	"version": "0.0.3-alpha",
-	"main": "./main.js",
-	"description": "prime, an OOP javascript library for node and the web.",
-	"keywords": ["library", "framework", "es5", "class", "array", "object"],
-	"author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
-	"contributors": [
-		"Arian Stolwijk <@arian> (http://aryweb.nl)",
-		"Olmo Maldonado <@ibolmo> (http://github.com/ibolmo)",
-		"Christoph Pojer <@cpojer> (http://cpojer.net)"
-	],
-	"bugs": {
-		"url": "https://github.com/mootools/prime/issues"
-	},
-	"license": "MIT (http://mootools.net/license.txt)",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/mootools/prime.git"
-	}
+  "name": "prime",
+  "homepage": "https://github.com/mootools/prime",
+  "version": "0.0.4-alpha",
+  "main": "./main.js",
+  "description": "prime, an OOP javascript library for node and the web.",
+  "keywords": [
+    "library",
+    "framework",
+    "es5",
+    "class",
+    "array",
+    "object"
+  ],
+  "author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
+  "contributors": [
+    "Arian Stolwijk <@arian> (http://aryweb.nl)",
+    "Olmo Maldonado <@ibolmo> (http://github.com/ibolmo)",
+    "Christoph Pojer <@cpojer> (http://cpojer.net)"
+  ],
+  "bugs": {
+    "url": "https://github.com/mootools/prime/issues"
+  },
+  "license": "MIT (http://mootools.net/license.txt)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mootools/prime.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
 }
