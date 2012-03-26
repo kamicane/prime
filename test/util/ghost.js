@@ -6,8 +6,8 @@ var ghost = require('../../util/ghost')()
 
 var type = require('../../util/type'),
 	array = require('../../es5/array'),
-	number = require('../../es5/number'),
-	string = require('../../es5/string')
+	string = require('../../es5/string'),
+	number = require('../../es5/number')
 
 describe('ghost', function(){
 
@@ -19,11 +19,20 @@ describe('ghost', function(){
 		return type(self) == 'string'
 	}, string)
 
+	ghost.register(function(self){
+		return type(self) == 'number'
+	}, number)
+
 	it('should ghost types for chaining methods', function(){
 		expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
 		expect(ghost('  1,A,F   ').trim().split(',').map(function(value){
 			return parseInt(value, 16)
 		}).valueOf()).to.eql([1, 10, 15])
+	})
+
+	it('should use valueOf automatically', function(){
+		expect(ghost('abcd').indexOf('c').is(2)).to.be.ok()
+		expect(ghost('abcd').indexOf('c') + 1).to.equal(3)
 	})
 
 	it('should return a string when ghost.toString() is called', function(){
