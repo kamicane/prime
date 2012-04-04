@@ -2,7 +2,11 @@
 
 path=`dirname $0`
 SOURCE="$path/../"
-DEST="$path/../amd"
+if [ -z $1 ]; then
+	DEST="$path/../amd"
+else
+	DEST="$path/../$1"
+fi
 
 # create amd folder
 if [ -e $DEST ]; then rm -rf $DEST; fi

@@ -1,5 +1,9 @@
 
-all: test build
+output ?= './prime.wrup.js'
+output_compress ?= './prime.min.js'
+amd ?= ''
+
+all: test build build-compress
 
 test: test-node
 
@@ -10,9 +14,12 @@ test-node:
 		./test/prime/*
 
 build:
-	@if [ ! -e ./dist ]; then mkdir dist; fi
-	@wrup -r prime ./main.js > ./dist/prime.js
-	@wrup -r prime ./main.js --compress yes > ./dist/prime.min.js
+	@wrup -r prime ./main.js > $(output)
+	@echo "File written to $(output)"
+
+build-compress:
+	@wrup -r prime ./main.js --compress yes > $(output_compress)
+	@echo "File written to $(output_compress)"
 
 convert-amd:
-	@bash ./bin/convert-amd.sh
+	@bash ./bin/convert-amd.sh $(amd)
