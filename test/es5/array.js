@@ -5,36 +5,6 @@ var array = require('../../es5/array')
 
 describe('es5/array', function(){
 
-	it('should accept thisArgs without length property', function(){
-		var object = {}, fn = function(){}
-		expect([].every.call(object, fn)).to.be(true)
-		expect([].filter.call(object, fn)).to.eql([])
-		expect([].indexOf.call(object)).to.equal(-1)
-		expect([].map.call(object, fn)).to.eql([])
-		expect([].some.call(object, fn)).to.be(false)
-	})
-
-	describe('Array.isArray', function(){
-
-		it('should test if a value is an Array', function(){
-			expect(array.isArray([])).to.be(true)
-			expect(array.isArray(new Array())).to.be(true)
-			expect(array.isArray(Array())).to.be(true)
-			expect(array.isArray('abc'.match(/(a)*/g))).to.be(true)
-			expect((function(){ return array.isArray(arguments) })()).to.be(false)
-			expect(array.isArray()).to.be(false)
-			expect(array.isArray(null)).to.be(false)
-			expect(array.isArray(undefined)).to.be(false)
-			expect(array.isArray(true)).to.be(false)
-			expect(array.isArray(false)).to.be(false)
-			expect(array.isArray('a string')).to.be(false)
-			expect(array.isArray({})).to.be(false)
-			expect(array.isArray({length: 5})).to.be(false)
-			expect(array.isArray({__proto__: Array.prototype, length:1, 0:1, 1:2})).to.be(false)
-		})
-
-	})
-
 	function getTestArray(){
 		var arr = [0, 1, 2, 3]
 		delete arr[1]
@@ -205,6 +175,36 @@ describe('es5/array', function(){
 			})
 
 			expect(i).to.equal(3)
+		})
+
+	})
+
+	it('should accept thisArgs without length property', function(){
+		var object = {}, fn = function(){}
+		expect([].every.call(object, fn)).to.be(true)
+		expect([].filter.call(object, fn)).to.eql([])
+		expect([].indexOf.call(object)).to.equal(-1)
+		expect([].map.call(object, fn)).to.eql([])
+		expect([].some.call(object, fn)).to.be(false)
+	})
+
+	describe('Array.isArray', function(){
+
+		it('should test if a value is an Array', function(){
+			expect(array.isArray([])).to.be(true)
+			expect(array.isArray(new Array())).to.be(true)
+			expect(array.isArray(Array())).to.be(true)
+			expect(array.isArray('abc'.match(/(a)*/g))).to.be(true)
+			expect((function(){ return array.isArray(arguments) })()).to.be(false)
+			expect(array.isArray()).to.be(false)
+			expect(array.isArray(null)).to.be(false)
+			expect(array.isArray(undefined)).to.be(false)
+			expect(array.isArray(true)).to.be(false)
+			expect(array.isArray(false)).to.be(false)
+			expect(array.isArray('a string')).to.be(false)
+			expect(array.isArray({})).to.be(false)
+			expect(array.isArray({length: 5})).to.be(false)
+			expect(array.isArray({__proto__: Array.prototype, length:1, 0:1, 1:2})).to.be(false)
 		})
 
 	})
