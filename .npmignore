@@ -1,3 +1,6 @@
+.gitignore
 README.md
+Makefile
+bin/*
 test/*
 color/*
