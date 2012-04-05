@@ -27,7 +27,7 @@ module.exports = prime({
 		var listeners = this._listeners, events
 		if (listeners && (events = listeners[event]) && events.length){
 			var args = (arguments.length > 1) ? array.slice(arguments, 1) : []
-			array.forEach(events, function(event){
+			array.forEach(events.slice(), function(event){
 				event.apply(this, args)
 			}, this)
 		}
