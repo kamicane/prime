@@ -26,7 +26,7 @@ var list = shell({
 	},
 
 	each: function(method, context){
-		for (var i = this.length; i--;){
+		for (var i = 0, l = this.length; i < l; i++){
 			if (i in this && method.call(context, i, this[i], this) === false) break
 		}
 		return this
