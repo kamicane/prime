@@ -2,26 +2,9 @@
 "use strict";
 
 var expect = require('expect.js')
-var ghost = require('../../util/ghost')()
-
-var type = require('../../util/type'),
-	array = require('../../es5/array'),
-	string = require('../../es5/string'),
-	number = require('../../es5/number')
+var ghost = require('../../util/ghost')
 
 describe('ghost', function(){
-
-	ghost.register(function(self){
-		return type(self) == 'array'
-	}, array)
-
-	ghost.register(function(self){
-		return type(self) == 'string'
-	}, string)
-
-	ghost.register(function(self){
-		return type(self) == 'number'
-	}, number)
 
 	it('should ghost types for chaining methods', function(){
 		expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
