@@ -1,4 +1,5 @@
 .gitignore
+.tm_properties
 README.md
 Makefile
 bin/*

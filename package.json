@@ -2,7 +2,7 @@
   "name": "prime",
   "homepage": "https://github.com/mootools/prime",
   "version": "0.0.4-alpha",
-  "main": "./main.js",
+  "main": "./prime/index.js",
   "description": "prime, an OOP javascript library for node and the web.",
   "keywords": [
     "library",
