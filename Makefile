@@ -14,11 +14,11 @@ test-node:
 		./test/prime/*
 
 build:
-	@wrup -r prime ./main.js > $(output)
+	@wrup -r prime ./ > $(output)
 	@echo "File written to $(output)"
 
 build-compress:
-	@wrup -r prime ./main.js --compress yes > $(output_compress)
+	@wrup -r prime ./ --compress yes > $(output_compress)
 	@echo "File written to $(output_compress)"
 
 convert-amd:
