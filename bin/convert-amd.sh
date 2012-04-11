@@ -5,7 +5,7 @@ SOURCE="$path/../"
 if [ -z $1 ]; then
 	DEST="$path/../amd"
 else
-	DEST="$path/../$1"
+	DEST=$1
 fi
 
 # create amd folder
@@ -18,7 +18,6 @@ cp -r $SOURCE/es5 $DEST/es5
 cp -r $SOURCE/prime $DEST/prime
 cp -r $SOURCE/types $DEST/types
 cp -r $SOURCE/util $DEST/util
-cp $SOURCE/main.js $DEST/main.js
 mv $DEST/prime/index.js $DEST/prime.js
 
 # wrap with define(function(){...})
