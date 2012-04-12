@@ -18,7 +18,7 @@ module.exports = prime({
 		var listeners = this._listeners, events
 		if (listeners && (events = listeners[event]) && events.length){
 			var index = array.indexOf(events, fn)
-			if (index > -1) events.splice(index, 1)
+			if (index > -1) delete events[index]
 		}
 		return this
 	},
@@ -27,9 +27,11 @@ module.exports = prime({
 		var listeners = this._listeners, events
 		if (listeners && (events = listeners[event]) && events.length){
 			var args = (arguments.length > 1) ? array.slice(arguments, 1) : []
-			array.forEach(events.slice(), function(event){
-				event.apply(this, args)
-			}, this)
+			for (var i = 0; i < events.length; i++){
+				var evt = events[i]
+				if (evt) evt.apply(this, args)
+				else events.splice(i--, 1)
+			}
 		}
 		return this
 	}
