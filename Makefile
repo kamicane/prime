@@ -11,7 +11,8 @@ test-node:
 	@mocha \
 		./test/es5/* \
 		./test/util/* \
-		./test/prime/*
+		./test/prime/* \
+		./test/collection/*
 
 build:
 	@wrup -r prime ./ > $(output)
