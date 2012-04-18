@@ -59,7 +59,7 @@ var Map = prime({
 	filter: function(method, context){
 		var results = new Map
 		this.each(function(value, key){
-			results.set(key, method.call(context, value, key, this))
+			if (method.call(context, value, key, this)) results.set(key, value)
 		}, this)
 		return results
 	},
@@ -67,7 +67,7 @@ var Map = prime({
 	every: function(method, context){
 		var every = true
 		this.each(function(value, key){
-			if (!method.call(context, value, key, this)) return every = false
+			if (!method.call(context, value, key, this)) return (every = false)
 		}, this)
 		return every
 	},
@@ -90,8 +90,8 @@ var Map = prime({
 
 		if (index !== -1){
 			this._keys.splice(index, 1)
-			return this._values.splice(index, 1)[0]
 			this.length--
+			return this._values.splice(index, 1)[0]
 		}
 
 		return null
