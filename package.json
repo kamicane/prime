@@ -27,7 +27,10 @@
     "url": "git://github.com/mootools/prime.git"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "1.0",
+    "expect.js": "0.1"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
