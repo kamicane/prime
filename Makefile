@@ -8,7 +8,7 @@ all: test build build-compress
 test: test-node
 
 test-node:
-	@mocha \
+	@./node_modules/mocha/bin/mocha --reporter nyan \
 		./test/es5/* \
 		./test/util/* \
 		./test/prime/* \
