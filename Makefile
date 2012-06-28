@@ -15,11 +15,11 @@ test-node:
 		./test/collection/*
 
 build:
-	@wrup -r prime ./ > $(output)
+	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)
 	@echo "File written to $(output)"
 
 build-compress:
-	@wrup -r prime ./ --compress yes > $(output_compress)
+	@./node_modules/wrapup/bin/wrup.js -r prime ./ --compress yes > $(output_compress)
 	@echo "File written to $(output_compress)"
 
 convert-amd:
