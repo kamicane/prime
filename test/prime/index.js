@@ -113,8 +113,8 @@ describe("prime constructors", function(){
 		var three = new Three();
 		expect(three.id).to.be("TWO");
 
-		expect(one.constructor.toString()).to.eql("function (){}")
-		expect(three.constructor.toString()).to.eql('function (){\n\t\treturn superproto.constructor.apply(this, arguments)\n\t}')
+		expect(one.constructor.toString()).to.be((function(){}).toString())
+		expect(Three.prototype.constructor).to.be.a('function')
 
 	})
 
