@@ -9,9 +9,9 @@ var proto = String.prototype
 
 var string = shell({
 
-	trim: proto.trim/*(es5 && string.trim)?*/ || function(){
-		return (this + '').replace(/^\s+|\s+$/g, '')
-	}/*:*/
+    trim: proto.trim/*(es5 && string.trim)?*/ || function(){
+        return (this + '').replace(/^\s+|\s+$/g, '')
+    }/*:*/
 
 })
 

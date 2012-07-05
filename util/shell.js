@@ -3,25 +3,25 @@ shell 🐚
 */"use strict"
 
 var prime = require("../prime"),
-	slice = Array.prototype.slice
+    slice = Array.prototype.slice
 
 var shell = prime({
 
-	mutator: function(key, method){
-		this[key] = function(self){
-			var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
-			return method.apply(self, args)
-		}
+    mutator: function(key, method){
+        this[key] = function(self){
+            var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
+            return method.apply(self, args)
+        }
 
-		this.prototype[key] = method
-	},
+        this.prototype[key] = method
+    },
 
-	constructor: {prototype: {}}
+    constructor: {prototype: {}}
 
 })
 
 module.exports = function(proto){
-	var inherits = proto.inherits || (proto.inherits = shell)
-	proto.constructor = prime.create(inherits)
-	return prime(proto)
+    var inherits = proto.inherits || (proto.inherits = shell)
+    proto.constructor = prime.create(inherits)
+    return prime(proto)
 }

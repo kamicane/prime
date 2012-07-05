@@ -8,7 +8,7 @@ var shell = require("../util/shell")
 var proto = Function.prototype
 
 module.exports = shell({
-	apply: proto.apply,
-	call: proto.call,
-	bind: proto.bind
+    apply: proto.apply,
+    call: proto.call,
+    bind: proto.bind
 })

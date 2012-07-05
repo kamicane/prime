@@ -10,46 +10,46 @@ var shell = require("../util/shell")
 
 var list = shell({
 
-	inherits: require("../es5/array"),
+    inherits: require("../es5/array"),
 
-	set: function(i, value){
-		this[i] = value
-		return this
-	},
+    set: function(i, value){
+        this[i] = value
+        return this
+    },
 
-	get: function(i){
-		return (i in this) ? this[i] : null
-	},
+    get: function(i){
+        return (i in this) ? this[i] : null
+    },
 
-	count: function(){
-		return this.length
-	},
+    count: function(){
+        return this.length
+    },
 
-	each: function(method, context){
-		for (var i = 0, l = this.length; i < l; i++){
-			if (i in this && method.call(context, i, this[i], this) === false) break
-		}
-		return this
-	},
+    each: function(method, context){
+        for (var i = 0, l = this.length; i < l; i++){
+            if (i in this && method.call(context, i, this[i], this) === false) break
+        }
+        return this
+    },
 
-	index: function(value){
-		var index = list.indexOf(value)
-		return index == -1 ? null : index
-	},
+    index: function(value){
+        var index = list.indexOf(value)
+        return index == -1 ? null : index
+    },
 
-	remove: function(i){
-		return list.splice(this, i, 1)[0]
-	},
+    remove: function(i){
+        return list.splice(this, i, 1)[0]
+    },
 
-	keys: function(){
-		return list.map(this, function(v, i){
-			return i
-		})
-	},
+    keys: function(){
+        return list.map(this, function(v, i){
+            return i
+        })
+    },
 
-	values: function(){
-		return list.slice(this)
-	}
+    values: function(){
+        return list.slice(this)
+    }
 
 })
 
