@@ -41,7 +41,7 @@ describe('emitter', function(){
 			called--
 		})
 		publisher.on('add5', function(){
-			called+=5
+			called += 5
 		})
 		expect(called).to.be(0)
 		publisher.emit('add5')
