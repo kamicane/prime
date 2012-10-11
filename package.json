@@ -30,7 +30,8 @@
   "devDependencies": {
     "mocha": "1.6",
     "expect.js": "0.1",
-    "wrapup": "0.9"
+    "wrapup": "0.9",
+    "procs": "0.0.4"
   },
   "optionalDependencies": {},
   "engines": {

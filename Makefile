@@ -24,3 +24,6 @@ build-compress:
 
 convert-amd:
 	@bash ./bin/convert-amd.sh $(amd)
+
+docs:
+	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
