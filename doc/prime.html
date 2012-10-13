@@ -2,13 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Elements Docs</title>
+        <title>Prime Docs</title>
         <link href="./monokai.css" rel="stylesheet">
         <link href="./styles.css" rel="stylesheet">
     </head>
     <body>
 
         <div id="sidebar"><a href="#prime" class="top">prime</a>
+<a href="#prime:implement">prime:implement</a>
+<a href="#prime.each">prime.each</a>
+<a href="#prime.has">prime.has</a>
+<a href="#prime.create">prime.create</a>
+<a href="#es5/array" class="top">es5/array</a>
+<a href="#filter">filter</a>
+<a href="#indexOf">indexOf</a>
+<a href="#map">map</a>
+<a href="#forEach">forEach</a>
 </div>
         <div id="content"><h1><a href="#prime" name="prime">prime</a></h1>
 
@@ -17,6 +26,368 @@
 <li>make (something) ready for use or action.</li>
 <li>archetypal, prototypical, typical, classic.</li>
 </ol>
+
+<p>Prime is a small helper to make JavaScript inheritance easier.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> MyPrime = prime(properties)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>properties (<em>object</em>) - An object with all methods that will apply to the
+prime, including special cases like <code>constructor</code> or <code>inherits</code> (see below).</li>
+</ol>
+<h4>Property: constructor</h4>
+
+<p>This function is the constructor of the prime. This will be called when a
+new instance of the prime will be created.</p>
+<h4>Property: inherits</h4>
+
+<p>Sets the parent object of the prime.</p>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>function</em>) The <code>constructor</code> function, which will create the new prime
+object if it&#39;s called with the <code>new</code> keyword. The function is extended with
+an <code>implements</code> function that can add new methods to the prime.</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="comment">// require prime</span>
+<span class="keyword">var</span> prime = require(<span class="string">'prime'</span>)
+
+<span class="comment">// create a new prime</span>
+<span class="keyword">var</span> Point = prime({
+    <span class="comment">// constructor</span>
+    constructor: <span class="keyword">function</span>(x, y){
+        <span class="keyword">this</span>.x = x
+        <span class="keyword">this</span>.y = y
+    }
+})
+
+<span class="comment">// another prime</span>
+<span class="keyword">var</span> Shape = prime({
+    constructor: <span class="keyword">function</span>(point){
+        <span class="keyword">this</span>.position = point
+    },
+    <span class="comment">// an area method</span>
+    area: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> <span class="number">0</span>
+    },
+    <span class="comment">// circumference method</span>
+    circumference: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> <span class="number">0</span>
+    }
+})
+
+<span class="keyword">var</span> Circle = prime({
+    <span class="comment">// Circle inherits from Shape</span>
+    inherits: Shape,
+    constructor: <span class="keyword">function</span>(point, radius){
+        <span class="comment">// call Shape constructor</span>
+        Shape.call(<span class="keyword">this</span>, point)
+        <span class="keyword">this</span>.radius = radius
+    },
+    <span class="comment">// override area and circumference methods</span>
+    area: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> Math.PI * <span class="keyword">this</span>.radius * <span class="keyword">this</span>.radius
+    },
+    circumference: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> <span class="number">2</span> * Math.PI * <span class="keyword">this</span>.radius
+    }
+})
+
+<span class="keyword">var</span> Rectangle = prime({
+    <span class="comment">// like Circle, Rectangle also inherits from Shape</span>
+    inherits: Shape,
+    constructor: <span class="keyword">function</span>(point, a, b){
+        Shape.call(<span class="keyword">this</span>, point)
+        <span class="keyword">this</span>.a = a
+        <span class="keyword">this</span>.b = b
+    },
+    area: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> <span class="keyword">this</span>.a * <span class="keyword">this</span>.b
+    },
+    circumference: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> <span class="number">2</span> * (<span class="keyword">this</span>.a + <span class="keyword">this</span>.b)
+    }
+})
+
+<span class="comment">// instantiate a new point</span>
+<span class="keyword">var</span> point = <span class="keyword">new</span> Point(<span class="number">20</span>, <span class="number">40</span>)
+<span class="comment">// create a new circle</span>
+<span class="keyword">var</span> circle = <span class="keyword">new</span> Circle(point, <span class="number">10</span>)
+<span class="comment">// calculate the circumference of the circle</span>
+circle.circumference() <span class="comment">// 20π</span>
+<span class="comment">// Create a new rectangle and calculate its area</span>
+<span class="keyword">var</span> rectangle = <span class="keyword">new</span> Rectangle(point, <span class="number">10</span>, <span class="number">20</span>)
+rectangle.area() <span class="comment">// 200</span></code></pre>
+<h2><a href="#prime:implement" name="prime:implement">prime:implement</a></h2>
+
+<p>Implement new methods to a prime prototype.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">MyPrime.implement(methods)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>methods - (<em>object</em>) An object with key-value pairs with the method-names
+and methods.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>prime</em>) The adjusted prime.</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript">Circle.implement({
+    draw: <span class="keyword">function</span>(){
+        <span class="keyword">this</span>.ctx.beginPath()
+        <span class="keyword">this</span>.ctx.arc(<span class="keyword">this</span>.position.x, <span class="keyword">this</span>.position.y, <span class="keyword">this</span>.radius,
+            <span class="number">0</span>, <span class="number">2</span> * Math.PI, <span class="literal">false</span>)
+        <span class="keyword">this</span>.ctx.fillStyle = <span class="string">"#8ED6FF"</span>
+        <span class="keyword">this</span>.ctx.fill()
+    }
+})</code></pre>
+<h2><a href="#prime.each" name="prime.each">prime.each</a></h2>
+
+<p>Iterates through all properties of an object.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">prime.each(object, <span class="keyword">function</span>)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>object - (<em>object</em>) The object to iterate through</li>
+<li>function - (<em>function</em>) The function which is called for each key-value pair.</li>
+<li>context - (<em>object</em>) The <code>this</code> inside the function.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>object</em>) the same object as the first argument.</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="comment">// alerts 'The first day of the week is Sunday'</span>
+<span class="comment">// 'The second day of the week is Monday', etc.:</span>
+<span class="keyword">var</span> days = {first: <span class="string">'Sunday'</span>, second: <span class="string">'Monday'</span>, third: <span class="string">'Tuesday'</span>}
+prime.each(days, <span class="keyword">function</span>(value, key){
+    alert(<span class="string">'The '</span> + key + <span class="string">' day of the week is '</span> + value)
+})</code></pre>
+<h2><a href="#prime.has" name="prime.has">prime.has</a></h2>
+
+<p>Returns a boolean whether an object has a certain property.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">prime.has(object, property)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>object - (<em>object</em>) The object which will be tested if it has a property</li>
+<li>property - (<em>string</em>) The name of the property to test.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) <code>true</code> if the object as a direct property (own property, so not
+a property on the object&#39;s prototype).</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="comment">// A simple plain object</span>
+<span class="keyword">var</span> object = {color: <span class="string">'red'</span>}
+<span class="comment">// Circle prime, from the prime example</span>
+<span class="keyword">var</span> circle = <span class="keyword">new</span> Circle(<span class="keyword">new</span> Point(<span class="number">10</span>, <span class="number">30</span>), <span class="number">4</span>)
+prime.has(object, <span class="string">'color'</span>) <span class="comment">// true</span>
+prime.has(object, <span class="string">'size'</span>) <span class="comment">// false</span>
+prime.has(circle, <span class="string">'radius'</span>) <span class="comment">// true (defined in the Circle constructor)</span>
+prime.has(circle, <span class="string">'circumference'</span>) <span class="comment">// false (it is only on the prototype)</span>
+<span class="comment">// compared to the 'in' operator</span>
+<span class="string">'circumference'</span> <span class="keyword">in</span> circle <span class="comment">// true</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">MDN Object.hasOwnProperty</a></li>
+</ul>
+<h2><a href="#prime.create" name="prime.create">prime.create</a></h2>
+
+<p>Creates a new object with the specified prototype.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">prime.create(proto)</code></pre>
+<h3>Parameters</h3>
+
+<ul>
+<li>proto - (<em>object</em>) The object which should be the prototype of the
+created object</li>
+</ul>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>object</em>) An object with the <code>proto</code> argument as prototype</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="keyword">var</span> object = prime.create({
+    set: <span class="keyword">function</span>(key, value){
+        <span class="keyword">this</span>[key] = value
+    },
+    get: <span class="keyword">function</span>(key){
+        <span class="keyword">return</span> <span class="keyword">this</span>[key]
+    }
+})
+object.set(<span class="string">'foo'</span>, <span class="string">'bar'</span>)
+
+<span class="comment">// or usually it's used for inheritance</span>
+<span class="keyword">var</span> Square = <span class="keyword">function</span>(size){
+    Rectangle.call(<span class="keyword">this</span>, size, size)
+}
+
+<span class="comment">// set the Square prototype to an object wich has the Rectangle prototype in</span>
+<span class="comment">// its prototype (create a prototype chain)</span>
+Square.prototype = prime.create(Rectangle.prototype)
+
+<span class="keyword">var</span> square = <span class="keyword">new</span> Square(<span class="number">5</span>)
+square.area() <span class="comment">// 25</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create">MDN Object.create</a></li>
+</ul>
+<h1><a href="#es5/array" name="es5/array">es5/array</a></h1>
+
+<p>This module contains ECMAScript 5 shims for platforms that don&#39;t support them
+yet.</p>
+<pre><code class="javascript"><span class="keyword">var</span> array = require(<span class="string">'prime/es5/array'</span>)</code></pre>
+<h2><a href="#filter" name="filter">filter</a></h2>
+
+<p>Creates a new array with all of the elements of the array for which the
+provided filtering function returns true.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> filteredArray = array.filter(myArray, fn[, context])</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>myArray - (<em>array</em>) The array to filter.</li>
+<li>fn - (<em>function</em>) The function to test each element of the array. This
+function is passed the item and its index in the array.</li>
+<li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
+</ol>
+<h4>Parameter: fn</h4>
+<h5>Syntax</h5>
+<pre><code class="javascript">fn(item, index, array)</code></pre>
+<h5>Arguments</h5>
+
+<ol>
+<li>item   - (<em>mixed</em>) The current item in the array.</li>
+<li>index  - (<em>number</em>) The current item&#39;s index in the array.</li>
+<li>array  - (<em>array</em>) The actual array.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>array</em>) The new filtered array.</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="keyword">var</span> biggerThanTwenty = array.filter([<span class="number">10</span>, <span class="number">3</span>, <span class="number">25</span>, <span class="number">100</span>], <span class="keyword">function</span>(item, index){
+    <span class="keyword">return</span> item > <span class="number">20</span>
+}) <span class="comment">// biggerThanTwenty = [25, 100]</span></code></pre>
+<h3>See Also:</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter">MDN Array:filter</a></li>
+</ul>
+<h2><a href="#indexOf" name="indexOf">indexOf</a></h2>
+
+<p>Returns the index of the first element within the array equal to the specified
+value, or -1 if the value is not found.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> index = myArray.indexOf(item[, from])</code></pre>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>number</em>) The index of the first element within the array equal to the
+specified value. If not found, returns -1.</li>
+</ul>
+<h3>Parameters</h3>
+
+<ol>
+<li>item - (<em>object</em>) The item to search for in the array.</li>
+<li>from - (<em>number</em>, optional: defaults to 0) The index of the array at which
+to begin the search.</li>
+</ol>
+<h3>Examples</h3>
+<pre><code class="javascript">array.indexOf([<span class="string">'apple'</span>, <span class="string">'lemon'</span>, <span class="string">'banana'</span>], <span class="string">'lemon'</span>) <span class="comment">// returns 1</span>
+array.indexOf([<span class="string">'apple'</span>, <span class="string">'lemon'</span>], <span class="string">'banana'</span>); <span class="comment">// returns -1</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf">MDN Array:indexOf</a></li>
+</ul>
+<h2><a href="#map" name="map">map</a></h2>
+
+<p>Creates a new array with the results of calling a provided function on every
+element in the array.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> mappedArray = array.map(myArray, fn[, context])</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>myArray - (<em>array</em>) Original array to map</li>
+<li>fn - (<em>function</em>) The function to produce an element of the new Array from
+an element of the current one.</li>
+<li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
+</ol>
+<h4>Argument: fn</h4>
+<h5>Syntax</h5>
+<pre><code class="javascript">fn(item, index, array)</code></pre>
+<h5>Arguments</h5>
+
+<ol>
+<li>item   - (<em>mixed</em>) The current item in the array.</li>
+<li>index  - (<em>number</em>) The current item&#39;s index in the array.</li>
+<li>array  - (<em>array</em>) The actual array.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>array</em>) The new mapped array.</li>
+</ul>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="keyword">var</span> timesTwo = array.map([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="keyword">function</span>(item, index){
+    <span class="keyword">return</span> item * <span class="number">2</span>
+}) <span class="comment">// timesTwo = [2, 4, 6]</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map">MDN Array:map</a></li>
+</ul>
+<h2><a href="#forEach" name="forEach">forEach</a></h2>
+
+<p>Used to iterate through arrays, or iterables that are not regular arrays, such
+as built in getElementsByTagName calls or arguments of a function.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">array.forEach(myArray, fn[, context])</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>myArray - (<em>array</em>) The array to iterate through.</li>
+<li>fn - (<em>function</em>) The function to test for each element.</li>
+<li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; within the
+function.</li>
+</ol>
+<h4>Parameter: fn</h4>
+<h5>Syntax</h5>
+<pre><code class="javascript">fn(item, index, object)</code></pre>
+<h5>Arguments</h5>
+
+<ol>
+<li>item   - (<em>mixed</em>) The current item in the array.</li>
+<li>index  - (<em>number</em>) The current item&#39;s index in the array. In the case of an
+object, it is passed the key of that item rather than the index.</li>
+<li>object - (<em>mixed</em>) The actual array/object.</li>
+</ol>
+<h3>Example</h3>
+<pre><code class="javascript">array.forEach([<span class="string">'Sun'</span>, <span class="string">'Mon'</span>, <span class="string">'Tue'</span>], <span class="keyword">function</span>(day, index){
+    alert(<span class="string">'name:'</span> + day + <span class="string">', index: '</span> + index)
+}) <span class="comment">// alerts 'name: Sun, index: 0', 'name: Mon, index: 1', etc.</span></code></pre>
+<h3>See Also:</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">MDN Array:forEach</a></li>
+</ul>
 </div>
 
     </body>
