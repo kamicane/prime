@@ -18,6 +18,10 @@
 <a href="#indexOf">indexOf</a>
 <a href="#map">map</a>
 <a href="#forEach">forEach</a>
+<a href="#every">every</a>
+<a href="#some">some</a>
+<a href="#isArray">isArray</a>
+<a href="#util/shell" class="top">util/shell</a>
 </div>
         <div id="content"><h1><a href="#prime" name="prime">prime</a></h1>
 
@@ -248,9 +252,18 @@ square.area() <span class="comment">// 25</span></code></pre>
 </ul>
 <h1><a href="#es5/array" name="es5/array">es5/array</a></h1>
 
-<p>This module contains ECMAScript 5 shims for platforms that don&#39;t support them
-yet.</p>
-<pre><code class="javascript"><span class="keyword">var</span> array = require(<span class="string">'prime/es5/array'</span>)</code></pre>
+<p>This module contains all ECMAScript 5 array methods on an <code>array</code> object. If
+the platform doesn&#39;t support certain methods, it will shim them.</p>
+<pre><code class="javascript"><span class="keyword">var</span> array = require(<span class="string">'prime/es5/array'</span>)
+array.indexOf([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>) <span class="comment">// 1</span></code></pre>
+
+<p>All ES3 Array methods are added to <code>array</code> too, for example:</p>
+<pre><code class="javascript">(<span class="keyword">function</span>(){
+    <span class="keyword">var</span> args = array.slice(arguments) <span class="comment">// [1, 2, 3]</span>
+    array.push(args, <span class="number">4</span>) <span class="comment">// [1, 2, 3, 4]</span>
+})(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</code></pre>
+
+<p><code>array</code> is a <a href="#util/shell">shell</a>.</p>
 <h2><a href="#filter" name="filter">filter</a></h2>
 
 <p>Creates a new array with all of the elements of the array for which the
@@ -388,6 +401,116 @@ object, it is passed the key of that item rather than the index.</li>
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">MDN Array:forEach</a></li>
 </ul>
+<h2><a href="#every" name="every">every</a></h2>
+
+<p>Returns true if every element in the array satisfies the provided testing
+function.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> allPassed = array.every(myArray, fn[, context])</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>myArray - (<em>array</em>) The array with the elements that should be checked.</li>
+<li>fn - (<em>function</em>) The function to test for each element.</li>
+<li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
+</ol>
+<h4>Parameter: fn</h4>
+<h5>Syntax</h5>
+<pre><code class="javascript">fn(item, index, array)</code></pre>
+<h5>Arguments</h5>
+
+<ol>
+<li>item   - (<em>mixed</em>) The current item in the array.</li>
+<li>index  - (<em>number</em>) The current item&#39;s index in the array.</li>
+<li>array  - (<em>array</em>) The actual array.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) If every element in the array satisfies the provided testing
+function, returns true. Otherwise, returns false.</li>
+</ul>
+<h3>Examples:</h3>
+<pre><code class="javascript"><span class="keyword">var</span> areAllBigEnough = array.every([<span class="number">10</span>, <span class="number">4</span>, <span class="number">25</span>, <span class="number">100</span>], <span class="keyword">function</span>(item, index){
+    <span class="keyword">return</span> item > <span class="number">20</span>
+}) <span class="comment">// areAllBigEnough = false</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every">MDN Array:every</a></li>
+</ul>
+<h2><a href="#some" name="some">some</a></h2>
+
+<p>Returns true if at least one element in the array satisfies the provided
+testing function.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> somePassed = array.some(myArray, fn[, context])</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>myArray - (<em>array</em>) The array with the elements that should be checked.</li>
+<li>fn - (<em>function</em>) The function to test for each element. This function is
+passed the item and its index in the array.</li>
+<li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
+</ol>
+<h4>Parameter: fn</h4>
+<h5>Syntax</h5>
+<pre><code>fn(item, index, array)
+</code></pre>
+<h5>Arguments</h5>
+
+<ol>
+<li>item   - (<em>mixed</em>) The current item in the array.</li>
+<li>index  - (<em>number</em>) The current item&#39;s index in the array.</li>
+<li>array  - (<em>array</em>) The actual array.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) If some element in the array satisfies the provided testing
+function, returns true. Otherwise, returns false.</li>
+</ul>
+<h3>Examples</h3>
+<pre><code class="javascript"><span class="keyword">var</span> isAnyBigEnough = array.some([<span class="number">10</span>, <span class="number">4</span>, <span class="number">25</span>, <span class="number">100</span>, <span class="keyword">function</span>(item, index){
+    <span class="keyword">return</span> item > <span class="number">20</span>;
+}); <span class="comment">// isAnyBigEnough = true</span></code></pre>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some">MDN Array:some</a></li>
+</ul>
+<h2><a href="#isArray" name="isArray">isArray</a></h2>
+
+<p>Returns <code>true</code> if the object is an array, otherwise <code>false</code>.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript">array.isArray(object)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>object (<em>mixed</em>) The object to be checked if it&#39;s an array.</li>
+</ol>
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) <code>true</code> if the object is an array, otherwise it will return
+<code>false</code>.</li>
+</ul>
+<h3>Examples</h3>
+<pre><code class="javascript">array.isArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) <span class="comment">// true for arrays</span>
+array.isArray(<span class="string">'moo'</span>) <span class="comment">// false for any other type</span>
+array.isArray({length: <span class="number">1</span>, <span class="number">0</span>: <span class="string">'hi'</span>}) <span class="comment">// also false for array-like objects</span></code></pre>
+<h3>Note</h3>
+
+<ul>
+<li>This function is a &#39;static&#39; function, so not like other methods on this
+<a href="#util/shell">shell</a>.</li>
+</ul>
+<h3>See Also</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray">MDN Array.isArray</a></li>
+</ul>
+<h1><a href="#util/shell" name="util/shell">util/shell</a></h1>
 </div>
 
     </body>

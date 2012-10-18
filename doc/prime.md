@@ -261,12 +261,24 @@ square.area() // 25
 
 # es5/array
 
-This module contains ECMAScript 5 shims for platforms that don't support them
-yet.
+This module contains all ECMAScript 5 array methods on an `array` object. If
+the platform doesn't support certain methods, it will shim them.
 
 ```js
 var array = require('prime/es5/array')
+array.indexOf([1, 2, 3], 2) // 1
 ```
+
+All ES3 Array methods are added to `array` too, for example:
+
+```js
+(function(){
+    var args = array.slice(arguments) // [1, 2, 3]
+    array.push(args, 4) // [1, 2, 3, 4]
+})(1, 2, 3)
+```
+
+`array` is a [shell](#util/shell).
 
 ## filter
 
@@ -442,3 +454,135 @@ array.forEach(['Sun', 'Mon', 'Tue'], function(day, index){
 
 - [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
+## every
+
+Returns true if every element in the array satisfies the provided testing
+function.
+
+### Syntax
+
+```js
+var allPassed = array.every(myArray, fn[, context])
+```
+
+### Parameters
+
+1. myArray - (*array*) The array with the elements that should be checked.
+2. fn - (*function*) The function to test for each element.
+3. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### Parameter: fn
+
+##### Syntax
+
+```js
+fn(item, index, array)
+```
+
+##### Arguments
+
+1. item   - (*mixed*) The current item in the array.
+2. index  - (*number*) The current item's index in the array.
+3. array  - (*array*) The actual array.
+
+### Returns
+
+* (*boolean*) If every element in the array satisfies the provided testing
+function, returns true. Otherwise, returns false.
+
+### Examples:
+
+```js
+var areAllBigEnough = array.every([10, 4, 25, 100], function(item, index){
+    return item > 20
+}) // areAllBigEnough = false
+```
+
+### See Also
+
+- [MDN Array:every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
+
+## some
+
+Returns true if at least one element in the array satisfies the provided
+testing function.
+
+### Syntax
+
+```js
+var somePassed = array.some(myArray, fn[, context])
+```
+
+### Parameters
+
+1. myArray - (*array*) The array with the elements that should be checked.
+2. fn - (*function*) The function to test for each element. This function is
+passed the item and its index in the array.
+3. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### Parameter: fn
+
+##### Syntax
+
+	fn(item, index, array)
+
+##### Arguments
+
+1. item   - (*mixed*) The current item in the array.
+2. index  - (*number*) The current item's index in the array.
+3. array  - (*array*) The actual array.
+
+### Returns
+
+* (*boolean*) If some element in the array satisfies the provided testing
+function, returns true. Otherwise, returns false.
+
+### Examples
+
+```js
+var isAnyBigEnough = array.some([10, 4, 25, 100, function(item, index){
+    return item > 20;
+}); // isAnyBigEnough = true
+```
+
+### See Also
+
+- [MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
+
+## isArray
+
+Returns `true` if the object is an array, otherwise `false`.
+
+### Syntax
+
+```js
+array.isArray(object)
+```
+
+### Parameters
+
+1. object (*mixed*) The object to be checked if it's an array.
+
+### Returns
+
+* (*boolean*) `true` if the object is an array, otherwise it will return
+`false`.
+
+### Examples
+
+```js
+array.isArray([1, 2, 3]) // true for arrays
+array.isArray('moo') // false for any other type
+array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
+```
+
+### Note
+
+- This function is a 'static' function, so not like other methods on this
+[shell](#util/shell).
+
+### See Also
+
+- [MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
+
+# util/shell
