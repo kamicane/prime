@@ -27,3 +27,6 @@ convert-amd:
 
 docs:
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
+
+docs-watch:
+	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html --watch
