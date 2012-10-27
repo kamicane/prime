@@ -587,7 +587,9 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 
 # util/shell
 
-A function for creating an object that inherits from prime. Instead of extending native JavaScript objects, the returned object, called a shell, acts as a container for such methods to be placed.
+A function for creating an object that inherits from prime. Instead of
+extending native JavaScript objects, the returned object, called a shell, acts
+as a container for such methods to be placed.
 
 ### Syntax
 ```js
@@ -598,7 +600,8 @@ var myShell = shell(methods)
 
 ### Parameters
 
-1. methods - (*object*) An object containing methods. `this` in the method will refer to the first argument passed the method.
+1. methods - (*object*) An object containing methods. `this` in the method will
+refer to the first argument passed the method.
 
 ### Returns
 
@@ -606,20 +609,72 @@ var myShell = shell(methods)
 
 ```js
 var shell = require('prime/util/shell'),
-    plus = shell({
-        add: function(num) {
-            return this + num
-        },
-        one: function() {
-            return plus.add(this, 1)
-        },
-
-        two: function() {
-            return plus.add(this, 2)
-        }
-    })
-
+var plus = shell({
+    add: function(num){
+        return this + num
+    },
+    one: function(){
+        return plus.add(this, 1)
+    }
+})
+// now we can call the functions
+plus.add(4, 5) // returns 9
 plus.one(4) // returns 5
-plus.two(18) // returns 20
 
+// implement a new method, with .implement (it is a prime afterall)
+plus.implement({
+    two: function() {
+        return plus.add(this, 2)
+    }
+})
+plus.two(18) // returns 20
+```
+
+To extend a shell, without affecting the original shell, it is possible to
+inherit from a shell:
+
+```js
+var arithmetic = shell({
+    inherits: plus,
+    multiply: function(num){
+        return this * num
+    },
+    divide: function(num){
+        return this / num
+    }
+})
+arithmetic.add(4, 6) // 10
+arithmetic.multiply(4, 3) // 12
+arithmetic.divide(20, 4) // 5
+```
+
+Not only shells can inherit from another shell, but also other primes
+(or other functions):
+
+```js
+var object = shell({
+    set: function(key, value){
+        this[key] = value
+        return this
+    },
+    get: function(key){
+        return this[key]
+    }
+})
+object.set({}, 'shell', 'prime') // {shell: 'prime'}
+
+var prime = require('prime')
+var hash = prime({
+    inherits: object,
+    values: function(){
+        var values = []
+        for (var key in this) values.push(this[key])
+        return values
+    }
+})
+
+var myHash = new hash()
+hash.set('shell', 'prime')
+hash.set('primes', [2, 3, 5, 7, 11])
+hash.values() // ['prime', [2, 3, 5, 7, 11]]
 ```

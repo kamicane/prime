@@ -512,7 +512,9 @@ array.isArray({length: <span class="number">1</span>, <span class="number">0</sp
 </ul>
 <h1><a href="#util/shell" name="util/shell">util/shell</a></h1>
 
-<p>A function for creating an object that inherits from prime. Instead of extending native JavaScript objects, the returned object, called a shell, acts as a container for such methods to be placed.</p>
+<p>A function for creating an object that inherits from prime. Instead of
+extending native JavaScript objects, the returned object, called a shell, acts
+as a container for such methods to be placed.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>)
 
@@ -520,26 +522,74 @@ array.isArray({length: <span class="number">1</span>, <span class="number">0</sp
 <h3>Parameters</h3>
 
 <ol>
-<li>methods - (<em>object</em>) An object containing methods. <code>this</code> in the method will refer to the first argument passed the method.</li>
+<li>methods - (<em>object</em>) An object containing methods. <code>this</code> in the method will
+refer to the first argument passed the method.</li>
 </ol>
 <h3>Returns</h3>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>),
-    plus = shell({
-        add: <span class="keyword">function</span>(num) {
-            <span class="keyword">return</span> <span class="keyword">this</span> + num
-        },
-        one: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">1</span>)
-        },
-
-        two: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">2</span>)
-        }
-    })
-
+<span class="keyword">var</span> plus = shell({
+    add: <span class="keyword">function</span>(num){
+        <span class="keyword">return</span> <span class="keyword">this</span> + num
+    },
+    one: <span class="keyword">function</span>(){
+        <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">1</span>)
+    }
+})
+<span class="comment">// now we can call the functions</span>
+plus.add(<span class="number">4</span>, <span class="number">5</span>) <span class="comment">// returns 9</span>
 plus.one(<span class="number">4</span>) <span class="comment">// returns 5</span>
+
+<span class="comment">// implement a new method, with .implement (it is a prime afterall)</span>
+plus.implement({
+    two: <span class="keyword">function</span>() {
+        <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">2</span>)
+    }
+})
 plus.two(<span class="number">18</span>) <span class="comment">// returns 20</span></code></pre>
+
+<p>To extend a shell, without affecting the original shell, it is possible to
+inherit from a shell:</p>
+<pre><code class="javascript"><span class="keyword">var</span> arithmetic = shell({
+    inherits: plus,
+    multiply: <span class="keyword">function</span>(num){
+        <span class="keyword">return</span> <span class="keyword">this</span> * num
+    },
+    divide: <span class="keyword">function</span>(num){
+        <span class="keyword">return</span> <span class="keyword">this</span> / num
+    }
+})
+arithmetic.add(<span class="number">4</span>, <span class="number">6</span>) <span class="comment">// 10</span>
+arithmetic.multiply(<span class="number">4</span>, <span class="number">3</span>) <span class="comment">// 12</span>
+arithmetic.divide(<span class="number">20</span>, <span class="number">4</span>) <span class="comment">// 5</span></code></pre>
+
+<p>Not only shells can inherit from another shell, but also other primes
+(or other functions):</p>
+<pre><code class="javascript"><span class="keyword">var</span> object = shell({
+    set: <span class="keyword">function</span>(key, value){
+        <span class="keyword">this</span>[key] = value
+        <span class="keyword">return</span> <span class="keyword">this</span>
+    },
+    get: <span class="keyword">function</span>(key){
+        <span class="keyword">return</span> <span class="keyword">this</span>[key]
+    }
+})
+object.set({}, <span class="string">'shell'</span>, <span class="string">'prime'</span>) <span class="comment">// {shell: 'prime'}</span>
+
+<span class="keyword">var</span> prime = require(<span class="string">'prime'</span>)
+<span class="keyword">var</span> hash = prime({
+    inherits: object,
+    values: <span class="keyword">function</span>(){
+        <span class="keyword">var</span> values = []
+        <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> <span class="keyword">this</span>) values.push(<span class="keyword">this</span>[key])
+        <span class="keyword">return</span> values
+    }
+})
+
+<span class="keyword">var</span> myHash = <span class="keyword">new</span> hash()
+hash.set(<span class="string">'shell'</span>, <span class="string">'prime'</span>)
+hash.set(<span class="string">'primes'</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>])
+hash.values() <span class="comment">// ['prime', [2, 3, 5, 7, 11]]</span></code></pre>
 </div>
 
     </body>
