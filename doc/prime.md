@@ -674,7 +674,7 @@ var hash = prime({
 })
 
 var myHash = new hash()
-hash.set('shell', 'prime')
-hash.set('primes', [2, 3, 5, 7, 11])
-hash.values() // ['prime', [2, 3, 5, 7, 11]]
+myHash.set('shell', 'prime')
+myHash.set('primes', [2, 3, 5, 7, 11])
+myHash.values() // ['prime', [2, 3, 5, 7, 11]]
 ```
