@@ -5,7 +5,7 @@
  3. archetypal, prototypical, typical, classic.
 
 
-Prime is a small helper to make JavaScript inheritance easier.
+Prime is a prototypal inheritance helper.
 
 ### Syntax
 
@@ -15,23 +15,24 @@ var MyPrime = prime(properties)
 
 ### Parameters
 
-1. properties (*object*) - An object with all methods that will apply to the
-prime, including special cases like `constructor` or `inherits` (see below).
+1. properties (*object*) - An object containing methods and special properties
+that will get implemented to the constructor.
 
 #### Property: constructor
 
-This function is the constructor of the prime. This will be called when a
-new instance of the prime will be created.
+When a method with `constructor` as its key gets passed as a property, it will
+effectively become your prime. Every subsequent property (except specials)
+will get implemented to this constructor as prototypes.
 
 #### Property: inherits
 
-Sets the parent object of the prime.
+When an object with `inherits` as its key gets passed as a property,
+your constructor will inherit the passed in object's prototypes.
 
 ### Returns
 
-- (*function*) The `constructor` function, which will create the new prime
-object if it's called with the `new` keyword. The function is extended with
-an `implements` function that can add new methods to the prime.
+- (*function*) The `constructor` method, extended with
+the `implements` method.
 
 ### Example
 
@@ -109,7 +110,7 @@ rectangle.area() // 200
 
 ## prime:implement
 
-Implement new methods to a prime prototype.
+Implement new methods to a constructor's prototype.
 
 ### Syntax
 
@@ -119,12 +120,12 @@ MyPrime.implement(methods)
 
 ### Parameters
 
-1. methods - (*object*) An object with key-value pairs with the method-names
-and methods.
+1. methods - (*object*) An object with keys representing prototype names and
+values representing prototype methods.
 
 ### Returns
 
-- (*prime*) The adjusted prime.
+- (*prime*) the constructor.
 
 ### Example
 
@@ -142,7 +143,8 @@ Circle.implement({
 
 ## prime.each
 
-Iterates through all properties of an object.
+Iterates all the properties of an object, including those properties not
+normally iterable in internet explorer such as `toString`, `valueOf`.
 
 ### Syntax
 
@@ -152,13 +154,13 @@ prime.each(object, function)
 
 ### Parameters
 
-1. object - (*object*) The object to iterate through
-2. function - (*function*) The function which is called for each key-value pair.
-3. context - (*object*) The `this` inside the function.
+1. object - (*object*) The object to iterate
+2. function - (*function*) The function called for each property.
+3. context - (*object*) The context of the passed function.
 
 ### Returns
 
-- (*object*) the same object as the first argument.
+- (*object*) the first argument.
 
 ### Example
 
@@ -173,7 +175,8 @@ prime.each(days, function(value, key){
 
 ## prime.has
 
-Returns a boolean whether an object has a certain property.
+Checks if the object has the specified key as one of its own properties (not
+including properties found in the prototype chain).
 
 ### Syntax
 
@@ -183,13 +186,13 @@ prime.has(object, property)
 
 ### Parameters
 
-1. object - (*object*) The object which will be tested if it has a property
-2. property - (*string*) The name of the property to test.
+1. object - (*object*) The object.
+2. property - (*string*) The name of the property to check for.
 
 ### Returns
 
-- (*boolean*) `true` if the object as a direct property (own property, so not
-a property on the object's prototype).
+- (*boolean*) `true` if the property is found, `false` if not (or if the
+property only exists in the prototype chain)
 
 ### Example
 
@@ -212,7 +215,11 @@ prime.has(circle, 'circumference') // false (it is only on the prototype)
 
 ## prime.create
 
-Creates a new object with the specified prototype.
+Creates a new instance of an empty constructor whose prototype is set to the
+passed in object. This is mainly used for inheritance, to instantiate a prime
+without having to invoke its constructor. Uses the native `Object.create`
+where available. Unless you have a very specific reason to use this, you should
+use `prime` instead, and its `inherits` metamethod.
 
 ### Syntax
 
@@ -222,12 +229,12 @@ prime.create(proto)
 
 ### Parameters
 
-- proto - (*object*) The object which should be the prototype of the
+- proto - (*object*) The prototype of the instantiated empty constructor.
 created object
 
 ### Returns
 
-- (*object*) An object with the `proto` argument as prototype
+- (*object*) An instance of the empty constructor.
 
 ### Example
 
@@ -242,13 +249,12 @@ var object = prime.create({
 })
 object.set('foo', 'bar')
 
-// or usually it's used for inheritance
+// for inheritance
 var Square = function(size){
     Rectangle.call(this, size, size)
 }
 
-// set the Square prototype to an object wich has the Rectangle prototype in
-// its prototype (create a prototype chain)
+// makes Square inherit from Rectangle, without having to instantiate a new Rectangle
 Square.prototype = prime.create(Rectangle.prototype)
 
 var square = new Square(5)
@@ -261,15 +267,16 @@ square.area() // 25
 
 # es5/array
 
-This module contains all ECMAScript 5 array methods on an `array` object. If
-the platform doesn't support certain methods, it will shim them.
+This module contains ECMAScript 5 array methods as generics.
+Native JavaScript methods will always get invoked where available,
+otherwise a compliant JavaScript substitute will be used.
 
 ```js
 var array = require('prime/es5/array')
 array.indexOf([1, 2, 3], 2) // 1
 ```
 
-All ES3 Array methods are added to `array` too, for example:
+All ES3 Array methods are added as generics as well:
 
 ```js
 (function(){
@@ -282,7 +289,7 @@ All ES3 Array methods are added to `array` too, for example:
 
 ## filter
 
-Creates a new array with all of the elements of the array for which the
+Creates a new array with the elements of the original array for which the
 provided filtering function returns true.
 
 ### Syntax
@@ -587,9 +594,9 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 
 # util/shell
 
-A function for creating an object that inherits from prime. Instead of
-extending native JavaScript objects, the returned object, called a shell, acts
-as a container for such methods to be placed.
+A prime that mutates its implemented prototypes into methods that can be used as generics.
+This special prime returns an object that inherits both prototypes and generics from its ancestor.
+You should not probably bother with `shell` unless you have a very specific reason to do so.
 
 ### Syntax
 ```js
@@ -600,10 +607,12 @@ var myShell = shell(methods)
 
 ### Parameters
 
-1. methods - (*object*) An object containing methods. `this` in the method will
-refer to the first argument passed the method.
+1. methods - (*object*) An object containing methods.
 
 ### Returns
+
+Returns a plain `[Object object]` whose `prototype` property is set to the passed methods.
+Generics are also automatically generated for each of the passed in methods, and attached to the object.
 
 ### Example
 
@@ -648,8 +657,7 @@ arithmetic.multiply(4, 3) // 12
 arithmetic.divide(20, 4) // 5
 ```
 
-Not only shells can inherit from another shell, but also other primes
-(or other functions):
+Shells can inherit from another shell, primes or any other javascript constructor:
 
 ```js
 var object = shell({
