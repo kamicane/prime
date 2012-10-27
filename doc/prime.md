@@ -586,3 +586,40 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 - [MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
 
 # util/shell
+
+A function for creating an object that inherits from prime. Instead of extending native JavaScript objects, the returned object, called a shell, acts as a container for such methods to be placed.
+
+### Syntax
+```js
+var shell = require('prime/util/shell')
+
+var myShell = shell(methods)
+```
+
+### Parameters
+
+1. methods - (*object*) An object containing methods. `this` in the method will refer to the first argument passed the method.
+
+### Returns
+
+### Example
+
+```js
+var shell = require('prime/util/shell'),
+    plus = shell({
+        add: function(num) {
+            return this + num
+        },
+        one: function() {
+            return plus.add(this, 1)
+        },
+
+        two: function() {
+            return plus.add(this, 2)
+        }
+    })
+
+plus.one(4) // returns 5
+plus.two(18) // returns 20
+
+```

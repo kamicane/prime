@@ -511,6 +511,35 @@ array.isArray({length: <span class="number">1</span>, <span class="number">0</sp
 <li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray">MDN Array.isArray</a></li>
 </ul>
 <h1><a href="#util/shell" name="util/shell">util/shell</a></h1>
+
+<p>A function for creating an object that inherits from prime. Instead of extending native JavaScript objects, the returned object, called a shell, acts as a container for such methods to be placed.</p>
+<h3>Syntax</h3>
+<pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>)
+
+<span class="keyword">var</span> myShell = shell(methods)</code></pre>
+<h3>Parameters</h3>
+
+<ol>
+<li>methods - (<em>object</em>) An object containing methods. <code>this</code> in the method will refer to the first argument passed the method.</li>
+</ol>
+<h3>Returns</h3>
+<h3>Example</h3>
+<pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>),
+    plus = shell({
+        add: <span class="keyword">function</span>(num) {
+            <span class="keyword">return</span> <span class="keyword">this</span> + num
+        },
+        one: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">1</span>)
+        },
+
+        two: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> plus.add(<span class="keyword">this</span>, <span class="number">2</span>)
+        }
+    })
+
+plus.one(<span class="number">4</span>) <span class="comment">// returns 5</span>
+plus.two(<span class="number">18</span>) <span class="comment">// returns 20</span></code></pre>
 </div>
 
     </body>
