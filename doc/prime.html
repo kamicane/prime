@@ -31,28 +31,29 @@
 <li>archetypal, prototypical, typical, classic.</li>
 </ol>
 
-<p>Prime is a small helper to make JavaScript inheritance easier.</p>
+<p>Prime is a prototypal inheritance helper.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript"><span class="keyword">var</span> MyPrime = prime(properties)</code></pre>
 <h3>Parameters</h3>
 
 <ol>
-<li>properties (<em>object</em>) - An object with all methods that will apply to the
-prime, including special cases like <code>constructor</code> or <code>inherits</code> (see below).</li>
+<li>properties (<em>object</em>) - An object containing methods and special properties
+that will get implemented to the constructor.</li>
 </ol>
 <h4>Property: constructor</h4>
 
-<p>This function is the constructor of the prime. This will be called when a
-new instance of the prime will be created.</p>
+<p>When a method with <code>constructor</code> as its key gets passed as a property, it will
+effectively become your prime. Every subsequent property (except specials)
+will get implemented to this constructor as prototypes.</p>
 <h4>Property: inherits</h4>
 
-<p>Sets the parent object of the prime.</p>
+<p>When an object with <code>inherits</code> as its key gets passed as a property,
+your constructor will inherit the passed in object&#39;s prototypes.</p>
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>function</em>) The <code>constructor</code> function, which will create the new prime
-object if it&#39;s called with the <code>new</code> keyword. The function is extended with
-an <code>implements</code> function that can add new methods to the prime.</li>
+<li>(<em>function</em>) The <code>constructor</code> method, extended with
+the <code>implements</code> method.</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="comment">// require prime</span>
@@ -126,19 +127,19 @@ circle.circumference() <span class="comment">// 20π</span>
 rectangle.area() <span class="comment">// 200</span></code></pre>
 <h2><a href="#prime:implement" name="prime:implement">prime:implement</a></h2>
 
-<p>Implement new methods to a prime prototype.</p>
+<p>Implement new methods to a constructor&#39;s prototype.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript">MyPrime.implement(methods)</code></pre>
 <h3>Parameters</h3>
 
 <ol>
-<li>methods - (<em>object</em>) An object with key-value pairs with the method-names
-and methods.</li>
+<li>methods - (<em>object</em>) An object with keys representing prototype names and
+values representing prototype methods.</li>
 </ol>
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>prime</em>) The adjusted prime.</li>
+<li>(<em>prime</em>) the constructor.</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript">Circle.implement({
@@ -152,20 +153,21 @@ and methods.</li>
 })</code></pre>
 <h2><a href="#prime.each" name="prime.each">prime.each</a></h2>
 
-<p>Iterates through all properties of an object.</p>
+<p>Iterates all the properties of an object, including those properties not
+normally iterable in internet explorer such as <code>toString</code>, <code>valueOf</code>.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript">prime.each(object, <span class="keyword">function</span>)</code></pre>
 <h3>Parameters</h3>
 
 <ol>
-<li>object - (<em>object</em>) The object to iterate through</li>
-<li>function - (<em>function</em>) The function which is called for each key-value pair.</li>
-<li>context - (<em>object</em>) The <code>this</code> inside the function.</li>
+<li>object - (<em>object</em>) The object to iterate</li>
+<li>function - (<em>function</em>) The function called for each property.</li>
+<li>context - (<em>object</em>) The context of the passed function.</li>
 </ol>
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>object</em>) the same object as the first argument.</li>
+<li>(<em>object</em>) the first argument.</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="comment">// alerts 'The first day of the week is Sunday'</span>
@@ -176,20 +178,21 @@ prime.each(days, <span class="keyword">function</span>(value, key){
 })</code></pre>
 <h2><a href="#prime.has" name="prime.has">prime.has</a></h2>
 
-<p>Returns a boolean whether an object has a certain property.</p>
+<p>Checks if the object has the specified key as one of its own properties (not
+including properties found in the prototype chain).</p>
 <h3>Syntax</h3>
 <pre><code class="javascript">prime.has(object, property)</code></pre>
 <h3>Parameters</h3>
 
 <ol>
-<li>object - (<em>object</em>) The object which will be tested if it has a property</li>
-<li>property - (<em>string</em>) The name of the property to test.</li>
+<li>object - (<em>object</em>) The object.</li>
+<li>property - (<em>string</em>) The name of the property to check for.</li>
 </ol>
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>boolean</em>) <code>true</code> if the object as a direct property (own property, so not
-a property on the object&#39;s prototype).</li>
+<li>(<em>boolean</em>) <code>true</code> if the property is found, <code>false</code> if not (or if the
+property only exists in the prototype chain)</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="comment">// A simple plain object</span>
@@ -209,19 +212,23 @@ prime.has(circle, <span class="string">'circumference'</span>) <span class="comm
 </ul>
 <h2><a href="#prime.create" name="prime.create">prime.create</a></h2>
 
-<p>Creates a new object with the specified prototype.</p>
+<p>Creates a new instance of an empty constructor whose prototype is set to the
+passed in object. This is mainly used for inheritance, to instantiate a prime
+without having to invoke its constructor. Uses the native <code>Object.create</code>
+where available. Unless you have a very specific reason to use this, you should
+use <code>prime</code> instead, and its <code>inherits</code> metamethod.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript">prime.create(proto)</code></pre>
 <h3>Parameters</h3>
 
 <ul>
-<li>proto - (<em>object</em>) The object which should be the prototype of the
+<li>proto - (<em>object</em>) The prototype of the instantiated empty constructor.
 created object</li>
 </ul>
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>object</em>) An object with the <code>proto</code> argument as prototype</li>
+<li>(<em>object</em>) An instance of the empty constructor.</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="keyword">var</span> object = prime.create({
@@ -234,13 +241,12 @@ created object</li>
 })
 object.set(<span class="string">'foo'</span>, <span class="string">'bar'</span>)
 
-<span class="comment">// or usually it's used for inheritance</span>
+<span class="comment">// for inheritance</span>
 <span class="keyword">var</span> Square = <span class="keyword">function</span>(size){
     Rectangle.call(<span class="keyword">this</span>, size, size)
 }
 
-<span class="comment">// set the Square prototype to an object wich has the Rectangle prototype in</span>
-<span class="comment">// its prototype (create a prototype chain)</span>
+<span class="comment">// makes Square inherit from Rectangle, without having to instantiate a new Rectangle</span>
 Square.prototype = prime.create(Rectangle.prototype)
 
 <span class="keyword">var</span> square = <span class="keyword">new</span> Square(<span class="number">5</span>)
@@ -252,12 +258,13 @@ square.area() <span class="comment">// 25</span></code></pre>
 </ul>
 <h1><a href="#es5/array" name="es5/array">es5/array</a></h1>
 
-<p>This module contains all ECMAScript 5 array methods on an <code>array</code> object. If
-the platform doesn&#39;t support certain methods, it will shim them.</p>
+<p>This module contains ECMAScript 5 array methods as generics.
+Native JavaScript methods will always get invoked where available,
+otherwise a compliant JavaScript substitute will be used.</p>
 <pre><code class="javascript"><span class="keyword">var</span> array = require(<span class="string">'prime/es5/array'</span>)
 array.indexOf([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>) <span class="comment">// 1</span></code></pre>
 
-<p>All ES3 Array methods are added to <code>array</code> too, for example:</p>
+<p>All ES3 Array methods are added as generics as well:</p>
 <pre><code class="javascript">(<span class="keyword">function</span>(){
     <span class="keyword">var</span> args = array.slice(arguments) <span class="comment">// [1, 2, 3]</span>
     array.push(args, <span class="number">4</span>) <span class="comment">// [1, 2, 3, 4]</span>
@@ -266,7 +273,7 @@ array.indexOf([<span class="number">1</span>, <span class="number">2</span>, <sp
 <p><code>array</code> is a <a href="#util/shell">shell</a>.</p>
 <h2><a href="#filter" name="filter">filter</a></h2>
 
-<p>Creates a new array with all of the elements of the array for which the
+<p>Creates a new array with the elements of the original array for which the
 provided filtering function returns true.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript"><span class="keyword">var</span> filteredArray = array.filter(myArray, fn[, context])</code></pre>
@@ -512,9 +519,9 @@ array.isArray({length: <span class="number">1</span>, <span class="number">0</sp
 </ul>
 <h1><a href="#util/shell" name="util/shell">util/shell</a></h1>
 
-<p>A function for creating an object that inherits from prime. Instead of
-extending native JavaScript objects, the returned object, called a shell, acts
-as a container for such methods to be placed.</p>
+<p>A prime that mutates its implemented prototypes into methods that can be used as generics.
+This special prime returns an object that inherits both prototypes and generics from its ancestor.
+You should not probably bother with <code>shell</code> unless you have a very specific reason to do so.</p>
 <h3>Syntax</h3>
 <pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>)
 
@@ -522,10 +529,12 @@ as a container for such methods to be placed.</p>
 <h3>Parameters</h3>
 
 <ol>
-<li>methods - (<em>object</em>) An object containing methods. <code>this</code> in the method will
-refer to the first argument passed the method.</li>
+<li>methods - (<em>object</em>) An object containing methods.</li>
 </ol>
 <h3>Returns</h3>
+
+<p>Returns a plain <code>[Object object]</code> whose <code>prototype</code> property is set to the passed methods.
+Generics are also automatically generated for each of the passed in methods, and attached to the object.</p>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="keyword">var</span> shell = require(<span class="string">'prime/util/shell'</span>),
 <span class="keyword">var</span> plus = shell({
@@ -563,8 +572,7 @@ arithmetic.add(<span class="number">4</span>, <span class="number">6</span>) <sp
 arithmetic.multiply(<span class="number">4</span>, <span class="number">3</span>) <span class="comment">// 12</span>
 arithmetic.divide(<span class="number">20</span>, <span class="number">4</span>) <span class="comment">// 5</span></code></pre>
 
-<p>Not only shells can inherit from another shell, but also other primes
-(or other functions):</p>
+<p>Shells can inherit from another shell, primes or any other javascript constructor:</p>
 <pre><code class="javascript"><span class="keyword">var</span> object = shell({
     set: <span class="keyword">function</span>(key, value){
         <span class="keyword">this</span>[key] = value
