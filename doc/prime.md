@@ -563,6 +563,214 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 
 - [MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
 
+module: es5/function
+====================
+
+This module contains ECMAScript 5 function methods as generics.
+
+exports
+-------
+
+The module exports an object with the function methods.
+
+```js
+var fn = require('prime/es5/function')
+
+fn.apply(function(a, b, c){
+    console.log(this, a, b, c) // "that", 1, 2, 3
+}, "that", 1, 2, 3)
+```
+
+### methods
+
+- `apply`
+- `call`
+- `bind` (if natively available on Function.prototype.bind)
+
+### see also
+
+[MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
+
+module: es5/number
+==================
+
+This module contains ECMAScript 5 number methods as generics.
+
+exports
+-------
+
+```js
+var number = require('prime/es5/number')
+
+number.toFixed(3.14, 3) // "3.140"
+```
+
+### methods
+
+- `toExponential`
+- `toFixed`
+- `toPrecision`
+
+### see also
+
+[MDN Number](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Number)
+
+module: es5/regexp
+==================
+
+Like `es5/function` or `es5/number` this module contains ES5 methods as
+generics.
+
+exports
+-------
+
+```js
+var regexp = require('prime/es5/regexp')
+
+regexp.test(/\w+$/, '---abc') // true
+```
+
+### methods
+
+- `test`
+- `exec`
+
+### see also
+
+[MDN RegExp](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp)
+
+module: es5/string
+==================
+
+This module contains ECMAScript 5 string methods as generics.
+Native JavaScript methods will always get invoked where available,
+otherwise a compliant JavaScript substitute will be used.
+
+exports
+-------
+
+The module exports an object containing all the string methods.
+
+```js
+var string = require('prime/es5/string')
+
+string.trim('   i like cookies    ') // "i like cookies"
+string.charAt('charAt', 4) // 'A'
+```
+
+### see also
+
+[MDN String](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String)
+
+method: trim
+------------
+
+Trims the leading and trailing spaces off a string.
+
+### sample
+
+```js
+string.trim('    i like cookies     ') // returns 'i like cookies'
+```
+
+### see also
+
+[MDC String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
+
+module: types/number
+====================
+
+This module extends the `es/number` module, without modifying the `es5/number`
+module.
+
+exports
+-------
+
+The module exports an object with more, custom number methods.
+
+method: limit
+-------------
+
+Returns the number limited between two bounds.
+
+### syntax
+
+```js
+myNumber.limit(min, max);
+```
+
+### parameters
+
+1. min - (*number*) The minimum possible value.
+2. max - (*number*) The maximum possible value.
+
+### sample
+
+```js
+number.limit(12, 2, 6.5)  // returns 6.5
+number.limit(-4, 2, 6.5)  // returns 2
+number.limit(4.3, 2, 6.5) // returns 4.3
+```
+
+method: round
+-------------
+
+Returns this number rounded to the specified precision.
+
+### parameters
+
+1. precision - (*number*, optional: defaults to 0) The number of digits after
+the decimal place. This can also be an negative number.
+
+### sample
+
+```js
+number.round(12.45)     // returns 12
+number.round(12.45, 1)  // returns 12.5
+number.round(12.45, -1) // returns 10
+```
+
+method: times
+-------------
+
+Executes the function passed in the specified number of times.
+Returns the original number.
+
+### syntax
+
+```js
+number.times(num, fn[, context])
+```
+
+### parameters
+
+1. num  - (*number*) The number of times the function should be executed.
+2. fn   - (*function*) The function which should be executed on each iteration
+of the loop. This function is passed the current iteration's index.
+3. bind - (*object*, optional) The object to use as 'this' in the function.
+
+### sample
+
+```js
+number.times(4, alert); // alerts "0", then "1", then "2", then "3".
+```
+
+method: random
+--------------
+
+Returns a random integer between the two passed in values.
+
+### parameters
+
+1. min - (*number*) The minimum value (inclusive).
+2. max - (*number*) The maximum value (inclusive).
+
+### sample
+
+```js
+number.random(5, 20); // returns a random number between 5 and 20.
+```
+
 module: util/shell
 ==================
 
