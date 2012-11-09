@@ -12,6 +12,7 @@ test-node:
 		./test/es5/* \
 		./test/util/* \
 		./test/prime/* \
+		./test/types/* \
 		./test/collection/*
 
 build:
