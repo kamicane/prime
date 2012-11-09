@@ -771,6 +771,77 @@ Returns a random integer between the two passed in values.
 number.random(5, 20); // returns a random number between 5 and 20.
 ```
 
+module: types/string
+====================
+
+This module extends the `es/string` module, without modifying the `es5/string`
+module.
+
+exports
+-------
+
+The module exports an object with more, custom string methods.
+
+```js
+var string = require('prime/types/string')
+string.capitalize('i like cookies') // "I Like Cookies"
+```
+
+method: clean
+-------------
+
+Removes all extraneous whitespace from a string and trims it.
+
+### sample
+
+```js
+string.clean(' i      like     cookies      \n\n') // returns 'i like cookies'
+```
+
+method: camelize
+----------------
+
+Converts a hyphenated string to a camelcased string.
+
+### sample
+
+```js
+string.camelize('I-like-cookies') // returns 'ILikeCookies'
+```
+
+method: hyphenate
+-----------------
+
+Converts a camelcased string to a hyphenated string.
+
+### sample
+
+```js
+string.hyphenate('ILikeCookies') // returns '-i-like-cookies'
+```
+
+method: escape
+--------------
+
+Escape an string so it can safely be used in a regular expression.
+
+### sample
+
+```js
+string.escape('(un)believable') // "\(un\)believable"
+```
+
+method: number
+--------------
+
+Tries to parse a string into an number.
+
+### sample
+
+```js
+string.number('3.14deg') // 3.14
+```
+
 module: util/shell
 ==================
 
