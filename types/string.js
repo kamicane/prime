@@ -9,11 +9,6 @@ var string = shell({
 
     inherits: require("../es5/string"),
 
-    /*(string.contains)?*/
-    contains: function(string, separator){
-        return ((separator) ? (separator + this + separator).indexOf(separator + string + separator) : (this + '').indexOf(string)) > -1
-    },/*:*/
-
     /*(string.clean)?*/
     clean: function(){
         return string.trim((this + '').replace(/\s+/g, ' '))
