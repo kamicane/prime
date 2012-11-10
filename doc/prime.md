@@ -944,3 +944,94 @@ myHash.set('shell', 'prime')
 myHash.set('primes', [2, 3, 5, 7, 11])
 myHash.values() // ['prime', [2, 3, 5, 7, 11]]
 ```
+
+module: util/emitter
+====================
+
+Emitter is a module for managing and emitting events.
+
+exports
+-------
+
+The module exports the emitter prime
+
+```js
+var prime = require('prime')
+var Emitter = require('prime/util/emitter')
+
+var emitter = new Emitter()
+emitter.on('touch', function(){
+    console.log('touched')
+})
+emitter.emit('touch')
+
+// inherit from emitter:
+var MyPrime = prime({
+    inherits: Emitter,
+    constructor: function(){
+        this.emit('ready')
+    }
+})
+```
+
+method: on
+----------
+
+Add a listener to the event emitter, with some specific name.
+It returns the emitter instance.
+
+### parameters
+
+1. event - (*string*) the name of the event (e.g. 'complete')
+2. fn - (*function*) the function to execute.
+
+### sample
+
+```js
+emitter.on('complete', function(){
+    console.log('I just completed my action')
+})
+```
+
+method: off
+-----------
+
+Removes an listener from the emitter. It's the opposite operation of `on`.
+It returns the emitter instance.
+
+### parameters
+
+1. event - (*string*) the name of the event (e.g. 'complete')
+2. fn - (*function*) the function to execute.
+
+### sample
+
+```js
+var listener = function(){
+    console.log('I just completed my action')
+}
+emitter.on('complete', listener)
+// some while later
+emitter.off('complete', listener)
+```
+
+method: emit
+------------
+
+`emit` calls all registered listeners for a specific event name.
+It returns the emitter instance.
+
+### parameters
+
+1. event - (*string*) the name of the event (e.g. 'complete')
+2. ...arguments - all arguments where `i > 0` are passed as arguments of the
+listeners.
+
+### sample
+
+```js
+emitter.on('complete', function(a, b){
+    console.log('I just ' + a + ' my ' + b) // logs "I just completed my action"
+})
+emitter.emit('complete', 'completed', 'action')
+```
