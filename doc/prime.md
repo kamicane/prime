@@ -106,8 +106,8 @@ var rectangle = new Rectangle(point, 10, 20)
 rectangle.area() // 200
 ```
 
-prime:implement
----------------
+method: prime:implement
+-----------------------
 
 The constructor returned by `prime()` is extended with an `implement` method.
 It implement new methods to a constructor's prototype. The function returns
@@ -138,8 +138,8 @@ Circle.implement({
 })
 ```
 
-prime.each
-----------
+function: prime.each
+--------------------
 
 Iterates all the properties of an object, including those properties not
 normally iterable in internet explorer such as `toString`, `valueOf`.
@@ -168,8 +168,8 @@ prime.each(days, function(value, key){
 })
 ```
 
-prime.has
----------
+function: prime.has
+-------------------
 
 Checks if the object has the specified key as one of its own properties (not
 including properties found in the prototype chain). Returns `true` if this is
@@ -195,12 +195,12 @@ prime.has(circle, 'circumference') // false (it is only on the prototype)
 'circumference' in circle // true
 ```
 
-### See Also
+### see also
 
 - [MDN Object.hasOwnProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
 
-prime.create
-------------
+function: prime.create
+----------------------
 
 Creates a new instance of an empty constructor whose prototype is set to the
 passed in object. This is mainly used for inheritance, to instantiate a prime
@@ -248,7 +248,7 @@ var square = new Square(5)
 square.area() // 25
 ```
 
-### See Also
+### see also
 
 - [MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
 
@@ -346,7 +346,7 @@ array.indexOf(['apple', 'lemon', 'banana'], 'lemon') // returns 1
 array.indexOf(['apple', 'lemon'], 'banana'); // returns -1
 ```
 
-### See Also
+### see also
 
 - [MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
 
