@@ -33,7 +33,7 @@ var list = shell({
     },
 
     index: function(value){
-        var index = list.indexOf(value)
+        var index = list.indexOf(this, value)
         return index == -1 ? null : index
     },
 
