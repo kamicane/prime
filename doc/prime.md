@@ -1117,7 +1117,8 @@ It returns the `ghost` function.
 
 ### parameters
 
-1. check - (*function*) a function that checks if a ghost Ghost object with the
+1. check - (*function*) a function that checks if the methods from the
+`methods` parameters should be used wrapped in a Ghost.
 methods specified in the `methods` parameter should be used.
 2. methods - (*object*) an object with methods that are implemented by the
 `Ghost` object which is returned if `check` returns `true`.
