@@ -1035,3 +1035,110 @@ emitter.on('complete', function(a, b){
 })
 emitter.emit('complete', 'completed', 'action')
 ```
+
+module: util/ghost
+==================
+
+Ghost is a module that makes chaining of methods possible.
+
+exports
+-------
+
+The module exports the `ghost` function.
+
+```js
+var ghost = require('prime/util/ghost')
+ghost('  1,2,3  ').trim().split(',').forEach(function(value){
+    console.log(value)
+}) // logs 1, 2, 3
+```
+
+`ghost` accepts one parameter, the value that should be made chainable. It
+returns an instance of `Ghost`, if there is an object registered that handles
+values of the type of your passed value. Otherwise it directly returns the
+passed value.
+
+### sample
+
+```js
+ghost("some string") // returns an Ghost instance for strings
+ghost([1, 2, 3, 10]) // returns an Ghost instance for arrays
+ghost(null) // returns null, there is not an object registered for null values
+```
+
+### Ghost
+
+`Ghost` is a wrapper around the value, which has the following methods:
+
+#### method: valueOf
+
+`valueOf` returns the primitive value of the ghost.
+
+```js
+ghost(10).valueOf() // 10
+ghost(50) + 3 // 53
+ghost("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
+```
+
+- [MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
+
+#### method: toString
+
+`toString` returns the string representation of the value of the ghost.
+
+```js
+ghost(40) // "40"
+ghost("pri") + "me" // "prime"
+ghost(4) + "5" // "45"
+```
+
+#### method: is
+
+Checks if the value of the Ghost strictly equals another value.
+
+```js
+ghost(20).is(20) // true
+ghost("20").is(20) // false
+```
+
+### Default registered types
+
+- array(-like) types use `collection/list` methods.
+- objects use `collection/hash`
+- numbers use `types/number`
+- strings use `types/string`
+- maps use `collection/map`
+
+method: register
+----------------
+
+A method to register an object with methods for a specific type of values.
+It returns the `ghost` function.
+
+### parameters
+
+1. check - (*function*) a function that checks if a ghost Ghost object with the
+methods specified in the `methods` parameter should be used.
+2. methods - (*object*) an object with methods that are implemented by the
+`Ghost` object which is returned if `check` returns `true`.
+
+```js
+ghost.register(function(value){
+    return typeof value == 'boolean'
+}, {
+    inverse: function(){
+        return !this
+    }
+})
+ghost(true).inverse().valueOf() // false
+```
+
+method: unregister
+------------------
+
+Opposite operation of `register`.
+Returns the `ghost` function.
+
+### parameters
+
+1. check - (*function*) the `check` function passed into `register`.
