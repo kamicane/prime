@@ -35,7 +35,7 @@ describe('types/number', function(){
             number.times(5, function(i, j, k){
                 buffer1.push(i)
                 buffer2.push(j)
-                buffer3.push(k)
+                buffer3.push(+k)
                 buffer4.push(this)
             }, 1)
             expect(buffer1).to.eql([0, 1, 2, 3, 4])

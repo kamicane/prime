@@ -113,7 +113,9 @@ describe("prime constructors", function(){
         var three = new Three();
         expect(three.id).to.be("TWO");
 
-        expect(one.constructor.toString()).to.be((function(){}).toString())
+        var actual = one.constructor.toString().replace(/\s+/g, '')
+        var expected = (function(){}).toString().replace(/\s+/g, '')
+        expect(actual).to.be(expected)
         expect(Three.prototype.constructor).to.be.a('function')
 
     })
