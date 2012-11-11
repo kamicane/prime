@@ -35,7 +35,7 @@ describe('list', function(){
     })
 
     describe('each', function(){
-        it('should iterate through the array', function(){
+        it('should iterate through the array, and stop when the function returns false', function(){
             var values = [], keys = [], lists = [], contexts = []
             var array = {length: 3, "0": 1, "1": 2, "2": 3}
             list.each(array, function(value, key, list){
