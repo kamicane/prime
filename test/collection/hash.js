@@ -3,6 +3,7 @@
 var prime = require('../../prime')
 var hash = require('../../collection/hash')
 var expect = require('expect.js')
+var ghost = require('../../util/ghost')
 
 describe('hash', function(){
 
@@ -48,6 +49,15 @@ describe('hash', function(){
             expect(keys).to.eql(['a', 'b', 'c', 'd'])
             expect(objects).to.eql([object, object, object, object])
             expect(contexts).to.eql(["context", "context", "context", "context"])
+        })
+        it('should .each for an ghost', function(){
+            var values = [], keys = []
+            ghost({a: 1, b: 2}).each(function(value, key){
+                keys.push(key)
+                values.push(value)
+            })
+            expect(values).to.eql([1, 2])
+            expect(keys).to.eql(['a', 'b'])
         })
     })
 
