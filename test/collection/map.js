@@ -5,100 +5,186 @@ var Map = require('../../collection/map')
 
 describe('map', function(){
 
-    var map  = new Map()
-    var one = 1
-    var obj = {}
-    var fn = function(){}
+    describe('set / get', function(){
 
-    it('Adds values to a map instance', function(){
-        expect(map.length).to.equal(0)
-        map.set('foo', 'bar')
-        expect(map.count()).to.equal(1)
-        map.set(one, 'one')
-        map.set(fn, 'function')
-        map.set(obj, 'an object')
-        expect(map.get('foo')).to.equal('bar')
-        expect(map.get(one)).to.equal('one')
-        expect(map.get(fn)).to.equal('function')
-        expect(map.get(obj)).to.equal('an object')
-        expect(map.count()).to.equal(4)
-    })
-
-    it('Iterates over a map instance', function(){
-        var keys = []
-        var values = []
-        map.each(function(val, key){
-            keys.push(key)
-            values.push(val)
+        it('should set and get a value from the map', function(){
+            var map = new Map()
+            var object = {}
+            map.set(object, 'bar')
+            map.set('bar', object)
+            expect(map.get(object)).to.be('bar')
+            expect(map.get('bar')).to.be(object)
         })
-        expect(keys).to.eql(['foo', one, fn, obj])
-        expect(values).to.eql(['bar', 'one', 'function', 'an object'])
-    })
 
-    it('maps over the map', function(){
-        var newMap = map.map(function(val, key, _map){
-            expect(_map).to.be(map)
-            return (key == 1) ? 'uno' : val
+        it('should overwrite an value', function(){
+            var map = new Map()
+            map.set('bar', 'foo')
+            expect(map.get('bar')).to.be('foo')
+            map.set('bar', 'wop')
+            expect(map.get('bar')).to.be('wop')
         })
-        expect(newMap.count()).to.equal(4)
-        expect(newMap.get(1, 'uno'))
+
     })
 
-    it('filters the map', function(){
-        var newMap = map.filter(function(val, key, _map){
-            expect(_map).to.be(map)
-            return typeof key === 'function'
+    describe('count', function(){
+        it('should count the number of values in the map', function(){
+            var map = new Map()
+            map.set('bar', 'foo').set('foo', 'bar')
+            expect(map.count()).to.be(2)
         })
-        expect(newMap.count()).to.equal(1)
     })
 
-    it('should return false for every', function(){
-        expect(map.every(function(val, key, _map){
-            expect(_map).to.be(map)
-            return typeof key === 'function'
-        })).to.be(false)
+    describe('each', function(){
+        it('Iterates over a map instance, and stop when false is returned', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
+            map.each(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                if (key == 'foo') return false
+            }, ctx)
+            expect(keys).to.eql(['bar', 'foo'])
+            expect(values).to.eql(['foo', 'bar'])
+            expect(ctxs).to.eql([ctx, ctx])
+            expect(maps).to.eql([map, map])
+        })
     })
 
-    it('should return true for some', function(){
-        expect(map.some(function(val, key, _map){
-            expect(_map).to.be(map)
-            return typeof key === 'function'
-        })).to.be(true)
+    describe('map', function(){
+        it('map the values in the map', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
+            var result = map.map(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                return key
+            }, ctx)
+            expect(keys).to.eql(['bar', 'foo', 'b'])
+            expect(values).to.eql(['foo', 'bar', 1])
+            expect(ctxs).to.eql([ctx, ctx, ctx])
+            expect(maps).to.eql([map, map, map])
+            expect(result === map).not.to.be.ok()
+            expect(result.get('bar')).to.be('bar')
+            expect(result.get('foo')).to.be('foo')
+        })
     })
 
-    it('should return the index of a value', function(){
-        expect(map.index('one')).to.be(1)
-        expect(map.index('non existent')).to.be(null)
+    describe('filter', function(){
+        it('filter the values in the map', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}, a = {}, b = {}
+            map.set('bar', a).set('foo', b).set('b', 1)
+            var result = map.filter(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                return typeof val == 'object'
+            }, ctx)
+            expect(keys).to.eql(['bar', 'foo', 'b'])
+            expect(values).to.eql([a, b, 1])
+            expect(ctxs).to.eql([ctx, ctx, ctx])
+            expect(maps).to.eql([map, map, map])
+            expect(result === map).not.to.be.ok()
+            expect(result.get('bar')).to.be(a)
+            expect(result.get('foo')).to.be(b)
+            expect(result.get('b')).to.be(null)
+        })
     })
 
-    it('should return the keys of the map', function(){
-        var keys = map.keys()
-        expect(keys).to.eql(['foo', one, fn, obj])
-        expect(map.keys).not.to.be(keys)
+    describe('every', function(){
+        it('return true if every value is ok', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 2).set('foo', 0).set('b', 1)
+            var result = map.every(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                return val < 5
+            }, ctx)
+            expect(keys).to.eql(['bar', 'foo', 'b'])
+            expect(values).to.eql([2, 0, 1])
+            expect(ctxs).to.eql([ctx, ctx, ctx])
+            expect(maps).to.eql([map, map, map])
+            expect(result).to.be(true)
+        })
+        it('should return false if not true is returned for each value', function(){
+            var map = new Map()
+            map.set('bar', 2).set('foo', 0).set('b', 1)
+            var result = map.every(function(val, key, mp){
+                return val < 1
+            })
+            expect(result).to.be(false)
+        })
     })
 
-    it('should return the values of the map', function(){
-        var values = map.values()
-        expect(values).to.eql(['bar', 'one', 'function', 'an object'])
-        expect(map.values).not.to.be(values)
+    describe('some', function(){
+        it('return false if every value is not ok', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 2).set('foo', 0).set('b', 1)
+            var result = map.some(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                return val > 5
+            }, ctx)
+            expect(keys).to.eql(['bar', 'foo', 'b'])
+            expect(values).to.eql([2, 0, 1])
+            expect(ctxs).to.eql([ctx, ctx, ctx])
+            expect(maps).to.eql([map, map, map])
+            expect(result).to.be(false)
+        })
+        it('should return true if true is returned for some value', function(){
+            var map = new Map()
+            map.set('bar', 2).set('foo', 0).set('b', 1)
+            var result = map.some(function(val, key, mp){
+                return val < 1
+            })
+            expect(result).to.be(true)
+        })
     })
 
-    it('should removes values from a map instance', function(){
-        expect(map.count()).to.equal(4)
-        map.remove('foo')
-        expect(map.count()).to.equal(3)
-        map.remove(one)
-        map.remove(fn)
-        map.remove(obj)
-        expect(map.get('foo')).to.equal(null)
-        expect(map.get(one)).to.equal(null)
-        expect(map.get(fn)).to.equal(null)
-        expect(map.get(obj)).to.equal(null)
-        expect(map.count()).to.equal(0)
+    describe('index', function(){
+        it('should return the key which is assiciated with an value', function(){
+            var map = new Map(), obj = {}
+            map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
+            expect(map.index(0)).to.be(obj)
+        })
     })
 
-    it("should return [object Map] when toString'ed", function(){
-        expect(String(map)).to.equal('[object Map]')
+    describe('remove', function(){
+        it('should remove an value', function(){
+            var map = new Map(), obj = {}
+            map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
+            expect(map.remove(obj)).to.be(0)
+            expect(map.remove(obj)).to.be(null)
+        })
+    })
+
+    describe('keys', function(){
+        it('should return an array with the keys of the map', function(){
+            var map = new Map(), obj = {}
+            map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
+            expect(map.keys()).to.eql(['bar', obj, 'moo', 'b'])
+        })
+    })
+    describe('get', function(){
+        it('should return an array with the values of the map', function(){
+            var map = new Map(), obj = {}
+            map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
+            expect(map.values()).to.eql([2, 0, 0, 1])
+        })
+    })
+
+    describe('toString', function(){
+        it('should return [object Map]', function(){
+            expect((new Map()) + '').to.equal('[object Map]')
+        })
     })
 
 })

@@ -53,5 +53,45 @@ describe('emitter', function(){
         publisher.emit('add1')
         expect(called).to.be(5)
     })
+
+    it('should remove all listeners', function(){
+        var events = new emitter(), called = 0
+        var listener = function(){
+            called++
+        }
+        events.on('thing', listener)
+        events.off('thing', listener)
+        events.emit('thing')
+        expect(called).to.be(0)
+    })
+
+    it('should not add the same listener twice', function(){
+        var events = new emitter(), called = 0
+        var listener = function(){ called++ }
+        events.on('thing', listener)
+        events.on('thing', listener)
+        events.emit('thing')
+        expect(called).to.be(1)
+    })
+
+    it('should not remove listeners of a different type', function(){
+        var events = new emitter(), calledA = 0, calledB = 0
+        var listenerA = function(){ calledA++ }
+        var listenerB = function(){ calledB++ }
+        events.on('thing', listenerA)
+        events.on('thang', listenerB)
+        events.emit('thing')
+        events.emit('thang')
+        expect(calledA).to.be(1)
+        expect(calledB).to.be(1)
+
+        events.off('thing', listenerA)
+
+        events.emit('thing')
+        events.emit('thang')
+        expect(calledA).to.be(1)
+        expect(calledB).to.be(2)
+    })
+
 })
 

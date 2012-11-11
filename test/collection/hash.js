@@ -1,5 +1,6 @@
 "use strict"
 
+var prime = require('../../prime')
 var hash = require('../../collection/hash')
 var expect = require('expect.js')
 
