@@ -48,7 +48,7 @@ var hash = shell({
         return results
     },
 
-    every: function(method, bind){
+    every: function(method, context){
         var every = true
         prime.each(this, function(value, key, self){
             if (!method.call(context, value, key, self)) return every = false
@@ -56,7 +56,7 @@ var hash = shell({
         return every
     },
 
-    some: function(method, bind){
+    some: function(method, context){
         var some = false
         prime.each(this, function(value, key, self){
             if (!some && method.call(context, value, key, self)) return !(some = true)
