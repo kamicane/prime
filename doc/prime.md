@@ -856,7 +856,7 @@ var list = require('prime/collection/list')
 var map = require('prime/collection/map')
 ```
 
-`hash` and `list` are actually a [shell](#method: util/shell), so can be used
+`hash` and `list` are actually a [shell](#method: util/shell), so should be used
 as generics.
 
 ```js
@@ -874,8 +874,6 @@ list.set(array, 0, 'Emma')
 ```js
 var myMap = new map
 // but list and hash can be used as constructors as well
-var myHash = new hash
-var myList = new list
 ```
 
 method: set
@@ -895,7 +893,9 @@ It returns the collection instance.
 ### sample
 
 ```js
-myHash.set('name', 'Michelle')
+var object = {}
+hash.set(object, 'name', 'Michelle')
+object.name // Michelle
 ```
 
 method: get
@@ -904,7 +904,8 @@ method: get
 Returns the value associated with the given key.
 
 ```js
-myHash.get('name') // Michelle
+var object = {name: 'Michelle'}
+hash.get(object, 'name') // Michelle
 ```
 
 method: count
@@ -913,7 +914,8 @@ method: count
 Returns the number of items in the hash, list or map.
 
 ```js
-myList.count() // 4
+var array = [1, 2, 3, 4]
+list.count(array) // 4
 ```
 
 method: each
@@ -939,8 +941,6 @@ collection. This function is passed the value and its key in the collection.
 ### sample
 
 ```js
-
-var hash = new Hash({first: "Sunday", second: "Monday", third: "Tuesday"});
 hash.each({
     first: "Sunday",
     second: "Monday",
@@ -979,7 +979,7 @@ an value of the current one.
 ```js
 var timesTwo = hash.map({a: 1, b: 2, c: 3}, function(value, key){
     return value * 2
-}); // timesTwo now holds an object containing: {a: 2, b: 4, c: 6}
+}) // timesTwo now holds an object containing: {a: 2, b: 4, c: 6}
 ```
 
 method: filter
@@ -1005,7 +1005,7 @@ function is passed the value and its key in the collection.
 ```js
 var biggerThanTwenty = hash.filter({a: 10, b: 20, c: 30}, function(value, key){
     return value > 20
-}); // biggerThanTwenty now holds an object containing: {c: 30}
+}) // biggerThanTwenty now holds an object containing: {c: 30}
 ```
 
 method: every
@@ -1031,7 +1031,7 @@ function is passed the value and its key in the collection.
 ```js
 var areAllBigEnough = hash.every({a: 10, b: 4, c: 25}, function(value, key){
     return value > 20
-}); // areAllBigEnough = false
+}) // areAllBigEnough = false
 ```
 
 method: some
@@ -1057,7 +1057,7 @@ function is passed the value and its key in the collection.
 ```js
 var areAnyBigEnough = hash.some({a: 10, b: 4, c: 25}, function(value, key){
     return value > 20
-}); // isAnyBigEnough = true
+}) // isAnyBigEnough = true
 ```
 
 method: index
@@ -1139,12 +1139,7 @@ A [shell](#module: util/shell) that contains collection methods for objects.
 ```js
 var hash = require('prime/collection/hash')
 
-// used as generic
 hash.get({day: 'Friday'}, 'day') // "Friday"
-
-// used as constructor
-var myHash = new hash
-myHash.set('day', 'Friday')
 ```
 
 module: collection/list
