@@ -5,3 +5,5 @@ Makefile
 bin/*
 test/*
 color/*
+.travis.yml
+.jshintrc
