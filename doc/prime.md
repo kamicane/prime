@@ -1166,10 +1166,9 @@ list.remove(array, list.index(3))
 module: collection/map
 ======================
 
-`map` is like `hash`, except that keys can be non-primitive, for example a
-function or an object, besides primitive keys. Also `map` is a constructor
-or a function and not an object, so should be invoked with `var myMap = map()`
-or `var myMap = new map`.
+`map` is a constructor that returns an object that works like a hash. Unlike a
+hash however, map instances can have any type of object as keys, rather than
+just strings.
 
 map implements all [collection](#modules: collection) methods.
 
