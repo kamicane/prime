@@ -2,7 +2,7 @@
 ghost 👻
 */"use strict"
 
-var prime  = require("../prime"),
+var prime  = require("../prime/"),
     type   = require("../util/type"),
     string = require("../types/string"),
     number = require("../types/number"),

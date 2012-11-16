@@ -2,7 +2,7 @@
 Emitter
 */"use strict"
 
-var prime = require("../prime"),
+var prime = require("../prime/"),
     array = require("../es5/array")
 
 var EID = 0

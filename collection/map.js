@@ -3,7 +3,7 @@ map
  - must be instantiated
 */"use strict"
 
-var prime = require("../prime"),
+var prime = require("../prime/"),
     array = require("../es5/array"),
     proto = array.prototype
 

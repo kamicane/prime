@@ -2,7 +2,7 @@
 shell 🐚
 */"use strict"
 
-var prime = require("../prime"),
+var prime = require("../prime/"),
     slice = Array.prototype.slice
 
 var shell = prime({

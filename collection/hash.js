@@ -4,7 +4,7 @@ hash
  - generates generics
 */"use strict"
 
-var prime = require("../prime"),
+var prime = require("../prime/"),
     shell = require("../util/shell")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
