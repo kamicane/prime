@@ -98,13 +98,13 @@ the <code>implements</code> method.</p>
 
 <ol>
 <li>properties (<em>object</em>) - An object containing methods and special properties
-that will get implemented to the constructor.</li>
+that will be implemented on the constructor.</li>
 </ol>
 <h4>property: constructor</h4>
 
 <p>When a method with <code>constructor</code> as its key gets passed as a property, it will
-effectively become your prime. Every subsequent property (except specials)
-will get implemented to this constructor as prototypes.</p>
+effectively become your prime. All subsequent properties (except specials)
+will be implemented on this constructor as prototypes.</p>
 <h4>property: inherits</h4>
 
 <p>When an object with <code>inherits</code> as its key gets passed as a property,
@@ -182,7 +182,7 @@ rectangle.area() <span class="comment">// 200</span></code></pre>
 <h2><a href="#method: prime:implement" name="method: prime:implement">method: prime:implement</a></h2>
 
 <p>The constructor returned by <code>prime()</code> is extended with an <code>implement</code> method.
-It implement new methods to a constructor&#39;s prototype. The function returns
+It implements new methods on a constructor&#39;s prototype. The function returns
 the constructor.</p>
 <h3>syntax</h3>
 <pre><code class="javascript">MyPrime.implement(methods)</code></pre>
@@ -205,14 +205,14 @@ values representing prototype methods.</li>
 <h2><a href="#function: prime.each" name="function: prime.each">function: prime.each</a></h2>
 
 <p>Iterates all the properties of an object, including those properties not
-normally iterable in internet explorer such as <code>toString</code>, <code>valueOf</code>.
+normally iterable in internet explorer, such as <code>toString</code> and <code>valueOf</code>.
 It returns the first <code>object</code> argument.</p>
 <h3>syntax</h3>
 <pre><code class="javascript">prime.each(object, <span class="keyword">function</span>)</code></pre>
 <h3>parameters</h3>
 
 <ol>
-<li>object - (<em>object</em>) The object to iterate</li>
+<li>object - (<em>object</em>) The object to iterate.</li>
 <li>function - (<em>function</em>) The function called for each property.</li>
 <li>context - (<em>object</em>) The context of the passed function.</li>
 </ol>
@@ -378,7 +378,7 @@ element in the array.</p>
 <h3>parameters</h3>
 
 <ol>
-<li>myArray - (<em>array</em>) Original array to map</li>
+<li>myArray - (<em>array</em>) Original array to map.</li>
 <li>fn - (<em>function</em>) The function to produce an element of the new Array from
 an element of the current one.</li>
 <li>context - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
@@ -585,7 +585,7 @@ regexp.test(<span class="regexp">/\w+$/</span>, <span class="string">'---abc'</s
 <h1><a href="#module: es5/string" name="module: es5/string">module: es5/string</a></h1>
 
 <p>This module contains ECMAScript 5 string methods as generics.
-Native JavaScript methods will always get invoked where available,
+Native JavaScript methods will always get invoked when available,
 otherwise a compliant JavaScript substitute will be used.</p>
 <h2><a href="#exports" name="exports">exports</a></h2>
 
@@ -607,11 +607,12 @@ string.charAt(<span class="string">'charAt'</span>, <span class="number">4</span
 <p><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim">MDC String:trim</a></p>
 <h1><a href="#module: types/number" name="module: types/number">module: types/number</a></h1>
 
-<p>This module extends the <code>es/number</code> module, without modifying the <code>es5/number</code>
-module.</p>
+<p>This module extends the <code>es5/number</code> module, without modifying the
+<code>es5/number</code> module.</p>
 <h2><a href="#exports" name="exports">exports</a></h2>
 
-<p>The module exports an object with more, custom number methods.</p>
+<p>The module exports an object with the <code>es5/number</code> methods and more, custom
+number methods.</p>
 <h2><a href="#method: limit" name="method: limit">method: limit</a></h2>
 
 <p>Returns the number limited between two bounds.</p>
@@ -650,7 +651,7 @@ Returns the original number.</p>
 
 <ol>
 <li>num  - (<em>number</em>) The number of times the function should be executed.</li>
-<li>fn   - (<em>function</em>) The function which should be executed on each iteration
+<li>fn   - (<em>function</em>) The function that should be executed on each iteration
 of the loop. This function is passed the current iteration&#39;s index.</li>
 <li>bind - (<em>object</em>, optional) The object to use as &#39;this&#39; in the function.</li>
 </ol>
@@ -669,11 +670,12 @@ of the loop. This function is passed the current iteration&#39;s index.</li>
 <pre><code class="javascript">number.random(<span class="number">5</span>, <span class="number">20</span>); <span class="comment">// returns a random number between 5 and 20.</span></code></pre>
 <h1><a href="#module: types/string" name="module: types/string">module: types/string</a></h1>
 
-<p>This module extends the <code>es/string</code> module, without modifying the <code>es5/string</code>
-module.</p>
+<p>This module extends the <code>es5/string</code> module, without modifying the
+<code>es5/string</code> module.</p>
 <h2><a href="#exports" name="exports">exports</a></h2>
 
-<p>The module exports an object with more, custom string methods.</p>
+<p>The module exports an object with the <code>es5/string</code> methods and more, custom
+string methods.</p>
 <pre><code class="javascript"><span class="keyword">var</span> string = require(<span class="string">'prime/types/string'</span>)
 string.capitalize(<span class="string">'i like cookies'</span>) <span class="comment">// "I Like Cookies"</span></code></pre>
 <h2><a href="#method: clean" name="method: clean">method: clean</a></h2>
@@ -711,7 +713,7 @@ non-primitive.</p>
 <span class="keyword">var</span> list = require(<span class="string">'prime/collection/list'</span>)
 <span class="keyword">var</span> map = require(<span class="string">'prime/collection/map'</span>)</code></pre>
 
-<p><code>hash</code> and <code>list</code> are actually a <a href="#method:%20util/shell">shell</a>, so can be used
+<p><code>hash</code> and <code>list</code> are actually a <a href="#method:%20util/shell">shell</a>, so should be used
 as generics.</p>
 <pre><code class="javascript"><span class="keyword">var</span> object = {}
 hash.set(object, <span class="string">'name'</span>, <span class="string">'William'</span>)
@@ -721,11 +723,9 @@ object.name <span class="comment">// 'William'</span>
 <span class="keyword">var</span> array = {length: <span class="number">1</span>, <span class="number">0</span>: <span class="string">'Sophia'</span>}
 list.set(array, <span class="number">0</span>, <span class="string">'Emma'</span>)</code></pre>
 
-<p><code>map</code> can only be used as a constructor</p>
+<p><code>map</code> can only be used as a constructor.</p>
 <pre><code class="javascript"><span class="keyword">var</span> myMap = <span class="keyword">new</span> map
-<span class="comment">// but list and hash can be used as constructors as well</span>
-<span class="keyword">var</span> myHash = <span class="keyword">new</span> hash
-<span class="keyword">var</span> myList = <span class="keyword">new</span> list</code></pre>
+<span class="comment">// but list and hash can be used as constructors as well</span></code></pre>
 <h2><a href="#method: set" name="method: set">method: set</a></h2>
 
 <p>Set a new value, or replace an old value.
@@ -743,15 +743,19 @@ It returns the collection instance.</p>
 <li>value - (<em>mixed</em>) the value to associate with the specified key.</li>
 </ol>
 <h3>sample</h3>
-<pre><code class="javascript">myHash.set(<span class="string">'name'</span>, <span class="string">'Michelle'</span>)</code></pre>
+<pre><code class="javascript"><span class="keyword">var</span> object = {}
+hash.set(object, <span class="string">'name'</span>, <span class="string">'Michelle'</span>)
+object.name <span class="comment">// Michelle</span></code></pre>
 <h2><a href="#method: get" name="method: get">method: get</a></h2>
 
 <p>Returns the value associated with the given key.</p>
-<pre><code class="javascript">myHash.get(<span class="string">'name'</span>) <span class="comment">// Michelle</span></code></pre>
+<pre><code class="javascript"><span class="keyword">var</span> object = {name: <span class="string">'Michelle'</span>}
+hash.get(object, <span class="string">'name'</span>) <span class="comment">// Michelle</span></code></pre>
 <h2><a href="#method: count" name="method: count">method: count</a></h2>
 
 <p>Returns the number of items in the hash, list or map.</p>
-<pre><code class="javascript">myList.count() <span class="comment">// 4</span></code></pre>
+<pre><code class="javascript"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]
+list.count(array) <span class="comment">// 4</span></code></pre>
 <h2><a href="#method: each" name="method: each">method: each</a></h2>
 
 <p>Calls a function for each key-value pair in the object. The returned value is
@@ -772,8 +776,7 @@ collection. This function is passed the value and its key in the collection.</li
 <li>hash  - (<em>collection</em>) The actual collection.</li>
 </ol>
 <h3>sample</h3>
-<pre><code class="javascript"><span class="keyword">var</span> hash = <span class="keyword">new</span> Hash({first: <span class="string">"Sunday"</span>, second: <span class="string">"Monday"</span>, third: <span class="string">"Tuesday"</span>});
-hash.each({
+<pre><code class="javascript">hash.each({
     first: <span class="string">"Sunday"</span>,
     second: <span class="string">"Monday"</span>,
     third: <span class="string">"Tuesday"</span>
@@ -806,7 +809,7 @@ an value of the current one.</li>
 <h3>sample</h3>
 <pre><code class="javascript"><span class="keyword">var</span> timesTwo = hash.map({a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>}, <span class="keyword">function</span>(value, key){
     <span class="keyword">return</span> value * <span class="number">2</span>
-}); <span class="comment">// timesTwo now holds an object containing: {a: 2, b: 4, c: 6}</span></code></pre>
+}) <span class="comment">// timesTwo now holds an object containing: {a: 2, b: 4, c: 6}</span></code></pre>
 <h2><a href="#method: filter" name="method: filter">method: filter</a></h2>
 
 <p>Creates and returns a collection with all of the elements of the collection for
@@ -828,7 +831,7 @@ function is passed the value and its key in the collection.</li>
 <h3>sample</h3>
 <pre><code class="javascript"><span class="keyword">var</span> biggerThanTwenty = hash.filter({a: <span class="number">10</span>, b: <span class="number">20</span>, c: <span class="number">30</span>}, <span class="keyword">function</span>(value, key){
     <span class="keyword">return</span> value > <span class="number">20</span>
-}); <span class="comment">// biggerThanTwenty now holds an object containing: {c: 30}</span></code></pre>
+}) <span class="comment">// biggerThanTwenty now holds an object containing: {c: 30}</span></code></pre>
 <h2><a href="#method: every" name="method: every">method: every</a></h2>
 
 <p>Returns <code>true</code> if every value in the collection satisfies the provided testing
@@ -850,7 +853,7 @@ function is passed the value and its key in the collection.</li>
 <h3>sample</h3>
 <pre><code class="javascript"><span class="keyword">var</span> areAllBigEnough = hash.every({a: <span class="number">10</span>, b: <span class="number">4</span>, c: <span class="number">25</span>}, <span class="keyword">function</span>(value, key){
     <span class="keyword">return</span> value > <span class="number">20</span>
-}); <span class="comment">// areAllBigEnough = false</span></code></pre>
+}) <span class="comment">// areAllBigEnough = false</span></code></pre>
 <h2><a href="#method: some" name="method: some">method: some</a></h2>
 
 <p>Returns <code>true</code> if at least one value in the collection satisfies the provided
@@ -872,7 +875,7 @@ function is passed the value and its key in the collection.</li>
 <h3>sample</h3>
 <pre><code class="javascript"><span class="keyword">var</span> areAnyBigEnough = hash.some({a: <span class="number">10</span>, b: <span class="number">4</span>, c: <span class="number">25</span>}, <span class="keyword">function</span>(value, key){
     <span class="keyword">return</span> value > <span class="number">20</span>
-}); <span class="comment">// isAnyBigEnough = true</span></code></pre>
+}) <span class="comment">// isAnyBigEnough = true</span></code></pre>
 <h2><a href="#method: index" name="method: index">method: index</a></h2>
 
 <p>Returns the key which is associated with the first found value that is equal
@@ -925,12 +928,7 @@ and numbers).</p>
 <p>A <a href="#module:%20util/shell">shell</a> that contains collection methods for objects.</p>
 <pre><code class="javascript"><span class="keyword">var</span> hash = require(<span class="string">'prime/collection/hash'</span>)
 
-<span class="comment">// used as generic</span>
-hash.get({day: <span class="string">'Friday'</span>}, <span class="string">'day'</span>) <span class="comment">// "Friday"</span>
-
-<span class="comment">// used as constructor</span>
-<span class="keyword">var</span> myHash = <span class="keyword">new</span> hash
-myHash.set(<span class="string">'day'</span>, <span class="string">'Friday'</span>)</code></pre>
+hash.get({day: <span class="string">'Friday'</span>}, <span class="string">'day'</span>) <span class="comment">// "Friday"</span></code></pre>
 <h1><a href="#module: collection/list" name="module: collection/list">module: collection/list</a></h1>
 
 <p>list contains <a href="#modules:%20collection">collection</a> methods that are applied on
@@ -947,8 +945,9 @@ list.remove(array, list.index(<span class="number">3</span>))
 <span class="comment">// array is now [1, 2, 4]</span></code></pre>
 <h1><a href="#module: collection/map" name="module: collection/map">module: collection/map</a></h1>
 
-<p>map is like, except that keys can be non-primitive, for example an function
-or object, besides primitive keys.</p>
+<p><code>map</code> is a constructor that returns an object that works like a hash. Unlike a
+hash however, map instances can have any type of object as keys, rather than
+just strings.</p>
 
 <p>map implements all <a href="#modules:%20collection">collection</a> methods.</p>
 <h2><a href="#exports" name="exports">exports</a></h2>
@@ -1012,7 +1011,7 @@ inherit from a shell:</p>
         <span class="keyword">return</span> <span class="keyword">this</span> * num
     },
     divide: <span class="keyword">function</span>(num){
-        <span class="keyword">return</span> <span class="keyword">this</span> / num
+        <span class="keyword">return</span> <span class="keyword">this</span> <span class="comment">// num</span>
     }
 })
 arithmetic.add(<span class="number">4</span>, <span class="number">6</span>) <span class="comment">// 10</span>
@@ -1050,7 +1049,7 @@ myHash.values() <span class="comment">// ['prime', [2, 3, 5, 7, 11]]</span></cod
 <p>Emitter is a module for managing and emitting events.</p>
 <h2><a href="#exports" name="exports">exports</a></h2>
 
-<p>The module exports the emitter prime</p>
+<p>The module exports the emitter prime.</p>
 <pre><code class="javascript"><span class="keyword">var</span> prime = require(<span class="string">'prime'</span>)
 <span class="keyword">var</span> Emitter = require(<span class="string">'prime/util/emitter'</span>)
 
@@ -1074,7 +1073,7 @@ It returns the emitter instance.</p>
 <h3>parameters</h3>
 
 <ol>
-<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;)</li>
+<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;).</li>
 <li>fn - (<em>function</em>) the function to execute.</li>
 </ol>
 <h3>sample</h3>
@@ -1088,7 +1087,7 @@ It returns the emitter instance.</p>
 <h3>parameters</h3>
 
 <ol>
-<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;)</li>
+<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;).</li>
 <li>fn - (<em>function</em>) the function to execute.</li>
 </ol>
 <h3>sample</h3>
@@ -1105,7 +1104,7 @@ It returns the emitter instance.</p>
 <h3>parameters</h3>
 
 <ol>
-<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;)</li>
+<li>event - (<em>string</em>) the name of the event (e.g. &#39;complete&#39;).</li>
 <li>...arguments - all arguments where <code>i &gt; 0</code> are passed as arguments of the
 listeners.</li>
 </ol>
@@ -1161,10 +1160,10 @@ ghost(<span class="string">"20"</span>).is(<span class="number">20</span>) <span
 
 <ul>
 <li>array(-like) types use <code>collection/list</code> methods.</li>
-<li>objects use <code>collection/hash</code></li>
-<li>numbers use <code>types/number</code></li>
-<li>strings use <code>types/string</code></li>
-<li>maps use <code>collection/map</code></li>
+<li>objects use <code>collection/hash</code>.</li>
+<li>numbers use <code>types/number</code>.</li>
+<li>strings use <code>types/string</code>.</li>
+<li>maps use <code>collection/map</code>.</li>
 </ul>
 <h2><a href="#method: register" name="method: register">method: register</a></h2>
 

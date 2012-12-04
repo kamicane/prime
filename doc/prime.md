@@ -19,13 +19,13 @@ the `implements` method.
 ### parameters
 
 1. properties (*object*) - An object containing methods and special properties
-that will get implemented to the constructor.
+that will be implemented on the constructor.
 
 #### property: constructor
 
 When a method with `constructor` as its key gets passed as a property, it will
-effectively become your prime. Every subsequent property (except specials)
-will get implemented to this constructor as prototypes.
+effectively become your prime. All subsequent properties (except specials)
+will be implemented on this constructor as prototypes.
 
 #### property: inherits
 
@@ -110,7 +110,7 @@ method: prime:implement
 -----------------------
 
 The constructor returned by `prime()` is extended with an `implement` method.
-It implement new methods to a constructor's prototype. The function returns
+It implements new methods on a constructor's prototype. The function returns
 the constructor.
 
 ### syntax
@@ -142,7 +142,7 @@ function: prime.each
 --------------------
 
 Iterates all the properties of an object, including those properties not
-normally iterable in internet explorer such as `toString`, `valueOf`.
+normally iterable in internet explorer, such as `toString` and `valueOf`.
 It returns the first `object` argument.
 
 ### syntax
@@ -153,7 +153,7 @@ prime.each(object, function)
 
 ### parameters
 
-1. object - (*object*) The object to iterate
+1. object - (*object*) The object to iterate.
 2. function - (*function*) The function called for each property.
 3. context - (*object*) The context of the passed function.
 
@@ -364,7 +364,7 @@ var mappedArray = array.map(myArray, fn[, context])
 
 ### parameters
 
-1. myArray - (*array*) Original array to map
+1. myArray - (*array*) Original array to map.
 2. fn - (*function*) The function to produce an element of the new Array from
 an element of the current one.
 3. context - (*object*, optional) The object to use as 'this' in the function.
@@ -643,7 +643,7 @@ module: es5/string
 ==================
 
 This module contains ECMAScript 5 string methods as generics.
-Native JavaScript methods will always get invoked where available,
+Native JavaScript methods will always get invoked when available,
 otherwise a compliant JavaScript substitute will be used.
 
 exports
@@ -680,13 +680,14 @@ string.trim('    i like cookies     ') // returns 'i like cookies'
 module: types/number
 ====================
 
-This module extends the `es/number` module, without modifying the `es5/number`
-module.
+This module extends the `es5/number` module, without modifying the
+`es5/number` module.
 
 exports
 -------
 
-The module exports an object with more, custom number methods.
+The module exports an object with the `es5/number` methods and more, custom
+number methods.
 
 method: limit
 -------------
@@ -745,7 +746,7 @@ number.times(num, fn[, context])
 ### parameters
 
 1. num  - (*number*) The number of times the function should be executed.
-2. fn   - (*function*) The function which should be executed on each iteration
+2. fn   - (*function*) The function that should be executed on each iteration
 of the loop. This function is passed the current iteration's index.
 3. bind - (*object*, optional) The object to use as 'this' in the function.
 
@@ -774,13 +775,14 @@ number.random(5, 20); // returns a random number between 5 and 20.
 module: types/string
 ====================
 
-This module extends the `es/string` module, without modifying the `es5/string`
-module.
+This module extends the `es5/string` module, without modifying the
+`es5/string` module.
 
 exports
 -------
 
-The module exports an object with more, custom string methods.
+The module exports an object with the `es5/string` methods and more, custom
+string methods.
 
 ```js
 var string = require('prime/types/string')
@@ -869,7 +871,7 @@ var array = {length: 1, 0: 'Sophia'}
 list.set(array, 0, 'Emma')
 ```
 
-`map` can only be used as a constructor
+`map` can only be used as a constructor.
 
 ```js
 var myMap = new map
@@ -1297,7 +1299,7 @@ Emitter is a module for managing and emitting events.
 exports
 -------
 
-The module exports the emitter prime
+The module exports the emitter prime.
 
 ```js
 var prime = require('prime')
@@ -1326,7 +1328,7 @@ It returns the emitter instance.
 
 ### parameters
 
-1. event - (*string*) the name of the event (e.g. 'complete')
+1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
 
 ### sample
@@ -1345,7 +1347,7 @@ It returns the emitter instance.
 
 ### parameters
 
-1. event - (*string*) the name of the event (e.g. 'complete')
+1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
 
 ### sample
@@ -1367,7 +1369,7 @@ It returns the emitter instance.
 
 ### parameters
 
-1. event - (*string*) the name of the event (e.g. 'complete')
+1. event - (*string*) the name of the event (e.g. 'complete').
 2. ...arguments - all arguments where `i > 0` are passed as arguments of the
 listeners.
 
@@ -1448,10 +1450,10 @@ ghost("20").is(20) // false
 ### Default registered types
 
 - array(-like) types use `collection/list` methods.
-- objects use `collection/hash`
-- numbers use `types/number`
-- strings use `types/string`
-- maps use `collection/map`
+- objects use `collection/hash`.
+- numbers use `types/number`.
+- strings use `types/string`.
+- maps use `collection/map`.
 
 method: register
 ----------------
