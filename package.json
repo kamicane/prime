@@ -1,7 +1,7 @@
 {
   "name": "prime",
   "homepage": "https://github.com/mootools/prime",
-  "version": "0.0.5-alpha",
+  "version": "0.0.6",
   "main": "./prime/index.js",
   "description": "prime, an OOP javascript library for node and the web.",
   "keywords": [
@@ -30,7 +30,7 @@
   "devDependencies": {
     "mocha": "1.6",
     "expect.js": "0.1",
-    "wrapup": "0.9",
+    "wrapup": "0.10",
     "procs": "0.0.4"
   },
   "optionalDependencies": {},
