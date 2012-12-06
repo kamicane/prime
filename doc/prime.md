@@ -1253,7 +1253,7 @@ var arithmetic = shell({
         return this * num
     },
     divide: function(num){
-        return this // num
+        return this / num
     }
 })
 arithmetic.add(4, 6) // 10
