@@ -50,7 +50,7 @@ describe('hash', function(){
             expect(objects).to.eql([object, object, object, object])
             expect(contexts).to.eql(["context", "context", "context", "context"])
         })
-        it('should .each for an ghost', function(){
+        it('should .each for a ghost', function(){
             var values = [], keys = []
             ghost({a: 1, b: 2}).each(function(value, key){
                 keys.push(key)

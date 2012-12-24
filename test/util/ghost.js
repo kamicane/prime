@@ -3,7 +3,7 @@
 var expect = require('expect.js')
 var ghost = require('../../util/ghost')
 var string = require('../../types/string')
-var shell = require('../../util/shell')
+var prime = require('../../prime')
 
 describe('ghost', function(){
 
@@ -28,22 +28,20 @@ describe('ghost', function(){
         expect(ghost('ping').is('ping')).to.be.ok()
     })
 
-    it('should add new methods when a method is implemented in the shell', function(){
-        string.implement({
+    it('should add new methods to the base object when a method is implemented in the ghost', function(){
+        ghost.string.implement({
             cat: function(b){
                 return this + b
             }
         })
-        expect(ghost('first').cat('second').valueOf()).to.be('firstsecond')
+        expect(string.cat('first', 'second')).to.be('firstsecond')
     })
 
     it('should register and unregister a ghost type', function(){
-        var all = function(){ return true }
-        ghost.register(all, shell({thing: function(){ return 'prime' }}))
-        expect(ghost(null).thing().valueOf()).to.be('prime')
-        ghost.unregister(all)
-        expect(ghost(null)).to.be(null)
+        ghost.register("catch-all", prime({ method: function(){ return 'prime' } }), function(){ return true })
+        expect(ghost(10).method().valueOf()).to.be('prime')
+        ghost.unregister("catch-all")
+        expect(ghost(10).valueOf()).to.be(10)
     })
 
 })
-
