@@ -1,5 +1,5 @@
 /*
-shell 🐚
+shell
 */"use strict"
 
 var prime = require("../prime/"),
@@ -7,13 +7,17 @@ var prime = require("../prime/"),
 
 var shell = prime({
 
-    mutator: function(key, method){
-        this[key] = function(self){
+    define: function(key, descriptor){
+        var method = descriptor.value
+
+        if (typeof method === "function") this[key] = function(self){
             var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
             return method.apply(self, args)
         }
 
-        this.prototype[key] = method
+        prime.define(this.prototype, key, descriptor)
+
+        return this
     },
 
     constructor: {prototype: {}}

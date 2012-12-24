@@ -1,5 +1,5 @@
 /*
-ghost 👻
+ghost
 */"use strict"
 
 var prime  = require("../prime/"),
@@ -14,29 +14,33 @@ var ghosts = map()
 
 var ghost = function(self){
 
-    var responders = ghosts._keys,
-        hashes = ghosts._values
+    if (self == null) return self
 
     var Ghost
 
-    for (var i = responders.length, responder; responder = responders[--i];) if (responder(self)){
-        Ghost = hashes[i].ghost
-        break
-    }
+    ghosts.backwards(function(hash){
+        if (hash.responder(self)) return !(Ghost = hash.ghost)
+    })
 
     return Ghost ? new Ghost(self) : self
+
 }
 
-ghost.register = function(responder, base){
+ghost.register = function(name, base, responder){
 
-    if (ghosts.get(responder)) return ghost
+    ghosts.remove(name)
 
-    var Ghost = prime({ // yes, a prime in a prime
+    var Ghost = prime({
 
-        mutator: function(key, method){
-            this.prototype[key] = function(){
+        define: function(key, descriptor){
+            var method = descriptor.value
+
+            if (typeof method === "function") descriptor.value = function(){
                 return ghost(method.apply(this.valueOf(), arguments))
             }
+
+            prime.define(this.prototype, key, descriptor)
+            return this
         },
 
         constructor: function(self){
@@ -53,50 +57,43 @@ ghost.register = function(responder, base){
 
     })
 
-    var mutator = base.mutator
-
-    // override base mutator, so it automagically implements stuff in the ghost
-    // when base changes
-    base.mutator = function(key, method){
-        mutator.call(this, key, method)
-        Ghost.mutator(key, method)
-    }
-
     Ghost.implement(base.prototype)
 
-    ghosts.set(responder, {base: base, ghost: Ghost, mutator: mutator})
+    var define = Ghost.define
+    Ghost.define = function(key, descriptor){
+        base.define(key, descriptor)
+        return define.call(Ghost, key, descriptor)
+    }
 
-    return ghost
+    if (!responder) responder = function(self){
+        return type(self) === name
+    }
+
+    ghosts.set(name, {base: base, ghost: Ghost, responder: responder})
+
+    return ghost[name] = Ghost
+
 }
 
-ghost.unregister = function(responder){
-    var hash = ghosts.remove(responder)
-    if (hash) hash.base.mutator = hash.mutator
-    return ghost
+ghost.unregister = function(name){
+    var hash = ghosts.remove(name)
+    delete ghost[name]
+    return hash.Ghost
 }
 
 // register base objects
 
-ghost.register(function(self){
-    return self && (type(self) === "array" || type(self.length) === "number")
-}, list)
-
-ghost.register(function(self){
+ghost.register("hash", hash, function(self){
     return type(self) === "object"
-}, hash)
+})
 
-ghost.register(function(self){
-    return type(self) === "number"
-}, number)
+ghost.register("list", list, function(self){
+    return type(self.length) === "number"
+})
 
-ghost.register(function(self){
-    return type(self) === "string"
-}, string)
-
-ghost.register(function(self){
-    return self && self.toString() == "[object Map]"
-}, map)
+ghost.register("number", number)
+ghost.register("string", string)
+ghost.register("map", map)
 
 // export ghost
-
 module.exports = ghost
