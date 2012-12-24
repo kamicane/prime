@@ -7,6 +7,7 @@ var toString = Object.prototype.toString,
 
 var type = function(object){
     if (object == null) return "null"
+    if (object.type) return object.type
     var string = toString.call(object).slice(8, -1).toLowerCase()
     if (string === "number" && isNaN(object)) return "null"
     if (types.test(string)) return string

@@ -32,6 +32,13 @@ var list = shell({
         return this
     },
 
+    backwards: function(method, context){
+        for (var i = this.length - 1; i >= 0; i--){
+            if (i in this && method.call(context, this[i], i, this) === false) break
+        }
+        return this
+    },
+
     index: function(value){
         var index = list.indexOf(this, value)
         return index == -1 ? null : index

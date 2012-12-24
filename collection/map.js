@@ -11,8 +11,10 @@ var prime = require("../prime/"),
 
 var Map = prime({
 
+    type: "map",
+
     constructor: function(){
-        if (!(this instanceof Map)) return new Map
+        if (!this || this.constructor !== Map) return new Map
         this.length = 0
         this._keys = []
         this._values = []
@@ -43,6 +45,13 @@ var Map = prime({
 
     each: function(method, context){
         for (var i = 0, l = this.length; i < l; i++){
+            if (method.call(context, this._values[i], this._keys[i], this) === false) break
+        }
+        return this
+    },
+
+    backwards: function(method, context){
+        for (var i = this.length - 1; i >= 0; i--){
             if (method.call(context, this._values[i], this._keys[i], this) === false) break
         }
         return this
