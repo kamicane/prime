@@ -47,5 +47,3 @@ coverage:
 	cd cov; make test; cd ..
 	cat ./cov.json | coverjs-report -r html > cov.html
 	echo "open cov.html"
-
-

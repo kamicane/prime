@@ -18,7 +18,6 @@ var string = shell({
 var methods = {}
 var names = "charAt,charCodeAt,concat,indexOf,lastIndexOf,match,quote,replace,search,slice,split,substr,substring,toLowerCase,toUpperCase".split(",")
 for (var i = 0, name, method; name = names[i++];) if ((method = proto[name])) methods[name] = method
-
 string.implement(methods)
 
 module.exports = string

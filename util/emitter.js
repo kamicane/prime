@@ -13,7 +13,6 @@ module.exports = prime({
         var listeners = this._listeners || (this._listeners = {}),
             events = listeners[event] || (listeners[event] = {})
 
-
         var exists = false
         for (var k in events) if (events[k] === fn){
             exists = true
