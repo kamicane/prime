@@ -13,17 +13,15 @@ var each = function(object, method, context){
 }
 
 /*(es5 && fixEnumBug)?*/
-if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
+if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum
 
-    var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(","),
-        proto = Object.prototype
+    var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(",")
+    var proto = Object.prototype
 
     each = function(object, method, context){
-        var i = buggy.length, key, value
-        for (key in object) if (method.call(context, object[key], key, object) === false) return object
-        while (i--){
-            key = buggy[i]
-            value = object[key]
+        for (var key in object) if (method.call(context, object[key], key, object) === false) return object
+        for (var i = 0; key = buggy[i]; i++){
+            var value = object[key]
             if (value !== proto[key] && method.call(context, value, key, object) === false) break
         }
         return object
@@ -31,38 +29,54 @@ if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum 🐛
 
 }/*:*/
 
-var create = Object.create/*(es5)?*/ || function(self){
-    var F = function(){}
-    F.prototype = self
-    return new F
-}/*:*/
-
-var mutator = function(key, value){
-    this.prototype[key] = value
+var create = function(self){
+    var constructor = function(){}
+    constructor.prototype = self
+    return new constructor
 }
 
-var implement = function(obj){
-    each(obj, function(value, key){
-        if (key !== "constructor" && key !== "inherits" && key !== "mutator") this.mutator(key, value)
+var defineProperty = Object.defineProperty/*(es5)?*/ || function(object, key, descriptor){
+    object[key] = descriptor.value
+    return object
+}/*:*/
+
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor/*(es5)?*/ || function(object, key){
+    return {value: object[key]}
+}/*:*/
+
+var define = function(object, key, descriptor){
+    defineProperty(object, key, descriptor)
+    return object
+}
+
+var implement = function(proto){
+    each(proto, function(value, key){
+        if (key !== "constructor" && key !== "define" && key !== "inherits")
+            this.define(key, getOwnPropertyDescriptor(proto, key) || {
+                writable: true,
+                enumerable: true,
+                configurable: true,
+                value: value
+            })
     }, this)
     return this
 }
 
 var prime = function(proto){
 
-    var superprime = proto.inherits, superproto
-    if (superprime) superproto = superprime.prototype
+    var superprime = proto.inherits
 
     // if our nice proto object has no own constructor property
     // then we proceed using a ghosting constructor that all it does is
     // call the parent's constructor if it has a superprime, else an empty constructor
     // proto.constructor becomes the effective constructor
     var constructor = (has(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
-        return superproto.constructor.apply(this, arguments)
+        return superprime.apply(this, arguments)
     } : function(){}
 
     if (superprime){
 
+        var superproto = superprime.prototype
         // inherit from superprime
         var cproto = constructor.prototype = create(superproto)
 
@@ -72,8 +86,11 @@ var prime = function(proto){
         cproto.constructor = constructor
     }
 
-    // inherit (kindof inherit) mutator
-    constructor.mutator = proto.mutator || (superprime && superprime.mutator) || mutator
+    // inherit (kindof inherit) define
+    constructor.define = proto.define || (superprime && superprime.define) || function(key, descriptor){
+        define(this.prototype, key, descriptor)
+        return this
+    }
     // copy implement (this should never change)
     constructor.implement = implement
 
@@ -82,8 +99,9 @@ var prime = function(proto){
 
 }
 
-prime.each = each
-prime.has = has
+prime.has    = has
+prime.each   = each
 prime.create = create
+prime.define = define
 
 module.exports = prime
