@@ -17,7 +17,7 @@ var hash = shell({
     },
 
     get: function(key){
-        return prime.has(this, key) ? this[key] : null
+        return this[key]
     },
 
     count: function(){
@@ -76,7 +76,9 @@ var hash = shell({
     },
 
     remove: function(key){
+        var value = this[key]
         delete this[key]
+        return value
     },
 
     keys: function(){
