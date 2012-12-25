@@ -26,9 +26,9 @@ var ghost = function(self){
 
 }
 
-ghost.register = function(name, base, responder){
+ghost.register = function(base, responder){
 
-    ghosts.remove(name)
+    ghosts.remove(base)
 
     var Ghost = prime({
 
@@ -65,35 +65,38 @@ ghost.register = function(name, base, responder){
         return define.call(Ghost, key, descriptor)
     }
 
-    if (!responder) responder = function(self){
-        return type(self) === name
-    }
+    ghosts.set(base, {ghost: Ghost, responder: responder})
 
-    ghosts.set(name, {base: base, ghost: Ghost, responder: responder})
-
-    return ghost[name] = Ghost
+    return Ghost
 
 }
 
-ghost.unregister = function(name){
-    var hash = ghosts.remove(name)
-    delete ghost[name]
+ghost.unregister = function(base){
+    var hash = ghosts.remove(base)
     return hash.Ghost
 }
 
 // register base objects
 
-ghost.register("hash", hash, function(self){
+ghost.hash = ghost.register(hash, function(self){
     return type(self) === "object"
 })
 
-ghost.register("list", list, function(self){
+ghost.list = ghost.register(list, function(self){
     return type(self.length) === "number"
 })
 
-ghost.register("number", number)
-ghost.register("string", string)
-ghost.register("map", map)
+ghost.number = ghost.register(number, function(self){
+    return type(self) === "number"
+})
+
+ghost.string = ghost.register(string, function(self){
+    return type(self) === "string"
+})
+
+ghost.map = ghost.register(map, function(self){
+    return self instanceof map
+})
 
 // export ghost
 module.exports = ghost

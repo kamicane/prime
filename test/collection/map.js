@@ -181,10 +181,10 @@ describe('map', function(){
         })
     })
 
-    describe('toString', function(){
-        it('should return [object Map]', function(){
-            expect((new Map()) + '').to.equal('[object Map]')
-        })
-    })
+    // describe('toString', function(){
+    //     it('should return [object Map]', function(){
+    //         expect((new Map()) + '').to.equal('[object Map]')
+    //     })
+    // })
 
 })

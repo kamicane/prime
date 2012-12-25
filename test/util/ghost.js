@@ -38,9 +38,10 @@ describe('ghost', function(){
     })
 
     it('should register and unregister a ghost type', function(){
-        ghost.register("catch-all", prime({ method: function(){ return 'prime' } }), function(){ return true })
+        var base = prime({ method: function(){ return 'prime' } })
+        ghost.register(base, function(){ return true })
         expect(ghost(10).method().valueOf()).to.be('prime')
-        ghost.unregister("catch-all")
+        ghost.unregister(base)
         expect(ghost(10).valueOf()).to.be(10)
     })
 

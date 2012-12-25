@@ -4,28 +4,25 @@ map
 */"use strict"
 
 var prime = require("../prime/"),
-    array = require("../es5/array"),
-    proto = array.prototype
+    array = require("../es5/array")
 
 // set, get, count, each, map, filter, some, every, index, remove, keys, values
 
 var Map = prime({
 
-    type: "map",
-
     constructor: function(){
         if (!this || this.constructor !== Map) return new Map
         this.length = 0
-        this._keys = []
         this._values = []
+        this._keys = []
     },
 
     set: function(key, value){
-        var index = proto.indexOf.call(this._keys, key)
+        var index = array.indexOf(this._keys, key)
 
         if (index === -1){
-            this._keys[this.length] = key
-            this._values[this.length] = value
+            this._keys.push(key)
+            this._values.push(value)
             this.length++
         } else {
             this._values[index] = value
@@ -35,7 +32,7 @@ var Map = prime({
     },
 
     get: function(key){
-        var index = proto.indexOf.call(this._keys, key)
+        var index = array.indexOf(this._keys, key)
         return (index === -1) ? null : this._values[index]
     },
 
@@ -90,12 +87,12 @@ var Map = prime({
     },
 
     index: function(value){
-        var index = proto.indexOf.call(this._values, value)
+        var index = array.indexOf(this._values, value)
         return (index > -1) ? this._keys[index] : null
     },
 
     remove: function(key){
-        var index = proto.indexOf.call(this._keys, key)
+        var index = array.indexOf(this._keys, key)
 
         if (index !== -1){
             this._keys.splice(index, 1)
@@ -112,10 +109,6 @@ var Map = prime({
 
     values: function(){
         return this._values.slice()
-    },
-
-    toString: function(){
-        return "[object Map]"
     }
 
 })

@@ -41,7 +41,7 @@ var list = shell({
 
     index: function(value){
         var index = list.indexOf(this, value)
-        return index == -1 ? null : index
+        return index === -1 ? null : index
     },
 
     remove: function(i){
