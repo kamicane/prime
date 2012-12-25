@@ -17,7 +17,8 @@ var hash = shell({
     },
 
     get: function(key){
-        return this[key]
+        var value = this[key]
+        return value != null ? value : null
     },
 
     count: function(){
