@@ -1,12 +1,12 @@
 /*
 regexp
- - es5 regexp shell
+ - regexp shell
 */"use strict"
 
-var shell = require("../util/shell")
+var regexp = require("../util/shell")()
 
-var proto = RegExp.prototype
+var names = "exec,test,toString".split(",")
 
-var regexp = shell({test: proto.test, exec: proto.exec})
+for (var methods = {}, i = 0, name, method; name = names[i++];) if ((method = RegExp.prototype[name])) methods[name] = method
 
-module.exports = regexp
+module.exports = regexp.implement(methods)

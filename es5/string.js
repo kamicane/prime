@@ -1,23 +1,19 @@
 /*
 string
- - es5 string shell
+ - string shell
 */"use strict"
 
-var shell = require("../util/shell")
+var string = require("../util/shell")()
 
-var proto = String.prototype
+var names = (
+    "charAt,charCodeAt,concat,contains,endsWith,indexOf,lastIndexOf,localeCompare,match,replace,search,slice,split" +
+    ",startsWith,substr,substring,toLocaleLowerCase,toLocaleUpperCase,toLowerCase,toString,toUpperCase,trim,valueOf"
+).split(",")
 
-var string = shell({
+for (var methods = {}, i = 0, name, method; name = names[i++];) if ((method = String.prototype[name])) methods[name] = method
 
-    trim: proto.trim/*(es5 && string.trim)?*/ || function(){
-        return (this + '').replace(/^\s+|\s+$/g, '')
-    }/*:*/
+if (!methods.trim) methods.trim = function(){
+    return (this + '').replace(/^\s+|\s+$/g, '')
+}
 
-})
-
-var methods = {}
-var names = "charAt,charCodeAt,concat,indexOf,lastIndexOf,match,quote,replace,search,slice,split,substr,substring,toLowerCase,toUpperCase".split(",")
-for (var i = 0, name, method; name = names[i++];) if ((method = proto[name])) methods[name] = method
-string.implement(methods)
-
-module.exports = string
+module.exports = string.implement(methods)

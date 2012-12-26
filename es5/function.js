@@ -1,14 +1,12 @@
 /*
 function
- - es5 function shell
+ - function shell
 */"use strict"
 
-var shell = require("../util/shell")
+var function_ = require("../util/shell")()
 
-var proto = Function.prototype
+var names = "apply,bind,call,isGenerator,toString".split(",")
 
-module.exports = shell({
-    apply: proto.apply,
-    call: proto.call,
-    bind: proto.bind
-})
+for (var methods = {}, i = 0, name, method; name = names[i++];) if ((method = Function.prototype[name])) methods[name] = method
+
+module.exports = function_.implement(methods)

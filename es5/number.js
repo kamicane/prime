@@ -1,16 +1,12 @@
 /*
 number
- - es5 number shell
+ - number shell
 */"use strict"
 
-var shell = require("../util/shell")
+var number = require("../util/shell")()
 
-var proto = Number.prototype
+var names = "toExponential,toFixed,toLocaleString,toPrecision,toString,valueOf".split(",")
 
-var number = shell({
-    toExponential: proto.toExponential,
-    toFixed: proto.toFixed,
-    toPrecision: proto.toPrecision
-})
+for (var methods = {}, i = 0, name, method; name = names[i++];) if ((method = Number.prototype[name])) methods[name] = method
 
-module.exports = number
+module.exports = number.implement(methods)
