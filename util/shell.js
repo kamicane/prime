@@ -5,9 +5,12 @@ shell
 var prime = require("../prime/"),
     slice = Array.prototype.slice
 
-var shell = prime({
+var base = prime({
+
+    constructor: {prototype: {}},
 
     define: function(key, descriptor){
+
         var method = descriptor.value
 
         if (typeof method === "function") this[key] = function(self){
@@ -18,14 +21,13 @@ var shell = prime({
         prime.define(this.prototype, key, descriptor)
 
         return this
-    },
-
-    constructor: {prototype: {}}
+    }
 
 })
 
 module.exports = function(proto){
-    var inherits = proto.inherits || (proto.inherits = shell)
+    if (!proto) proto = {}
+    var inherits = proto.inherits || (proto.inherits = base)
     proto.constructor = prime.create(inherits)
     return prime(proto)
 }
