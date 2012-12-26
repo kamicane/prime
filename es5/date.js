@@ -13,6 +13,10 @@ var names = (
     ",toLocaleTimeString,toString,toTimeString,toUTCString,valueOf"
 ).split(",")
 
+date.now = Date.now || function(){
+    return +(new Date)
+}
+
 for (var methods = {}, i = 0, name, method; name = names[i++];) if ((method = Date.prototype[name])) methods[name] = method
 
 module.exports = date.implement(methods)
