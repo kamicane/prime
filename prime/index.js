@@ -35,7 +35,7 @@ var create = function(self){
     return new constructor
 }
 
-var defineProperty = Object.defineProperty/*(es5)?*/ || function(object, key, descriptor){
+var define = Object.defineProperty/*(es5)?*/ || function(object, key, descriptor){
     object[key] = descriptor.value
     return object
 }/*:*/
@@ -43,11 +43,6 @@ var defineProperty = Object.defineProperty/*(es5)?*/ || function(object, key, de
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor/*(es5)?*/ || function(object, key){
     return {value: object[key]}
 }/*:*/
-
-var define = function(object, key, descriptor){
-    defineProperty(object, key, descriptor)
-    return object
-}
 
 var implement = function(proto){
     each(proto, function(value, key){
