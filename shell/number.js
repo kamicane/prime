@@ -1,9 +1,9 @@
 /*
-number methods
- - inherits from es5/number
+number
+ - number shell
 */"use strict"
 
-var shell = require("../util/shell")
+var shell = require("../shell/")
 
 var number = shell({
 

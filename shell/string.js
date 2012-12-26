@@ -1,9 +1,9 @@
 /*
 string methods
- - inherits from es5/string
+ - string shell
 */"use strict"
 
-var shell = require("../util/shell")
+var shell = require("../shell/")
 
 var string = shell({
 

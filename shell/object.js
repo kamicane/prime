@@ -1,15 +1,16 @@
 /*
-hash
- - to be used with any object that has keys / values
- - generates generics
+object
+ - object shell
 */"use strict"
 
 var prime = require("../prime/"),
-    shell = require("../util/shell")
+    shell = require("../shell/")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
 
-var hash = shell({
+var object = shell({
+
+    inherits: require("../es5/object"),
 
     set: function(key, value){
         this[key] = value
@@ -100,11 +101,11 @@ var hash = shell({
 
 })
 
-hash.each = prime.each
+object.each = prime.each
 
 /*(hash.encode)?*/
-if (typeof JSON !== 'undefined') hash.implement({encode: function(){
+if (typeof JSON !== 'undefined') object.implement({encode: function(){
     return JSON.stringify(this)
 }})/*:*/
 
-module.exports = hash
+module.exports = object

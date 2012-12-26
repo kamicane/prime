@@ -1,9 +1,9 @@
 /*
 date
- - date shell
+ - date es5 shell
 */"use strict"
 
-var date = require("../util/shell")()
+var date = require("../shell/")()
 
 var names = (
     "getDate,getDay,getFullYear,getHours,getMilliseconds,getMinutes,getMonth,getSeconds,getTime,getTimezoneOffset" +

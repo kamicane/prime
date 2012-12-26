@@ -1,9 +1,9 @@
 /*
 string
- - string shell
+ - string es5 shell
 */"use strict"
 
-var string = require("../util/shell")()
+var string = require("../shell/")()
 
 var names = (
     "charAt,charCodeAt,concat,contains,endsWith,indexOf,lastIndexOf,localeCompare,match,replace,search,slice,split" +

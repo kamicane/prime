@@ -1,9 +1,9 @@
 /*
 number
- - number shell
+ - number es5 shell
 */"use strict"
 
-var number = require("../util/shell")()
+var number = require("../shell/")()
 
 var names = "toExponential,toFixed,toLocaleString,toPrecision,toString,valueOf".split(",")
 

@@ -1,14 +1,13 @@
 /*
-list
- - to be used with any object that has a length and numeric keys
- - generates generics
+array
+ - array shell
 */"use strict"
 
-var shell = require("../util/shell")
+var shell = require("../shell/")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
 
-var list = shell({
+var array = shell({
 
     inherits: require("../es5/array"),
 
@@ -60,4 +59,4 @@ var list = shell({
 
 })
 
-module.exports = list
+module.exports = array

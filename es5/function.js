@@ -1,9 +1,9 @@
 /*
 function
- - function shell
+ - function es5 shell
 */"use strict"
 
-var function_ = require("../util/shell")()
+var function_ = require("../shell/")()
 
 var names = "apply,bind,call,isGenerator,toString".split(",")
 
