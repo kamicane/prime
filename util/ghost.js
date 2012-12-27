@@ -15,56 +15,59 @@ var shells = {
     "regexp"   : require("../shell/regexp")
 }
 
-var ghosts = {}
+module.exports = function(typeCheck){
 
-var ghost = prime({
+    if (!typeCheck) typeCheck = typeOf
 
-    define: function(key, descriptor){
-        var method = descriptor.value
-
-        if (typeof method === "function") descriptor.value = function(){
-            return ƒ(method.apply(this.valueOf(), arguments))
-        }
-
-        prime.define(this.prototype, key, descriptor)
-        return this
+    var ƒ = function(self){
+        if (self == null || self instanceof ghost) return self
+        var g = ƒ[typeCheck(self)]
+        return (g) ? new g(self) : self
     }
 
-})
+    var ghost = prime({
 
-var ƒ = function(self){
-    if (self == null || self instanceof ghost) return self
-    var g = ghosts[typeOf(self)]
-    return (g) ? new g(self) : self
-}
+        define: function(key, descriptor){
+            var method = descriptor.value
 
-var register = function(t, shell){
-
-    var g = ƒ[t] = prime({
-
-        inherits: ghost,
-
-        constructor: function ghost(self){
-            if (!this || this.constructor !== g) return new g(self)
-
-            this.valueOf = function(){
-                return self
+            if (typeof method === "function") descriptor.value = function(){
+                return ƒ(method.apply(this.valueOf(), arguments))
             }
-            this.toString = function(){
-                return self + ""
-            }
-            this.is = function(object){
-                return self === object
-            }
+
+            prime.define(this.prototype, key, descriptor)
+            return this
         }
 
     })
 
-    return ghosts[t] = g.implement(shell.prototype)
+    ƒ.register = function(type, shell){
+
+        var g = ƒ[type] = prime({
+
+            inherits: ghost,
+
+            constructor: function ghost(self){
+                if (!this || this.constructor !== g) return new g(self)
+
+                this.valueOf = function(){
+                    return self
+                }
+                this.toString = function(){
+                    return self + ""
+                }
+                this.is = function(object){
+                    return self === object
+                }
+            }
+
+        })
+
+        return g.implement(shell.prototype)
+
+    }
+
+    for (var type in shells) ƒ.register(type, shells[type])
+
+    return ƒ
 
 }
-
-for (var t in shells) register(t, shells[t])
-
-// export fanthom
-module.exports = ƒ
