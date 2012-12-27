@@ -3,47 +3,50 @@ ghost
 */"use strict"
 
 var prime  = require("../prime/"),
-    type   = require("../util/type"),
-    string = require("../types/string"),
-    number = require("../types/number"),
-    map    = require("../collection/map"),
-    list   = require("../collection/list"),
-    hash   = require("../collection/hash")
+    typeOf = require("../util/type")
 
-var ghosts = map()
-
-var ghost = function(self){
-
-    if (self == null) return self
-
-    var Ghost
-
-    ghosts.backwards(function(hash){
-        if (hash.responder(self)) return !(Ghost = hash.ghost)
-    })
-
-    return Ghost ? new Ghost(self) : self
-
+var shells = {
+    "string"   : require("../shell/string"),
+    "number"   : require("../shell/number"),
+    "array"    : require("../shell/array"),
+    "object"   : require("../shell/object"),
+    "date"     : require("../shell/date"),
+    "function" : require("../shell/function"),
+    "regexp"   : require("../shell/regexp")
 }
 
-ghost.register = function(base, responder){
+var ghosts = {}
 
-    ghosts.remove(base)
+var ghost = prime({
 
-    var Ghost = prime({
+    define: function(key, descriptor){
+        var method = descriptor.value
 
-        define: function(key, descriptor){
-            var method = descriptor.value
+        if (typeof method === "function") descriptor.value = function(){
+            return ƒ(method.apply(this.valueOf(), arguments))
+        }
 
-            if (typeof method === "function") descriptor.value = function(){
-                return ghost(method.apply(this.valueOf(), arguments))
-            }
+        prime.define(this.prototype, key, descriptor)
+        return this
+    }
 
-            prime.define(this.prototype, key, descriptor)
-            return this
-        },
+})
 
-        constructor: function(self){
+var ƒ = function(self){
+    if (self == null || self instanceof ghost) return self
+    var g = ghosts[typeOf(self)]
+    return (g) ? new g(self) : self
+}
+
+var register = function(t, shell){
+
+    var g = ƒ[t] = prime({
+
+        inherits: ghost,
+
+        constructor: function ghost(self){
+            if (!this || this.constructor !== g) return new g(self)
+
             this.valueOf = function(){
                 return self
             }
@@ -57,46 +60,11 @@ ghost.register = function(base, responder){
 
     })
 
-    Ghost.implement(base.prototype)
-
-    var define = Ghost.define
-    Ghost.define = function(key, descriptor){
-        base.define(key, descriptor)
-        return define.call(Ghost, key, descriptor)
-    }
-
-    ghosts.set(base, {ghost: Ghost, responder: responder})
-
-    return Ghost
+    return ghosts[t] = g.implement(shell.prototype)
 
 }
 
-ghost.unregister = function(base){
-    var hash = ghosts.remove(base)
-    return hash.Ghost
-}
+for (var t in shells) register(t, shells[t])
 
-// register base objects
-
-ghost.hash = ghost.register(hash, function(self){
-    return type(self) === "object"
-})
-
-ghost.list = ghost.register(list, function(self){
-    return type(self.length) === "number"
-})
-
-ghost.number = ghost.register(number, function(self){
-    return type(self) === "number"
-})
-
-ghost.string = ghost.register(string, function(self){
-    return type(self) === "string"
-})
-
-ghost.map = ghost.register(map, function(self){
-    return self instanceof map
-})
-
-// export ghost
-module.exports = ghost
+// export fanthom
+module.exports = ƒ
