@@ -48,4 +48,3 @@ do
 done
 
 echo "The converted AMD files are written to '$DEST'"
-
