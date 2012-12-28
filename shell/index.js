@@ -3,31 +3,65 @@ shell
 */"use strict"
 
 var prime = require("../prime/"),
-    slice = Array.prototype.slice
+    type  = require("../util/type")
 
-var base = prime({
+var slice = Array.prototype.slice
 
-    constructor: {prototype: {}},
+var ghost = prime({
 
-    define: function(key, descriptor){
+    constructor: function ghost(self){
 
-        var method = descriptor.value
-
-        if (typeof method === "function") this[key] = function(self){
-            var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
-            return method.apply(self, args)
+        this.valueOf = function(){
+            return self
         }
 
-        prime.define(this.prototype, key, descriptor)
+        this.toString = function(){
+            return self + ""
+        }
 
-        return this
+        this.is = function(object){
+            return self === object
+        }
     }
 
 })
 
-module.exports = function(proto){
-    if (!proto) proto = {}
-    var inherits = proto.inherits || (proto.inherits = base)
-    proto.constructor = prime.create(inherits)
-    return prime(proto)
+var shell = function(self){
+    if (self == null || self instanceof ghost) return self
+    var g = shell[type(self)]
+    return (g) ? new g(self) : self
 }
+
+var register = function(){
+
+    var g = prime({inherits: ghost})
+
+    return prime({
+
+        constructor: function(self){
+            return new g(self)
+        },
+
+        define: function(key, descriptor){
+            var method = descriptor.value
+
+            this[key] = function(self){
+                return (arguments.length > 1) ? method.apply(self, slice.call(arguments, 1)) : method.call(self)
+            }
+
+            g.prototype[key] = function(){
+                return shell(method.apply(this.valueOf(), arguments))
+            }
+
+            prime.define(this.prototype, key, descriptor)
+
+            return this
+        }
+
+    })
+
+}
+
+for (var types = "string,number,array,object,date,function,regexp".split(","), i = types.length; i--;) shell[types[i]] = register()
+
+module.exports = shell
