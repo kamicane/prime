@@ -3,7 +3,7 @@ date
  - date es5 shell
 */"use strict"
 
-var date = require("../shell/")()
+var date = require("../shell/")["date"]
 
 var names = (
     "getDate,getDay,getFullYear,getHours,getMilliseconds,getMinutes,getMonth,getSeconds,getTime,getTimezoneOffset" +

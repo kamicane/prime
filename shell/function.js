@@ -3,8 +3,4 @@ function
  - function shell
 */"use strict"
 
-var shell = require("../shell/")
-
-module.exports = shell({
-    inherits: require("../es5/function")
-})
+module.exports = require("../es5/function")

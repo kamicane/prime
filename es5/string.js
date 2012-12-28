@@ -3,7 +3,7 @@ string
  - string es5 shell
 */"use strict"
 
-var string = require("../shell/")()
+var string = require("../shell/")["string"]
 
 var names = (
     "charAt,charCodeAt,concat,contains,endsWith,indexOf,lastIndexOf,localeCompare,match,replace,search,slice,split" +

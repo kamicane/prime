@@ -3,8 +3,4 @@ date
  - date shell
 */"use strict"
 
-var shell = require("../shell/")
-
-module.exports = shell({
-    inherits: require("../es5/date")
-})
+module.exports = require("../es5/date")

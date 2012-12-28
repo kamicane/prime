@@ -3,7 +3,7 @@ number
  - number es5 shell
 */"use strict"
 
-var number = require("../shell/")()
+var number = require("../shell/")["number"]
 
 var names = "toExponential,toFixed,toLocaleString,toPrecision,toString,valueOf".split(",")
 

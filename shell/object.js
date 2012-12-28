@@ -3,14 +3,12 @@ object
  - object shell
 */"use strict"
 
-var prime = require("../prime/"),
-    shell = require("../shell/")
+var prime  = require("../prime/"),
+    object = require("../es5/object")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
 
-var object = shell({
-
-    inherits: require("../es5/object"),
+object.implement({
 
     set: function(key, value){
         this[key] = value
@@ -103,9 +101,8 @@ var object = shell({
 
 object.each = prime.each
 
-/*(hash.encode)?*/
 if (typeof JSON !== 'undefined') object.implement({encode: function(){
     return JSON.stringify(this)
-}})/*:*/
+}})
 
 module.exports = object

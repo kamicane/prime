@@ -3,7 +3,7 @@ function
  - function es5 shell
 */"use strict"
 
-var function_ = require("../shell/")()
+var function_ = require("../shell/")["function"]
 
 var names = "apply,bind,call,isGenerator,toString".split(",")
 

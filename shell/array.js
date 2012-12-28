@@ -3,13 +3,11 @@ array
  - array shell
 */"use strict"
 
-var shell = require("../shell/")
+var array = require("../es5/array")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
 
-var array = shell({
-
-    inherits: require("../es5/array"),
+module.exports = array.implement({
 
     set: function(i, value){
         this[i] = value
@@ -39,24 +37,12 @@ var array = shell({
     },
 
     index: function(value){
-        var index = list.indexOf(this, value)
+        var index = array.indexOf(this, value)
         return index === -1 ? null : index
     },
 
     remove: function(i){
-        return list.splice(this, i, 1)[0]
-    },
-
-    keys: function(){
-        return list.map(this, function(v, i){
-            return i
-        })
-    },
-
-    values: function(){
-        return list.slice(this)
+        return array.splice(this, i, 1)[0]
     }
 
 })
-
-module.exports = array
