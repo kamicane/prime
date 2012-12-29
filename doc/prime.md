@@ -592,6 +592,46 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 
 - [MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
 
+module: es5/date
+================
+
+This module contains ECMAScript 5 function methods as generics for date.
+
+export
+------
+
+The module exports an object with date methods.
+
+```js
+var date = require('prime/es5/date')
+console.log(date.now()) // logs the current time in ms.
+console.log(date.getDate(new Date())) // logs something like "29"
+```
+
+### methods
+
+`date` contains all methods which are defined on Date.prototype by ES5.
+
+### see also
+
+[MDN Date](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date)
+
+function: date.now
+------------------
+
+`date.now` returns the numeric representation of the current time, as
+milliseconds.
+
+### sample
+
+```js
+console.log(date.now()) // logs something like "1356793632564"
+```
+
+### see also
+
+[MDN Date.now](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/now)
+
 module: es5/function
 ====================
 
