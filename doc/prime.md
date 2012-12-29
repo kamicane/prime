@@ -252,6 +252,35 @@ square.area() // 25
 
 - [MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
 
+function: prime.define
+----------------------
+
+Defines a new property on an object and returns the object.
+The descriptor should have at least the `value` property. Other descriptor
+properties are only supported in ES5 compatible environments.
+
+### sample
+
+```js
+var object = {}
+prime.define(object, 'number', {
+    value: 1,
+    enumerable: false
+})
+
+console.log(object.number) // 1
+```
+
+### parameters
+
+1. object (*object*) The object on which to define the property.
+2. key (*string*) The property name.
+3. descriptor (*object*) A property descriptor for the property being defined.
+
+### see also
+
+- [MDN Object.defineProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
 module: es5/array
 =================
 
