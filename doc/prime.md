@@ -873,20 +873,19 @@ Returns a random integer between the two passed in values.
 number.random(5, 20); // returns a random number between 5 and 20.
 ```
 
-module: types/string
+module: shell/string
 ====================
 
-This module extends the `es5/string` module, without modifying the
-`es5/string` module.
+This module implements new methods in the `es5/string` module.
 
 exports
 -------
 
-The module exports an object with the `es5/string` methods and more, custom
-string methods.
+The module exports the `es5/string` object, and adds more, custom string
+methods.
 
 ```js
-var string = require('prime/types/string')
+var string = require('prime/shell/string')
 string.capitalize('i like cookies') // "I Like Cookies"
 ```
 
