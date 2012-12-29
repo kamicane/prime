@@ -56,7 +56,7 @@ var deferred = function deferred(){
     var promise = function promise(){}
 
     var then = this.then = promise.prototype.then = function(success, err){ // then always returns a new promise
-        var deferred = new deferred()
+        var def = new deferred()
 
         var done = function(delayed){ // this function gets pushed in the waiting stack
 
@@ -66,9 +66,9 @@ var deferred = function deferred(){
 
                 var exec = function(){
                     try { // fulfill the new promise with the result of the success callback
-                        deferred.accept(callback(value))
+                        def.accept(callback(value))
                     } catch (err){ // unless the success callback throws an error, in which case reject it with the error
-                        deferred.reject(err)
+                        def.reject(err)
                     }
                     // next then. we are certain that we are in a delayed state here, so force it to not defer again
                     next(true)
@@ -78,12 +78,12 @@ var deferred = function deferred(){
 
             } else if (state === states.FULFILLED){
                 // if no callback is found and the promise is fulfilled, fulfill the new promise with the current promise's value
-                deferred.accept(value)
+                def.accept(value)
                 // next then, defer only when not in a delayed state
                 next(delayed)
             } else {
                 // if no callback is found and the promise is either failed or pending, reject the new promise with the current promise's value
-                deferred.reject(value)
+                def.reject(value)
                 // next then, defer only when not in a delayed state
                 next(delayed)
             }
@@ -93,7 +93,7 @@ var deferred = function deferred(){
         // if the promise has a state, proceed to the next then
         if (state) next()
 
-        return deferred.promise
+        return def.promise
     }
 
     this.promise = new promise
