@@ -9,7 +9,7 @@ clean:
 	rm -rf prime.*.js
 	rm -rf ./cov*
 
-test: test-node
+test: test-node test-promise
 
 test-node:
 	@./node_modules/mocha/bin/mocha --reporter nyan \
