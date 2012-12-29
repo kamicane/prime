@@ -689,6 +689,34 @@ number.toFixed(3.14, 3) // "3.140"
 
 [MDN Number](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Number)
 
+module: es5/object
+==================
+
+Implements the `Object.prototype` methods a generics.
+
+exports
+-------
+
+```js
+var object = require('prime/es5/object')
+var test = {autobot: 'optimus'}
+object.hasOwnProperty(test, 'autobot') // true
+object.hasOwnProperty(test, 'decepticons') // false
+```
+
+### methods
+
+- `hasOwnProperty`
+- `isPrototypeOf`
+- `propertyIsEnumerable`
+- `toLocaleString`
+- `toString`
+- `valueOf`
+
+### see also
+
+[MDN Object](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object)
+
 module: es5/regexp
 ==================
 
@@ -708,6 +736,7 @@ regexp.test(/\w+$/, '---abc') // true
 
 - `test`
 - `exec`
+- `toString`
 
 ### see also
 
@@ -751,17 +780,15 @@ string.trim('    i like cookies     ') // returns 'i like cookies'
 
 [MDC String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
-module: types/number
+module: shell/number
 ====================
 
-This module extends the `es5/number` module, without modifying the
-`es5/number` module.
+This module implements extra methods in the `es5/number` module.
 
 exports
 -------
 
-The module exports an object with the `es5/number` methods and more, custom
-number methods.
+The module exports the same object as `es/number`, and adds new methods to it.
 
 method: limit
 -------------
