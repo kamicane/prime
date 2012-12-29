@@ -53,6 +53,24 @@ describe('list', function(){
         })
     })
 
+    describe('backwards', function(){
+        it('should iterate backwards through the array, and stop when the function returns false', function(){
+            var values = [], keys = [], lists = [], contexts = []
+            var array = {length: 3, "0": 1, "1": 2, "2": 3}
+            list.backwards(array, function(value, key, list){
+                values.push(value)
+                keys.push(key)
+                lists.push(list)
+                contexts.push(this)
+                if (key == 1) return false
+            }, "context")
+            expect(values).to.eql([3, 2])
+            expect(keys).to.eql([2, 1])
+            expect(lists).to.eql([array, array])
+            expect(contexts).to.eql(["context", "context"])
+        })
+    })
+
     describe('index', function(){
         it('should get the index of a specific item in the list', function(){
             expect(list.index([1, 2, 3], 2)).to.be(1)

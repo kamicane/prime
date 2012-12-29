@@ -53,6 +53,24 @@ describe('map', function(){
         })
     })
 
+    describe('backwards', function(){
+        it('Iterates over a map instance backwards, and stop when false is returned', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
+            map.backwards(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                if (key == 'foo') return false
+            }, ctx)
+            expect(keys).to.eql(['b', 'foo'])
+            expect(values).to.eql([1, 'bar'])
+            expect(ctxs).to.eql([ctx, ctx])
+            expect(maps).to.eql([map, map])
+        })
+    })
+
     describe('map', function(){
         it('map the values in the map', function(){
             var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
