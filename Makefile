@@ -19,7 +19,7 @@ test-node:
 		./test/shell/*
 
 test-promise:
-	@./node_modules/promises-aplus-tests/lib/cli.js ./test/promise.js
+	@./node_modules/promises-aplus-tests/lib/cli.js ./test/util/promise.js
 
 build:
 	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)

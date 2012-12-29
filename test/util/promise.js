@@ -1,6 +1,6 @@
 "use strict"
 
-var promise = require("../util/promise.js")
+var promise = require("../../util/promise.js")
 
 exports.fulfilled = function(value){
     var deferred = promise()
