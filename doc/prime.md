@@ -655,6 +655,8 @@ fn.apply(function(a, b, c){
 - `apply`
 - `call`
 - `bind` (if natively available on Function.prototype.bind)
+- `isGenerator` (if natively available)
+- `toString`
 
 ### see also
 
@@ -679,6 +681,9 @@ number.toFixed(3.14, 3) // "3.140"
 - `toExponential`
 - `toFixed`
 - `toPrecision`
+- `toLocaleString`
+- `toString`
+- `valueOf`
 
 ### see also
 
