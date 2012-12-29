@@ -1,6 +1,7 @@
 {
     "asi": true,
     "node": true,
+    "eqnull": true,
     "predef": [
         "describe",
         "it"
