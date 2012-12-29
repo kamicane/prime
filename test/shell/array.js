@@ -1,7 +1,8 @@
 "use strict"
 
-var list = require('../../collection/list')
 var expect = require('expect.js')
+
+var list = require('../../shell/array')
 
 describe('list', function(){
 
@@ -67,24 +68,6 @@ describe('list', function(){
             var ret = list.remove(array, 2)
             expect(array).to.eql([1, 2, 4])
             expect(ret).to.be(3)
-        })
-    })
-
-    describe('keys', function(){
-        it('should return an array of the keys of the list', function(){
-            expect(list.keys([4, 5, 6, 7])).to.eql([0, 1, 2, 3])
-        })
-    })
-
-    describe('values', function(){
-        it('should return an array of the values of the list', function(){
-            expect(list.values([4, 5, 6, 7])).to.eql([4, 5, 6, 7])
-        })
-        it('should return an array of the values of an array-like object', function(){
-            var values = (function(){
-                return list.values(arguments)
-            })(1, 2, 3, 4)
-            expect(values).to.eql([1, 2, 3, 4])
         })
     })
 

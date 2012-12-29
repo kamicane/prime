@@ -1,7 +1,8 @@
 "use strict"
 
 var expect = require('expect.js')
-var Map = require('../../collection/map')
+
+var Map = require('../../util/map')
 
 describe('map', function(){
 

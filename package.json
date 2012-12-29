@@ -28,6 +28,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "promise-tests": "2",
     "mocha": "1.6",
     "expect.js": "0.1",
     "wrapup": "0.10",
