@@ -6,7 +6,7 @@ var array = require('../../shell/array')
 var string = require('../../shell/string')
 var prime = require('../../prime')
 
-describe('ghost', function(){
+describe('shell', function(){
 
     it('should ghost types for chaining methods', function(){
         expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
