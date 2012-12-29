@@ -424,53 +424,6 @@ var timesTwo = array.map([1, 2, 3], function(item, index){
 
 - [MDN Array:map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
-method: forEach
----------------
-
-Used to iterate through arrays, or iterables that are not regular arrays, such
-as built in getElementsByTagName calls or arguments of a function. This method
-doesn't return anything.
-
-### syntax
-
-```js
-array.forEach(myArray, fn[, context])
-```
-
-### parameters
-
-1. myArray - (*array*) The array to iterate through.
-2. fn - (*function*) The function to test for each element.
-3. context - (*object*, optional) The object to use as 'this' within the
-function.
-
-#### parameter: fn
-
-##### syntax
-
-```js
-fn(item, index, object)
-```
-
-##### arguments
-
-1. item   - (*mixed*) The current item in the array.
-2. index  - (*number*) The current item's index in the array. In the case of an
-object, it is passed the key of that item rather than the index.
-3. object - (*mixed*) The actual array/object.
-
-### sample
-
-```js
-array.forEach(['Sun', 'Mon', 'Tue'], function(day, index){
-    alert('name:' + day + ', index: ' + index)
-}) // alerts 'name: Sun, index: 0', 'name: Mon, index: 1', etc.
-```
-
-### see also
-
-- [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
-
 method: every
 -------------
 
@@ -559,6 +512,53 @@ var isAnyBigEnough = array.some([10, 4, 25, 100, function(item, index){
 ### see also
 
 - [MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
+
+method: forEach
+---------------
+
+Used to iterate through arrays, or iterables that are not regular arrays, such
+as built in getElementsByTagName calls or arguments of a function. This method
+doesn't return anything.
+
+### syntax
+
+```js
+array.forEach(myArray, fn[, context])
+```
+
+### parameters
+
+1. myArray - (*array*) The array to iterate through.
+2. fn - (*function*) The function to test for each element.
+3. context - (*object*, optional) The object to use as 'this' within the
+function.
+
+#### parameter: fn
+
+##### syntax
+
+```js
+fn(item, index, object)
+```
+
+##### arguments
+
+1. item   - (*mixed*) The current item in the array.
+2. index  - (*number*) The current item's index in the array. In the case of an
+object, it is passed the key of that item rather than the index.
+3. object - (*mixed*) The actual array/object.
+
+### sample
+
+```js
+array.forEach(['Sun', 'Mon', 'Tue'], function(day, index){
+    alert('name:' + day + ', index: ' + index)
+}) // alerts 'name: Sun, index: 0', 'name: Mon, index: 1', etc.
+```
+
+### see also
+
+- [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
 function: isArray
 -----------------
