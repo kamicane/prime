@@ -3,7 +3,7 @@ map
  - must be instantiated
 */"use strict"
 
-var prime = require("../prime/"),
+var prime = require("../prime/index"),
     array = require("../es5/array")
 
 // set, get, count, each, map, filter, some, every, index, remove, keys, values

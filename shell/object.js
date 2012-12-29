@@ -3,7 +3,7 @@ object
  - object shell
 */"use strict"
 
-var prime  = require("../prime/"),
+var prime  = require("../prime/index"),
     object = require("../es5/object")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values

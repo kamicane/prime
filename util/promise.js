@@ -3,7 +3,7 @@ promise
  - code based on https://github.com/ForbesLindesay/promises-a MIT Licensed
 */"use strict"
 
-var prime = require("../prime/")
+var prime = require("../prime/index")
 
 var defer = (global.process && process.nextTick) || function(callback){
     setTimeout(callback, 0)
