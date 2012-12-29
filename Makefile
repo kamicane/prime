@@ -21,6 +21,13 @@ test-node:
 test-promise:
 	@./node_modules/promises-aplus-tests/lib/cli.js ./test/promise.js
 
+test-travis:
+	@./node_modules/mocha/bin/mocha --reporter spec \
+		./test/es5/* \
+		./test/util/* \
+		./test/prime/* \
+		./test/shell/* && make test-promise
+
 build:
 	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)
 	@echo "File written to $(output)"
