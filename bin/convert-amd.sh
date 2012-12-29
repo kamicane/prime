@@ -23,19 +23,17 @@ fi
 mkdir -p "$DEST"
 
 if [ ! -d "$DEST" ]; then
-	echo "Could did not create the target directory '$DEST'"
+	echo "Could not create the target directory '$DEST'"
 	exit 1
 else
 	echo "created '$DEST'"
 fi
 
 # copy all files
-cp -r "$SOURCE/collection" "$DEST/collection"
 cp -r "$SOURCE/es5" "$DEST/es5"
 cp -r "$SOURCE/prime" "$DEST/prime"
-cp -r "$SOURCE/types" "$DEST/types"
+cp -r "$SOURCE/shell" "$DEST/shell"
 cp -r "$SOURCE/util" "$DEST/util"
-mv "$DEST/prime/index.js" "$DEST/prime.js"
 
 # wrap with define(function(){...})
 for FILE in `find "$DEST" -name '*.js'`;
