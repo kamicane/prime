@@ -780,6 +780,103 @@ string.trim('    i like cookies     ') // returns 'i like cookies'
 
 [MDC String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
+module: shell
+=============
+
+Shell makes chaining of methods possible. It exports a function that accepts one
+parameter, and returns a so called *ghost* object. This object contains all
+methods that are defined for this type variable. Each method returns the ghost
+object of the value after the method is called, which creates chaining. To get
+the original value, the `valueOf` method can be used.
+
+It also defines the basic type objects that can be used by other modules to add
+methods (which is done by **es5** and **shell** modules). Those objects are
+called *shells*. Shells are prime objects, so they have an `implement` method.
+When the `implement` method is used, the method is implemented as generic on the
+shell object, on the prototype of the shell object, as well as on the ghost
+object.
+
+exports
+-------
+
+The module exports the `shell` function.
+
+```js
+var shell = require('prime/shell')
+shell('  1,2,3  ').trim().split(',').forEach(function(value){
+    console.log(value)
+}) // logs 1, 2, 3
+
+// array is a 'shell'
+var array = require('prime/shell/array')
+// we can add new methods with the implement method
+array.implement({
+    sum: function(){
+        var sum = 0
+        for (var i = 0; i < this.length; i++) sum += this[i]
+        return sum
+    }
+})
+// and use the newly added method
+array.sum([3, 4, 7]) // 14
+// we can also use it together with the shell function
+shell([3, 4, 7]).sum().valueOf() // 14
+
+// alternatively the constructor of a shell returns a ghost object,
+// to 'cast' variables.
+array(document.querySelectorAll('a')).each(function(node){
+    node.style.color = 'red'
+})
+```
+
+### sample
+
+```js
+shell("some string") // returns an Ghost instance for strings
+shell([1, 2, 3, 10]) // returns an Ghost instance for arrays
+shell(null) // returns null, there is not an object registered for null values
+```
+
+prime: Ghost
+------------
+
+`Ghost` is a wrapper around the value, returned by the `shell` function, which
+has the following methods:
+
+#### method: valueOf
+
+`valueOf` returns the primitive value of the ghost.
+
+```js
+shell(10).valueOf() // 10
+shell(50) + 3 // 53
+shell("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
+```
+
+- [MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
+
+#### method: toString
+
+`toString` returns the string representation of the value of the ghost.
+
+```js
+shell(40) // "40"
+shell("pri") + "me" // "prime"
+shell(4) + "5" // "45"
+shell(42).toString() // "42"
+```
+
+- [MDN toString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/toString)
+
+#### method: is
+
+Checks if the value of the Ghost strictly equals another value.
+
+```js
+shell(20).is(20) // true
+shell("20").is(20) // false
+```
+
 module: shell/array
 ===================
 
@@ -1383,109 +1480,6 @@ Tries to parse a string into an number.
 string.number('3.14deg') // 3.14
 ```
 
-module: util/shell
-==================
-
-A prime that mutates its implemented prototypes into methods that can be used as
-generics. This special prime returns an object that inherits both prototypes
-and generics from its ancestor. You should not probably bother with `shell`
-unless you have a very specific reason to do so.
-
-Returns a plain `[Object object]` whose `prototype` property is set to the
-passed methods. Generics are also automatically generated for each of the
-passed in methods, and attached to the object.
-
-exports
--------
-
-Exports the function used to create _shells_.
-
-syntax
-------
-
-```js
-var shell = require('prime/util/shell')
-
-var myShell = shell(methods)
-```
-
-### parameters
-
-1. methods - (*object*) An object containing methods.
-
-### sample
-
-```js
-var shell = require('prime/util/shell'),
-var plus = shell({
-    add: function(num){
-        return this + num
-    },
-    one: function(){
-        return plus.add(this, 1)
-    }
-})
-// now we can call the functions
-plus.add(4, 5) // returns 9
-plus.one(4) // returns 5
-
-// implement a new method, with .implement (it is a prime afterall)
-plus.implement({
-    two: function() {
-        return plus.add(this, 2)
-    }
-})
-plus.two(18) // returns 20
-```
-
-To extend a shell, without affecting the original shell, it is possible to
-inherit from a shell:
-
-```js
-var arithmetic = shell({
-    inherits: plus,
-    multiply: function(num){
-        return this * num
-    },
-    divide: function(num){
-        return this / num
-    }
-})
-arithmetic.add(4, 6) // 10
-arithmetic.multiply(4, 3) // 12
-arithmetic.divide(20, 4) // 5
-```
-
-Shells can inherit from another shell, primes or any other javascript constructor:
-
-```js
-var object = shell({
-    set: function(key, value){
-        this[key] = value
-        return this
-    },
-    get: function(key){
-        return this[key]
-    }
-})
-object.set({}, 'shell', 'prime') // {shell: 'prime'}
-
-var prime = require('prime')
-var hash = prime({
-    inherits: object,
-    values: function(){
-        var values = []
-        for (var key in this) values.push(this[key])
-        return values
-    }
-})
-
-var myHash = new hash()
-myHash.set('shell', 'prime')
-myHash.set('primes', [2, 3, 5, 7, 11])
-myHash.values() // ['prime', [2, 3, 5, 7, 11]]
-```
-
 module: util/emitter
 ====================
 
@@ -1866,114 +1860,6 @@ myMap.set({a: 1}, {b: 1})
 myMap.set({a: 2}, {b: 2})
 myMap.values() // [{b: 1}, {b: 2}]
 ```
-
-module: util/ghost
-==================
-
-Ghost is a module that makes chaining of methods possible.
-
-exports
--------
-
-The module exports the `ghost` function.
-
-```js
-var ghost = require('prime/util/ghost')
-ghost('  1,2,3  ').trim().split(',').forEach(function(value){
-    console.log(value)
-}) // logs 1, 2, 3
-```
-
-`ghost` accepts one parameter, the value that should be made chainable. It
-returns an instance of `Ghost`, if there is an object registered that handles
-values of the type of your passed value. Otherwise it directly returns the
-passed value.
-
-### sample
-
-```js
-ghost("some string") // returns an Ghost instance for strings
-ghost([1, 2, 3, 10]) // returns an Ghost instance for arrays
-ghost(null) // returns null, there is not an object registered for null values
-```
-
-### Ghost
-
-`Ghost` is a wrapper around the value, which has the following methods:
-
-#### method: valueOf
-
-`valueOf` returns the primitive value of the ghost.
-
-```js
-ghost(10).valueOf() // 10
-ghost(50) + 3 // 53
-ghost("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
-```
-
-- [MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
-
-#### method: toString
-
-`toString` returns the string representation of the value of the ghost.
-
-```js
-ghost(40) // "40"
-ghost("pri") + "me" // "prime"
-ghost(4) + "5" // "45"
-```
-
-#### method: is
-
-Checks if the value of the Ghost strictly equals another value.
-
-```js
-ghost(20).is(20) // true
-ghost("20").is(20) // false
-```
-
-### Default registered types
-
-- array(-like) types use `collection/list` methods.
-- objects use `collection/hash`.
-- numbers use `types/number`.
-- strings use `types/string`.
-- maps use `collection/map`.
-
-method: register
-----------------
-
-A method to register an object with methods for a specific type of values.
-It returns the `ghost` function.
-
-### parameters
-
-1. check - (*function*) a function that checks if the methods from the
-`methods` parameters should be used wrapped in a Ghost.
-methods specified in the `methods` parameter should be used.
-2. methods - (*object*) an object with methods that are implemented by the
-`Ghost` object which is returned if `check` returns `true`.
-
-```js
-ghost.register(function(value){
-    return typeof value == 'boolean'
-}, {
-    inverse: function(){
-        return !this
-    }
-})
-ghost(true).inverse().valueOf() // false
-```
-
-method: unregister
-------------------
-
-Opposite operation of `register`.
-Returns the `ghost` function.
-
-### parameters
-
-1. check - (*function*) the `check` function passed into `register`.
 
 module: type
 ============
