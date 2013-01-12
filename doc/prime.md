@@ -1236,7 +1236,7 @@ method: index
 -------------
 
 Returns the key which is associated with the first found value that is equal
-to the passed value. If no value found, `null is returned`
+to the passed value. If no value found, `null` is returned.
 
 ### parameters
 
@@ -1381,350 +1381,6 @@ Tries to parse a string into an number.
 
 ```js
 string.number('3.14deg') // 3.14
-```
-
-modules: collection
-===================
-
-The collection modules, hash, list and map, all implement the same set of
-methods. Hash is used for JavaScript objects, implements the methods to deal
-with array(-like) objects, and map is like hash, except that the key can be
-non-primitive.
-
-```js
-var hash = require('prime/collection/hash')
-var list = require('prime/collection/list')
-var map = require('prime/collection/map')
-```
-
-`hash` and `list` are actually a [shell](#method: util/shell), so should be used
-as generics.
-
-```js
-var object = {}
-hash.set(object, 'name', 'William')
-object.name // 'William'
-
-// array-like object
-var array = {length: 1, 0: 'Sophia'}
-list.set(array, 0, 'Emma')
-```
-
-`map` can only be used as a constructor.
-
-```js
-var myMap = new map
-// but list and hash can be used as constructors as well
-```
-
-method: set
------------
-
-Set a new value, or replace an old value.
-It returns the collection instance.
-
-### parameters
-
-1. key - the key to insert or modify the collection.
-    - for `hash` the key should be a `string`
-    - for `list` the key should be a `number`
-    - for `map` the key can be any value
-2. value - (*mixed*) the value to associate with the specified key.
-
-### sample
-
-```js
-var object = {}
-hash.set(object, 'name', 'Michelle')
-object.name // Michelle
-```
-
-method: get
------------
-
-Returns the value associated with the given key.
-
-```js
-var object = {name: 'Michelle'}
-hash.get(object, 'name') // Michelle
-```
-
-method: count
--------------
-
-Returns the number of items in the hash, list or map.
-
-```js
-var array = [1, 2, 3, 4]
-list.count(array) // 4
-```
-
-method: each
-------------
-
-Calls a function for each key-value pair in the object. The returned value is
-the original collection.
-
-### parameters
-
-1. fn - (*function*) The function which should be executed on each item in the
-collection. This function is passed the value and its key in the collection.
-2. context - (*object*, optional) The object to use as 'this' in the function.
-
-#### parameter: fn
-
-##### arguments
-
-1. value - (*mixed*) The current value in the collection.
-2. key   - (*mixed*) The current value's key in the collection.
-3. hash  - (*collection*) The actual collection.
-
-### sample
-
-```js
-hash.each({
-    first: "Sunday",
-    second: "Monday",
-    third: "Tuesday"
-}, function(value, key){
-    alert("the " + key + " day of the week is " + value)
-})
-// Alerts "the first day of the week is Sunday",
-// "the second day of the week is Monday", etc.
-```
-
-### see also
-
-[prime.each](#method: prime.each)
-
-method: map
------------
-
-Creates a new collection with the results of calling a provided function on
-every value in the collection. This function returns the new mapped collection.
-
-### parameters
-
-1. fn - (*function*) The function to produce a value of the new collection from
-an value of the current one.
-2. context - (*object*, optional) The object to use as 'this' in the function.
-
-#### parameter arguments of fn
-
-1. value - (*mixed*) The current value in the collection.
-2. key   - (*mixed*) The current value's key in the collection.
-3. hash  - (*collection*) The actual collection.
-
-### sample
-
-```js
-var timesTwo = hash.map({a: 1, b: 2, c: 3}, function(value, key){
-    return value * 2
-}) // timesTwo now holds an object containing: {a: 2, b: 4, c: 6}
-```
-
-method: filter
---------------
-
-Creates and returns a collection with all of the elements of the collection for
-which the provided filtering function returns `true`.
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. This
-function is passed the value and its key in the collection.
-2. context - (*object*, optional) The object to use as 'this' in the function.
-
-#### parameter arguments of fn
-
-1. value - (*mixed*) The current value in the collection.
-2. key   - (*mixed*) The current value's key in the collection.
-3. hash  - (*collection*) The actual collection.
-
-### sample
-
-```js
-var biggerThanTwenty = hash.filter({a: 10, b: 20, c: 30}, function(value, key){
-    return value > 20
-}) // biggerThanTwenty now holds an object containing: {c: 30}
-```
-
-method: every
--------------
-
-Returns `true` if every value in the collection satisfies the provided testing
-function, otherwise this method returns `false`.
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. This
-function is passed the value and its key in the collection.
-2. context - (*object*, optional) The object to use as 'this' in the function.
-
-#### parameter arguments of fn
-
-1. value - (*mixed*) The current value in the collection.
-2. key   - (*mixed*) The current value's key in the collection.
-3. hash  - (*collection*) The actual collection.
-
-### sample
-
-```js
-var areAllBigEnough = hash.every({a: 10, b: 4, c: 25}, function(value, key){
-    return value > 20
-}) // areAllBigEnough = false
-```
-
-method: some
-------------
-
-Returns `true` if at least one value in the collection satisfies the provided
-testing function, otherwise `false` is returned.
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. This
-function is passed the value and its key in the collection.
-2. context - (*object*, optional) The object to use as 'this' in the function.
-
-#### parameter arguments of fn
-
-1. value - (*mixed*) The current value in the collection.
-2. key   - (*mixed*) The current value's key in the collection.
-3. hash  - (*collection*) The actual collection.
-
-### sample
-
-```js
-var areAnyBigEnough = hash.some({a: 10, b: 4, c: 25}, function(value, key){
-    return value > 20
-}) // isAnyBigEnough = true
-```
-
-method: index
--------------
-
-Returns the key which is associated with the first found value that is equal
-to the passed value.
-
-### parameters
-
-1. item - (*mixed*) The item to search for in the collection.
-
-### sample
-
-```js
-var array = [1, 2, 3, 4]
-list.index(array, 3) // 2
-var object = {a: 'one', b: 'two', c: 'three'}
-hash.index(object, 'two')   // b
-hash.index(object, 'three') // c
-```
-
-method: remove
---------------
-
-Removes the specified key from the collection. Once the item is removed, the
-collection is returned.
-
-### parameters
-
-1. key - (*string*) The key to search for in the Hash.
-
-### sample
-
-```js
-var object = {name: 'John', lastName: 'Doe'}
-hash.remove(object, 'lastName')
-// object now holds an object containing: { 'name': 'John' }
-```
-
-method: keys
-------------
-
-Returns an array containing all the keys.
-
-### sample
-
-```js
-var object = {name: 'John', lastName: 'Doe'}
-hash.keys(object) // ['name', 'lastName']
-```
-
-method: values
---------------
-
-Returns an array containing all the values of the collection.
-
-### sample
-
-```js
-var myMap = map()
-myMap.set({a: 1}, {b: 1})
-myMap.set({a: 2}, {b: 2})
-myMap.values() // [{b: 1}, {b: 2}]
-```
-
-module: collection/hash
-=======================
-
-hash contains [collection](#modules: collection) methods that are applied on
-JavaScript objects. As with JS objects, the keys are primitives (e.g. strings
-and numbers).
-
-exports
--------
-
-A [shell](#module: util/shell) that contains collection methods for objects.
-
-```js
-var hash = require('prime/collection/hash')
-
-hash.get({day: 'Friday'}, 'day') // "Friday"
-```
-
-module: collection/list
-=======================
-
-list contains [collection](#modules: collection) methods that are applied on
-arrays and array-like objects.
-
-exports
--------
-
-A [shell](#module: util/shell) that contains collection methods for arrays.
-
-list inherits from [es5/array](#module: es5/array).
-
-```js
-var list = require('prime/collection/list')
-
-var array = [1, 2, 3, 4]
-list.remove(array, list.index(3))
-// array is now [1, 2, 4]
-```
-
-module: collection/map
-======================
-
-`map` is a constructor that returns an object that works like a hash. Unlike a
-hash however, map instances can have any type of object as keys, rather than
-just strings.
-
-map implements all [collection](#modules: collection) methods.
-
-exports
--------
-
-map is a prime.
-
-```js
-var map = require('prime/collection/map')
-var myMap = map()
-
-myMap.set({a: 1}, {b: 1})
-myMap.set({a: 2}, {b: 2})
-myMap.values() // [{b: 1}, {b: 2}]
 ```
 
 module: util/shell
@@ -1919,6 +1575,296 @@ emitter.on('complete', function(a, b){
     console.log('I just ' + a + ' my ' + b) // logs "I just completed my action"
 })
 emitter.emit('complete', 'completed', 'action')
+```
+
+module: util/map
+======================
+
+`map` is a constructor that returns an object that works like a object. Unlike a
+object however, map instances can have any type of object as keys, rather than
+just strings.
+
+exports
+-------
+
+map is a prime.
+
+```js
+var map = require('prime/util/map')
+var myMap = map()
+
+myMap.set({a: 1}, {b: 1})
+myMap.set({a: 2}, {b: 2})
+myMap.values() // [{b: 1}, {b: 2}]
+```
+
+method: set
+-----------
+
+Set a new value, or replace an old value.
+It returns the map instance.
+
+### parameters
+
+1. key (*mixed*) - the key to insert or modify the map.
+2. value - (*mixed*) the value to associate with the specified key.
+
+### sample
+
+```js
+var myMap = map()
+var key = {}
+myMap.set(key, 'Michelle')
+```
+
+method: get
+-----------
+
+Returns the value associated with the given key.
+
+```js
+var myMap = map()
+var key = {}
+myMap.set(key, 'Michelle')
+myMap.get(key) // 'Michell'
+```
+
+method: count
+-------------
+
+Returns the number of items in the map.
+
+```js
+var myMap = map()
+myMap.set(1, 1).set(2, 2)
+myMap.count() // 2
+```
+
+method: each
+------------
+
+Calls a function for each key-value pair in the map. The returned value is
+the original map. If the function returns `false` the loop stops.
+
+### parameters
+
+1. fn - (*function*) The function which should be executed on each item in the
+map. This function is passed the value and its key in the map.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter: fn
+
+##### arguments
+
+1. value - (*mixed*) The current value in the map.
+2. key   - (*mixed*) The current value's key in the map.
+3. map   - (*map*) The actual map.
+
+### sample
+
+```js
+var myMap = map()
+myMap.set(1, 1).set(2, 2).set(3, 3)
+myMap.each(function(value, key){
+    console.log(value)
+    return key < 2
+})
+// logs 1, 2.
+// it doesn't log 3, because in the iteration of 2,
+// false is returned so the loop stopped.
+```
+
+### see also
+
+[prime.each](#method: prime.each)
+
+method: backwards
+-----------------
+
+Exactly like `map.each`, except that the loop is reversed.
+
+### sample
+
+```js
+var myMap = map()
+myMap.set(1, 1).set(2, 2).set(3, 3)
+myMap.backwards(function(value, key){
+    console.log(value)
+}) // logs 3, 2, 1
+```
+
+method: map
+-----------
+
+Creates a new map with the results of calling a provided function on
+every value in the map. This function returns the new mapped map.
+
+### parameters
+
+1. fn - (*function*) The function to produce a value of the new map from
+an value of the current one.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value - (*mixed*) The current value in the map.
+2. key   - (*mixed*) The current value's key in the map.
+3. map   - (*map*) The actual map.
+
+### sample
+
+```js
+var myMap = map()
+myMap.set(1, 1).set(2, 2).set(3, 3)
+var timesTwo = myMap.map(function(value, key){
+    return value * 2
+}) // timesTwo now holds a map where the values are multiplied by 2.
+```
+
+method: filter
+--------------
+
+Creates and returns a map with all of the elements of the map for
+which the provided filtering function returns `true`.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the map. This
+function is passed the value and its key in the map.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value - (*mixed*) The current value in the map.
+2. key   - (*mixed*) The current value's key in the map.
+3. map   - (*map*) The actual map.
+
+### sample
+
+```js
+var myMap = map()
+myMap.set(1, 10).set(2, 20).set(3, 30)
+var biggerThanTwenty = myMap.filter(function(value, key){
+    return value > 20
+}) // biggerThanTwenty now holds a map with only the last value (30)
+```
+
+method: every
+-------------
+
+Returns `true` if every value in the map satisfies the provided testing
+function, otherwise this method returns `false`.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the map. This
+function is passed the value and its key in the map.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value - (*mixed*) The current value in the map.
+2. key   - (*mixed*) The current value's key in the map.
+3. map   - (*map*) The actual map.
+
+### sample
+
+```js
+myMap.set(1, 10).set(2, 20).set(3, 30)
+var areAllBigEnough = myMap.every(function(value, key){
+    return value > 20
+}) // areAllBigEnough = false
+```
+
+method: some
+------------
+
+Returns `true` if at least one value in the map satisfies the provided
+testing function, otherwise `false` is returned.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the map. This
+function is passed the value and its key in the map.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value - (*mixed*) The current value in the map.
+2. key   - (*mixed*) The current value's key in the map.
+3. map   - (*map*) The actual map.
+
+### sample
+
+```js
+myMap.set(1, 10).set(2, 20).set(3, 30)
+var areAnyBigEnough = myMap.some(function(value, key){
+    return value > 20
+}) // isAnyBigEnough = true
+```
+
+method: index
+-------------
+
+Returns the key which is associated with the first found value that is equal
+to the passed value. If no value found, `null` is returned.
+
+### parameters
+
+1. item - (*mixed*) The item to search for in the map.
+
+### sample
+
+```js
+myMap.set(1, 10).set(2, 20).set(3, 30)
+myMap.index(10) // 1
+myMap.index(40) // null
+```
+
+method: remove
+--------------
+
+Removes the specified key from the map. Once the item is removed, the
+removed value is returned.
+
+### parameters
+
+1. key - (*mixed*) The key to search for in the map.
+
+### sample
+
+```js
+myMap = map()
+myMap.set(1, 10).set(2, 20).set(3, 30)
+myMap.remove(2) // 20
+myMap.get(2) // null
+```
+
+method: keys
+------------
+
+Returns an array containing all the keys.
+
+### sample
+
+```js
+myMap = map()
+myMap.set(1, 10).set(2, 20).set(3, 30)
+myMap.keys() // [1, 2, 3]
+```
+
+method: values
+--------------
+
+Returns an array containing all the values of the map.
+
+### sample
+
+```js
+var myMap = map()
+myMap.set({a: 1}, {b: 1})
+myMap.set({a: 2}, {b: 2})
+myMap.values() // [{b: 1}, {b: 2}]
 ```
 
 module: util/ghost
