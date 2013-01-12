@@ -18,7 +18,7 @@ the `implements` method.
 
 ### parameters
 
-1. properties (*object*) - An object containing methods and special properties
+1. properties - (*object*) An object containing methods and special properties
 that will be implemented on the constructor.
 
 #### property: constructor
@@ -197,7 +197,7 @@ prime.has(circle, 'circumference') // false (it is only on the prototype)
 
 ### see also
 
-- [MDN Object.hasOwnProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
+[MDN Object.hasOwnProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
 
 function: prime.create
 ----------------------
@@ -250,7 +250,7 @@ square.area() // 25
 
 ### see also
 
-- [MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
+[MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
 
 function: prime.define
 ----------------------
@@ -279,7 +279,7 @@ console.log(object.number) // 1
 
 ### see also
 
-- [MDN Object.defineProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty)
+[MDN Object.defineProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty)
 
 module: es5/array
 =================
@@ -309,7 +309,7 @@ All ES3 Array methods are added as generics as well:
 
 ### note
 
-- `array` is a [shell](#util/shell).
+`array` is a [shell](#module: shell).
 
 method: filter
 --------------
@@ -354,7 +354,7 @@ var biggerThanTwenty = array.filter([10, 3, 25, 100], function(item, index){
 
 ### see also:
 
-- [MDN Array:filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
+[MDN Array:filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
 
 method: indexOf
 ---------------
@@ -377,13 +377,13 @@ array.indexOf(['apple', 'lemon'], 'banana'); // returns -1
 
 ### see also
 
-- [MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
+[MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
 
 method: map
 -----------
 
-Creates a new array with the results of calling a provided function on every
-element in the array.
+Creates and returns a new array with the results of calling a provided function
+on every element in the array.
 
 ### syntax
 
@@ -422,7 +422,7 @@ var timesTwo = array.map([1, 2, 3], function(item, index){
 
 ### see also
 
-- [MDN Array:map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
+[MDN Array:map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
 method: every
 -------------
@@ -466,7 +466,7 @@ var areAllBigEnough = array.every([10, 4, 25, 100], function(item, index){
 
 ### see also
 
-- [MDN Array:every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
+[MDN Array:every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
 
 method: some
 ------------
@@ -511,7 +511,7 @@ var isAnyBigEnough = array.some([10, 4, 25, 100, function(item, index){
 
 ### see also
 
-- [MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
+[MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
 
 method: forEach
 ---------------
@@ -558,7 +558,7 @@ array.forEach(['Sun', 'Mon', 'Tue'], function(day, index){
 
 ### see also
 
-- [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
+[MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
 function: isArray
 -----------------
@@ -585,12 +585,12 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 
 ### note
 
-- This function is a 'static' function, so not like other methods on this
-[shell](#util/shell).
+This function is a **static** function, not like other methods on this
+[shell](#module: shell), so chaining is not supported.
 
 ### see also
 
-- [MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
+[MDN Array.isArray](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray)
 
 module: es5/date
 ================
@@ -612,6 +612,10 @@ console.log(date.getDate(new Date())) // logs something like "29"
 
 `date` contains all methods which are defined on Date.prototype by ES5.
 
+### note
+
+`date` is a [shell](#module: shell).
+
 ### see also
 
 [MDN Date](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date)
@@ -627,6 +631,11 @@ milliseconds.
 ```js
 console.log(date.now()) // logs something like "1356793632564"
 ```
+
+### note
+
+This function is a **static** function, not like other methods on this
+[shell](#module: shell), so chaining is not supported.
 
 ### see also
 
@@ -658,6 +667,10 @@ fn.call(function(a, b, c){
 - `isGenerator` (if natively available)
 - `toString`
 
+### note
+
+`function` is a [shell](#module: shell).
+
 ### see also
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
@@ -684,6 +697,10 @@ number.toFixed(3.14, 3) // "3.140"
 - `toLocaleString`
 - `toString`
 - `valueOf`
+
+### note
+
+`number` is a [shell](#module: shell).
 
 ### see also
 
@@ -713,6 +730,10 @@ object.hasOwnProperty(test, 'decepticons') // false
 - `toString`
 - `valueOf`
 
+### note
+
+`object` is a [shell](#module: shell).
+
 ### see also
 
 [MDN Object](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object)
@@ -738,6 +759,10 @@ regexp.test(/\w+$/, '---abc') // true
 - `exec`
 - `toString`
 
+### note
+
+`regexp` is a [shell](#module: shell).
+
 ### see also
 
 [MDN RegExp](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp)
@@ -761,6 +786,10 @@ string.trim('   i like cookies    ') // "i like cookies"
 string.charAt('charAt', 4) // 'A'
 ```
 
+### note
+
+`string` is a [shell](#module: shell).
+
 ### see also
 
 [MDN String](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String)
@@ -778,16 +807,16 @@ string.trim('    i like cookies     ') // returns 'i like cookies'
 
 ### see also
 
-[MDC String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
+[MDN String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
 module: shell
 =============
 
 Shell makes chaining of methods possible. It exports a function that accepts one
 parameter, and returns a so called *ghost* object. This object contains all
-methods that are defined for this type variable. Each method returns the ghost
-object of the value after the method is called, which creates chaining. To get
-the original value, the `valueOf` method can be used.
+methods that are defined for this type of variable. Each method returns the
+ghost object of the value after the method is called, which creates chaining. To
+get the original value, the `valueOf` method can be used.
 
 It also defines the basic type objects that can be used by other modules to add
 methods (which is done by **es5** and **shell** modules). Those objects are
@@ -832,9 +861,9 @@ array(document.querySelectorAll('a')).each(function(node){
 ### sample
 
 ```js
-shell("some string") // returns an Ghost instance for strings
-shell([1, 2, 3, 10]) // returns an Ghost instance for arrays
-shell(null) // returns null, there is not an object registered for null values
+shell("some string") // returns a Ghost instance for strings
+shell([1, 2, 3, 10]) // returns a Ghost instance for arrays
+shell(null) // returns null, there is no Ghost object for null values
 ```
 
 prime: Ghost
@@ -853,7 +882,7 @@ shell(50) + 3 // 53
 shell("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
 ```
 
-- [MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
+[MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
 
 #### method: toString
 
@@ -866,7 +895,7 @@ shell(4) + "5" // "45"
 shell(42).toString() // "42"
 ```
 
-- [MDN toString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/toString)
+[MDN toString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/toString)
 
 #### method: is
 
@@ -902,7 +931,7 @@ It returns the array.
 
 ### parameters
 
-1. index (*number*) - the index in the array to insert or modify the array.
+1. index - (*number*) the index in the array to insert or modify the array.
 2. value - (*mixed*) the value to associate with the specified index.
 
 ### sample
@@ -936,7 +965,7 @@ method: each
 ------------
 
 Calls a function for each key-value pair in the object. The returned value is
-the original array. If the function returns `false` the loop stops.
+the original array. If the passed function returns `false` the loop stops.
 
 ### parameters
 
@@ -1056,13 +1085,14 @@ Returns the number limited between two bounds.
 ### syntax
 
 ```js
-myNumber.limit(min, max);
+number.limit(myNumber, min, max);
 ```
 
 ### parameters
 
-1. min - (*number*) The minimum possible value.
-2. max - (*number*) The maximum possible value.
+1. num - (*number*) The number that should be limited.
+2. min - (*number*) The minimum possible value.
+3. max - (*number*) The maximum possible value.
 
 ### sample
 
@@ -1079,7 +1109,8 @@ Returns this number rounded to the specified precision.
 
 ### parameters
 
-1. precision - (*number*, optional: defaults to 0) The number of digits after
+1. num - (*number*) The number that should be rounded.
+2. precision - (*number*, optional: defaults to 0) The number of digits after
 the decimal place. This can also be an negative number.
 
 ### sample
@@ -1104,10 +1135,10 @@ number.times(num, fn[, context])
 
 ### parameters
 
-1. num  - (*number*) The number of times the function should be executed.
-2. fn   - (*function*) The function that should be executed on each iteration
+1. num - (*number*) The number of times the function should be executed.
+2. fn - (*function*) The function that should be executed on each iteration
 of the loop. This function is passed the current iteration's index.
-3. bind - (*object*, optional) The object to use as 'this' in the function.
+3. context - (*object*, optional) The object to use as 'this' in the function.
 
 ### sample
 
@@ -1153,7 +1184,7 @@ It returns the object.
 
 ### parameters
 
-1. key (*string*) - the key to insert or modify the object.
+1. key - (*string*) the key to insert or modify the object.
 2. value - (*mixed*) the value to associate with the specified key.
 
 ### sample
@@ -1188,8 +1219,8 @@ method: each
 ------------
 
 Calls a function for each key-value pair in the object. The returned value is
-the original object. If `false` is returned in the function, the loop will be
-stopped.
+the original object. If `false` is returned in the passed function, the loop
+will be stopped.
 
 ### parameters
 
@@ -1228,8 +1259,8 @@ object.each({
 method: map
 -----------
 
-Creates a new object with the results of calling a provided function on
-every value in the object. This function returns the new mapped object.
+Creates and returns a new object with the results of calling a provided function
+on every value in the object.
 
 ### parameters
 
@@ -1254,7 +1285,7 @@ var timesTwo = object.map({a: 1, b: 2, c: 3}, function(value, key){
 method: filter
 --------------
 
-Creates and returns a object with all of the elements of the object for
+Creates and returns a new object with all of the elements of the object for
 which the provided filtering function returns `true`.
 
 ### parameters
@@ -1406,7 +1437,7 @@ Regexp shell object.
 
 ```js
 var regexp = require('prime/shell/regexp')
-regexp.test(/\s/, 'no-spaces') // false
+regexp.test(/\s/, 'Does-this-string-contain-whitespace?') // false
 ```
 
 module: shell/string
@@ -1600,7 +1631,7 @@ It returns the map instance.
 
 ### parameters
 
-1. key (*mixed*) - the key to insert or modify the map.
+1. key - (*mixed*) the key to insert or modify the map.
 2. value - (*mixed*) the value to associate with the specified key.
 
 ### sample
@@ -1638,7 +1669,7 @@ method: each
 ------------
 
 Calls a function for each key-value pair in the map. The returned value is
-the original map. If the function returns `false` the loop stops.
+the original map. If the passed function returns `false` the loop stops.
 
 ### parameters
 
@@ -1690,8 +1721,8 @@ myMap.backwards(function(value, key){
 method: map
 -----------
 
-Creates a new map with the results of calling a provided function on
-every value in the map. This function returns the new mapped map.
+Creates and returns a new map with the results of calling a provided function on
+every value in the map.
 
 ### parameters
 
