@@ -456,7 +456,7 @@ fn(item, index, array)
 2. index  - (*number*) The current item's index in the array.
 3. array  - (*array*) The actual array.
 
-### samples:
+### samples
 
 ```js
 var areAllBigEnough = array.every([10, 4, 25, 100], function(item, index){
@@ -645,7 +645,7 @@ The module exports an object with the function methods.
 ```js
 var fn = require('prime/es5/function')
 
-fn.apply(function(a, b, c){
+fn.call(function(a, b, c){
     console.log(this, a, b, c) // "that", 1, 2, 3
 }, "that", 1, 2, 3)
 ```
@@ -780,6 +780,167 @@ string.trim('    i like cookies     ') // returns 'i like cookies'
 
 [MDC String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
+module: shell/array
+===================
+
+This module implements extra methods in the `es5/array` module.
+
+exports
+-------
+
+The module exports the same object as `es5/array`, and adds new methods to it.
+
+```js
+var array = require('prime/shell/array')
+array.backwards([1, 2, 3], function(value){
+    console.log(value)
+}) // logs 3, 2, 1
+```
+
+method: set
+-----------
+
+Set a new value, or replace an old value.
+It returns the array.
+
+### parameters
+
+1. index (*number*) - the index in the array to insert or modify the array.
+2. value - (*mixed*) the value to associate with the specified index.
+
+### sample
+
+```js
+var myArray = [1, 2, 3]
+array.set(myArray, 1, 'Michelle') // [1, 'Michell', 3]
+```
+
+method: get
+-----------
+
+Returns the value associated with the given index.
+
+```js
+var myArray = [1, 2, 3]
+array.get(myArray, 2) // 3
+```
+
+method: count
+-------------
+
+Returns the number of items in the array
+
+```js
+var myArray = [1, 2, 3, 4]
+array.count(myArray) // 4
+```
+
+method: each
+------------
+
+Calls a function for each key-value pair in the object. The returned value is
+the original array. If the function returns `false` the loop stops.
+
+### parameters
+
+1. fn - (*function*) The function which should be executed on each item in the
+array. This function is passed the value and its key in the array.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter: fn
+
+##### arguments
+
+1. value - (*mixed*) The current value in the array.
+2. key   - (*number*) The current value's index in the array.
+3. array - (*array*) The actual array.
+
+### sample
+
+```js
+array.each(["Sunday", "Monday", "Tuesday"], function(value, key){
+    console.log(value)
+    return key < 1
+}) // logs only "Sunday", "Monday", because it is stopped after "Monday"
+```
+
+### see also
+
+[prime.each](#method: prime.each)
+[array.forEach](#method: forEach)
+
+method: backwards
+-----------------
+
+Like `array.each`, but calls the function in the reversed order.
+
+### sample
+
+```js
+array.backwards([1, 2, 3], function(value){
+    console.log(value)
+}) // logs 3, 2, 1
+```
+
+method: index
+-------------
+
+Like `array.indexOf`, but returns `null` if the value is not in the array.
+
+### sample
+
+```js
+array.index([1, 2, 3, 4], 3) // 2
+array.index([1, 2, 3, 4], 6) // null
+```
+
+method: remove
+--------------
+
+Remove a value, by index, from the array.
+The method returns the removed value.
+
+### sample
+
+```js
+var cities = ['London', 'Rome', 'Amsterdam', 'San Francisco']
+array.remove(cities, 1) // returns 'Rome'
+// cities is now ['London', 'Amsterdam', 'San Francisco']
+```
+
+module: shell/date
+==================
+
+Shell module which exports the `es5/date` module.
+
+exports
+-------
+
+Date shell object.
+
+```js
+var date = require('prime/shell/date')
+date.getDate(new Date()) // day of the month, something like 12.
+```
+
+module: shell/function
+======================
+
+Shell module which exports the `es5/function` module.
+
+exports
+-------
+
+Function shell object.
+
+```js
+var fn = require('prime/shell/function')
+// fix temperature scale
+fn.call(function(fahrenheit){
+    return (fahrenheit - 32) * 5 / 9 + 273.15
+}, null, 60) // 288.706
+```
+
 module: shell/number
 ====================
 
@@ -788,7 +949,7 @@ This module implements extra methods in the `es5/number` module.
 exports
 -------
 
-The module exports the same object as `es/number`, and adds new methods to it.
+The module exports the same object as `es5/number`, and adds new methods to it.
 
 method: limit
 -------------
@@ -871,6 +1032,284 @@ Returns a random integer between the two passed in values.
 
 ```js
 number.random(5, 20); // returns a random number between 5 and 20.
+```
+
+module: shell/object
+====================
+
+This module implements new methods in the `es5/object` module.
+
+exports
+-------
+
+The module exports the same object as `es5/object`, and adds new methods to it.
+
+```js
+var object = require('prime/shell/object')
+```
+
+method: set
+-----------
+
+Set a new value, or replace an old value.
+It returns the object.
+
+### parameters
+
+1. key (*string*) - the key to insert or modify the object.
+2. value - (*mixed*) the value to associate with the specified key.
+
+### sample
+
+```js
+var data = {}
+object.set(data, 'name', 'Michelle')
+data.name // Michelle
+```
+
+method: get
+-----------
+
+Returns the value associated with the given key.
+
+```js
+var data = {name: 'Michelle'}
+object.get(object, 'name') // Michelle
+```
+
+method: count
+-------------
+
+Returns the number of items in the object.
+
+```js
+var data = {firstname: 'Neil', lastname: 'Armstrong', age: 82}
+object.count(data) // 3
+```
+
+method: each
+------------
+
+Calls a function for each key-value pair in the object. The returned value is
+the original object. If `false` is returned in the function, the loop will be
+stopped.
+
+### parameters
+
+1. fn - (*function*) The function which should be executed on each item in the
+object. This function is passed the value and its key in the object.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter: fn
+
+##### arguments
+
+1. value  - (*mixed*) The current value in the object.
+2. key    - (*mixed*) The current value's key in the object.
+3. object - (*object*) The actual object.
+
+### sample
+
+```js
+object.each({
+    first: "Sunday",
+    second: "Monday",
+    third: "Tuesday"
+}, function(value, key){
+    console.log("the " + key + " day of the week is " + value)
+    return key != 'second'
+})
+// logs "the first day of the week is Sunday",
+// "the second day of the week is Monday", but is then stopped so it will not
+// log "the third day of the week is Tuesday"
+```
+
+### see also
+
+[prime.each](#method: prime.each)
+
+method: map
+-----------
+
+Creates a new object with the results of calling a provided function on
+every value in the object. This function returns the new mapped object.
+
+### parameters
+
+1. fn - (*function*) The function to produce a value of the new object from
+an value of the current one.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value  - (*mixed*) The current value in the object.
+2. key    - (*mixed*) The current value's key in the object.
+3. object - (*object*) The actual object.
+
+### sample
+
+```js
+var timesTwo = object.map({a: 1, b: 2, c: 3}, function(value, key){
+    return value * 2
+}) // timesTwo now holds an object containing: {a: 2, b: 4, c: 6}
+```
+
+method: filter
+--------------
+
+Creates and returns a object with all of the elements of the object for
+which the provided filtering function returns `true`.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the object. This
+function is passed the value and its key in the object.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value  - (*mixed*) The current value in the object.
+2. key    - (*mixed*) The current value's key in the object.
+3. object - (*object*) The actual object.
+
+### sample
+
+```js
+var biggerThanTwenty = object.filter({a: 10, b: 20, c: 30}, function(value, key){
+    return value > 20
+}) // biggerThanTwenty now holds an object containing: {c: 30}
+```
+
+method: every
+-------------
+
+Returns `true` if every value in the object satisfies the provided testing
+function, otherwise this method returns `false`.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the object. This
+function is passed the value and its key in the object.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value  - (*mixed*) The current value in the object.
+2. key    - (*mixed*) The current value's key in the object.
+3. object - (*object*) The actual object.
+
+### sample
+
+```js
+var areAllBigEnough = object.every({a: 10, b: 4, c: 25}, function(value, key){
+    return value > 20
+}) // areAllBigEnough = false
+```
+
+method: some
+------------
+
+Returns `true` if at least one value in the object satisfies the provided
+testing function, otherwise `false` is returned.
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the object. This
+function is passed the value and its key in the object.
+2. context - (*object*, optional) The object to use as 'this' in the function.
+
+#### parameter arguments of fn
+
+1. value  - (*mixed*) The current value in the object.
+2. key    - (*mixed*) The current value's key in the object.
+3. object - (*object*) The actual object.
+
+### sample
+
+```js
+var areAnyBigEnough = object.some({a: 10, b: 4, c: 25}, function(value, key){
+    return value > 20
+}) // isAnyBigEnough = true
+```
+
+method: index
+-------------
+
+Returns the key which is associated with the first found value that is equal
+to the passed value. If no value found, `null is returned`
+
+### parameters
+
+1. item - (*mixed*) The item to search for in the object.
+
+### sample
+
+```js
+var data = {a: 'one', b: 'two', c: 'three'}
+object.index(object, 'two')   // b
+object.index(object, 'three') // c
+object.index(object, 'four') // null
+```
+
+method: remove
+--------------
+
+Removes the specified key from the object. Once the item is removed, the
+removed value is returned.
+
+### parameters
+
+1. key - (*string*) The key to search for in the object.
+
+### sample
+
+```js
+var data = {name: 'John', lastName: 'Doe'}
+object.remove(object, 'lastName') // returns 'Doe'
+// object now holds an object containing: { 'name': 'John' }
+```
+
+method: keys
+------------
+
+Returns an array containing all the keys.
+
+### sample
+
+```js
+var data = {name: 'John', lastName: 'Doe'}
+object.keys(data) // ['name', 'lastName']
+```
+
+### see also
+
+[MDN Object.keys](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys)
+
+method: values
+--------------
+
+Returns an array containing all the values of the object.
+
+### sample
+
+```js
+var data = {name: 'John', lastName: 'Doe'}
+object.values(data) // ['John', 'Doe']
+```
+
+module: shell/regexp
+====================
+
+Shell module which exports the `es5/regexp` module.
+
+exports
+-------
+
+Regexp shell object.
+
+```js
+var regexp = require('prime/shell/regexp')
+regexp.test(/\s/, 'no-spaces') // false
 ```
 
 module: shell/string
