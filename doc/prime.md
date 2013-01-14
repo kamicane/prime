@@ -1603,7 +1603,7 @@ emitter.emit('complete', 'completed', 'action')
 ```
 
 module: util/map
-======================
+================
 
 `map` is a constructor that returns an object that works like a object. Unlike a
 object however, map instances can have any type of object as keys, rather than

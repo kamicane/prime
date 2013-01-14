@@ -13,9 +13,9 @@ test: test-node
 
 test-node:
 	@./node_modules/mocha/bin/mocha \
+		./test/prime/* \
 		./test/es5/* \
 		./test/util/* \
-		./test/prime/* \
 		./test/shell/*
 
 build:
