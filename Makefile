@@ -3,7 +3,7 @@ OUTPUT ?= prime.wrup.js
 OUTPUT_MIN ?= prime.min.js
 AMD ?= amd
 
-all: test build build-compress
+all: test $(OUTPUT) $(OUTPUT_MIN) doc/prime.html
 
 clean:
 	rm -rf prime.*
