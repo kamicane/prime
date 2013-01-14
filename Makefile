@@ -9,7 +9,7 @@ clean:
 	rm -rf prime.*.js
 	rm -rf ./cov*
 
-test: test-node test-promise
+test: test-node
 
 test-node:
 	@./node_modules/mocha/bin/mocha \
@@ -17,9 +17,6 @@ test-node:
 		./test/util/* \
 		./test/prime/* \
 		./test/shell/*
-
-test-promise:
-	@./node_modules/promises-aplus-tests/lib/cli.js ./test/util/promise.js
 
 build:
 	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)
