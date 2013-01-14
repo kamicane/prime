@@ -1,7 +1,8 @@
 "use strict"
 
-var list = require('../../collection/list')
 var expect = require('expect.js')
+
+var list = require('../../shell/array')
 
 describe('list', function(){
 
@@ -52,6 +53,24 @@ describe('list', function(){
         })
     })
 
+    describe('backwards', function(){
+        it('should iterate backwards through the array, and stop when the function returns false', function(){
+            var values = [], keys = [], lists = [], contexts = []
+            var array = {length: 3, "0": 1, "1": 2, "2": 3}
+            list.backwards(array, function(value, key, list){
+                values.push(value)
+                keys.push(key)
+                lists.push(list)
+                contexts.push(this)
+                if (key == 1) return false
+            }, "context")
+            expect(values).to.eql([3, 2])
+            expect(keys).to.eql([2, 1])
+            expect(lists).to.eql([array, array])
+            expect(contexts).to.eql(["context", "context"])
+        })
+    })
+
     describe('index', function(){
         it('should get the index of a specific item in the list', function(){
             expect(list.index([1, 2, 3], 2)).to.be(1)
@@ -67,24 +86,6 @@ describe('list', function(){
             var ret = list.remove(array, 2)
             expect(array).to.eql([1, 2, 4])
             expect(ret).to.be(3)
-        })
-    })
-
-    describe('keys', function(){
-        it('should return an array of the keys of the list', function(){
-            expect(list.keys([4, 5, 6, 7])).to.eql([0, 1, 2, 3])
-        })
-    })
-
-    describe('values', function(){
-        it('should return an array of the values of the list', function(){
-            expect(list.values([4, 5, 6, 7])).to.eql([4, 5, 6, 7])
-        })
-        it('should return an array of the values of an array-like object', function(){
-            var values = (function(){
-                return list.values(arguments)
-            })(1, 2, 3, 4)
-            expect(values).to.eql([1, 2, 3, 4])
         })
     })
 

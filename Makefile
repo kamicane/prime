@@ -12,12 +12,11 @@ clean:
 test: test-node
 
 test-node:
-	@./node_modules/mocha/bin/mocha --reporter nyan \
+	@./node_modules/mocha/bin/mocha \
 		./test/es5/* \
 		./test/util/* \
 		./test/prime/* \
-		./test/types/* \
-		./test/collection/*
+		./test/shell/*
 
 build:
 	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)
@@ -43,7 +42,7 @@ coverage:
 	cp -R test cov/test
 	cp -R node_modules cov/node_modules
 	cp Makefile cov/Makefile
-	coverjs --recursive -o cov/ collection/ es5/ prime/ types/ util/ --template node --result ./cov.json
+	coverjs --recursive -o cov/ es5/ prime/ shell/ util/ --template node --result ./cov.json
 	cd cov; make test; cd ..
 	cat ./cov.json | coverjs-report -r html > cov.html
 	echo "open cov.html"

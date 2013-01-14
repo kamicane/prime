@@ -2,8 +2,8 @@
 Emitter
 */"use strict"
 
-var prime = require("../prime/"),
-    array = require("../es5/array")
+var prime = require("../prime/index"),
+    slice = Array.prototype.slice
 
 var EID = 0
 
@@ -13,21 +13,17 @@ module.exports = prime({
         var listeners = this._listeners || (this._listeners = {}),
             events = listeners[event] || (listeners[event] = {})
 
-        var exists = false
-        for (var k in events) if (events[k] === fn){
-            exists = true
-            break
-        }
+        for (var k in events) if (events[k] === fn) return this
 
-        if (!exists) events[(EID++).toString(36)] = fn
+        events[(EID++).toString(36)] = fn
         return this
     },
 
     off: function(event, fn){
-        var listeners = this._listeners, events, key, k, l, empty, length = 0
+        var listeners = this._listeners, events, key, length = 0
         if (listeners && (events = listeners[event])){
 
-            for (k in events){
+            for (var k in events){
                 length++
                 if (key == null && events[k] === fn) key = k
                 if (key && length > 1) break
@@ -37,13 +33,8 @@ module.exports = prime({
                 delete events[key]
                 if (length === 1){
                     delete listeners[event]
-
-                    empty = true
-                    for (l in listeners){
-                        empty = false
-                        break
-                    }
-                    if (empty) delete this._listeners
+                    for (var l in listeners) return this
+                    delete this._listeners
                 }
             }
         }
@@ -53,7 +44,7 @@ module.exports = prime({
     emit: function(event){
         var listeners = this._listeners, events
         if (listeners && (events = listeners[event])){
-            var args = (arguments.length > 1) ? array.slice(arguments, 1) : []
+            var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
             for (var k in events) events[k].apply(this, args)
         }
         return this

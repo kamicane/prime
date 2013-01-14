@@ -1,7 +1,8 @@
 "use strict"
 
 var expect = require('expect.js')
-var Map = require('../../collection/map')
+
+var Map = require('../../util/map')
 
 describe('map', function(){
 
@@ -47,6 +48,24 @@ describe('map', function(){
             }, ctx)
             expect(keys).to.eql(['bar', 'foo'])
             expect(values).to.eql(['foo', 'bar'])
+            expect(ctxs).to.eql([ctx, ctx])
+            expect(maps).to.eql([map, map])
+        })
+    })
+
+    describe('backwards', function(){
+        it('Iterates over a map instance backwards, and stop when false is returned', function(){
+            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+            map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
+            map.backwards(function(val, key, mp){
+                keys.push(key)
+                values.push(val)
+                ctxs.push(this)
+                maps.push(mp)
+                if (key == 'foo') return false
+            }, ctx)
+            expect(keys).to.eql(['b', 'foo'])
+            expect(values).to.eql([1, 'bar'])
             expect(ctxs).to.eql([ctx, ctx])
             expect(maps).to.eql([map, map])
         })

@@ -1,11 +1,12 @@
 "use strict";
 
 var expect = require('expect.js')
-var ghost = require('../../util/ghost')
-var string = require('../../types/string')
+var ghost = require("../../shell")
+var array = require('../../shell/array')
+var string = require('../../shell/string')
 var prime = require('../../prime')
 
-describe('ghost', function(){
+describe('shell', function(){
 
     it('should ghost types for chaining methods', function(){
         expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
@@ -29,7 +30,7 @@ describe('ghost', function(){
     })
 
     it('should add new methods to the base object when a method is implemented in the ghost', function(){
-        ghost.string.implement({
+        string.implement({
             cat: function(b){
                 return this + b
             }
@@ -37,12 +38,10 @@ describe('ghost', function(){
         expect(string.cat('first', 'second')).to.be('firstsecond')
     })
 
-    it('should register and unregister a ghost type', function(){
-        var base = prime({ method: function(){ return 'prime' } })
-        ghost.register(base, function(){ return true })
-        expect(ghost(10).method().valueOf()).to.be('prime')
-        ghost.unregister(base)
-        expect(ghost(10).valueOf()).to.be(10)
+    it('should allow typecasting', function(){
+        (function(){
+            expect(array(arguments).join().valueOf()).to.equal('1,2,3,4')
+        })(1,2,3,4)
     })
 
 })

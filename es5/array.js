@@ -1,9 +1,9 @@
 /*
 array
- - array shell
+ - array es5 shell
 */"use strict"
 
-var array = require("../util/shell")()
+var array = require("../shell/index")["array"]
 
 var names = (
     "pop,push,reverse,shift,sort,splice,unshift,concat,join,slice,toString,indexOf,lastIndexOf,forEach,every,some" +

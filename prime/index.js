@@ -12,8 +12,7 @@ var each = function(object, method, context){
     return object
 }
 
-/*(es5 && fixEnumBug)?*/
-if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum
+if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum bug
 
     var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(",")
     var proto = Object.prototype
@@ -27,22 +26,22 @@ if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum
         return object
     }
 
-}/*:*/
+}
 
-var create = function(self){
+var create = Object.create || function(self){
     var constructor = function(){}
     constructor.prototype = self
     return new constructor
 }
 
-var define = Object.defineProperty/*(es5)?*/ || function(object, key, descriptor){
+var define = Object.defineProperty || function(object, key, descriptor){
     object[key] = descriptor.value
     return object
-}/*:*/
+}
 
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor/*(es5)?*/ || function(object, key){
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor || function(object, key){
     return {value: object[key]}
-}/*:*/
+}
 
 var implement = function(proto){
     each(proto, function(value, key){
@@ -86,6 +85,7 @@ var prime = function(proto){
         define(this.prototype, key, descriptor)
         return this
     }
+
     // copy implement (this should never change)
     constructor.implement = implement
 

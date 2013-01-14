@@ -1,9 +1,9 @@
 /*
 object
- - object shell
+ - object es5 shell
 */"use strict"
 
-var object = require("../util/shell")()
+var object = require("../shell/index")["object"]
 
 var names = "hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")
 
