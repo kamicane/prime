@@ -2,6 +2,7 @@
 .tm_properties
 README.md
 Makefile
+doc/*
 bin/*
 test/*
 color/*
