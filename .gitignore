@@ -1,6 +1,7 @@
 .tm_properties
 node_modules/
 color/*
+prime.*
 amd/
 dist/
 cov*

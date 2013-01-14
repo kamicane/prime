@@ -1,12 +1,12 @@
 
-output ?= './prime.wrup.js'
-output_compress ?= './prime.min.js'
-amd ?= ''
+OUTPUT ?= prime.wrup.js
+OUTPUT_MIN ?= prime.min.js
+AMD ?= amd
 
 all: test build build-compress
 
 clean:
-	rm -rf prime.*.js
+	rm -rf prime.*
 	rm -rf ./cov*
 
 test: test-node
@@ -18,19 +18,21 @@ test-node:
 		./test/util/* \
 		./test/shell/*
 
-build:
-	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(output)
-	@echo "File written to $(output)"
+$(OUTPUT): es5 prime shell util
+	@./node_modules/wrapup/bin/wrup.js -r prime ./ > $(OUTPUT)
+	@echo "File written to $(OUTPUT)"
 
-build-compress:
-	@./node_modules/wrapup/bin/wrup.js -r prime ./ --compress yes > $(output_compress)
-	@echo "File written to $(output_compress)"
+$(OUTPUT_MIN): es5 prime shell util
+	@./node_modules/wrapup/bin/wrup.js -r prime ./ --compress yes > $(OUTPUT_MIN)
+	@echo "File written to $(OUTPUT_MIN)"
 
-convert-amd:
-	@bash ./bin/convert-amd.sh $(amd)
+$(AMD): es5 prime shell util
+	@bash ./bin/convert-amd.sh $(AMD)
 
-docs:
+doc/prime.html: doc/prime.md
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
+
+docs: doc/prime.html
 
 docs-watch:
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html --watch
