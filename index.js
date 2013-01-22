@@ -12,7 +12,7 @@ var each = function(object, method, context){
     return object
 }
 
-if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix stupid IE enum bug
+if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix for stupid IE enumeration bug
 
     var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(",")
     var proto = Object.prototype
@@ -34,13 +34,21 @@ var create = Object.create || function(self){
     return new constructor
 }
 
-var define = Object.defineProperty || function(object, key, descriptor){
-    object[key] = descriptor.value
-    return object
-}
+var getOwnPropertyDescriptor, define
 
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor || function(object, key){
-    return {value: object[key]}
+try { // fix for stupid IE getOwnPropertyDescriptor AND defineProperty bugs
+    Object.getOwnPropertyDescriptor({})
+    Object.defineProperty({}, "x", {})
+    getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
+    define = Object.defineProperty
+} catch(e){
+    getOwnPropertyDescriptor = function(object, key){
+        return {value: object[key]}
+    }
+    define = function(object, key, descriptor){
+        object[key] = descriptor.value
+        return object
+    }
 }
 
 var implement = function(proto){
