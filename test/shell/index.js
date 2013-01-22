@@ -8,6 +8,11 @@ var prime = require('../../index')
 
 describe('shell', function(){
 
+    // https://github.com/visionmedia/mocha/issues/502#issuecomment-7317552
+    beforeEach(function(done){
+        setTimeout(done, 0)
+    })
+
     it('should ghost types for chaining methods', function(){
         expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
         expect(ghost('  1,A,F   ').trim().split(',').map(function(value){
