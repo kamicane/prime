@@ -19,92 +19,93 @@ A short overview of the available modules. For more information, refer to the do
 
 The function to create new primes.
 
-    var prime = require("prime")
+```js
+var prime = require("prime")
 
-    var Animal = prime({
-        say: function(){
-            return "!!"
-        }
-    })
+var Animal = prime({
+    say: function(){
+        return "!!"
+    }
+})
 
-    var Cat = prime({
-        inherits: Animal,
-        say: function(){
-            return "meaow" + Cat.parent.say.call(this)
-        }
-    })
-
+var Cat = prime({
+    inherits: Animal,
+    say: function(){
+        return "meaow" + Cat.parent.say.call(this)
+    }
+})
+```
 ### prime/shell
 
 The base shell. As you require more shells, the base shell will be augmented.
 Requiring specific shells gives you access to generic methods as well.
+```js
+var array = require("prime/shell/array")
 
-    var array = require("prime/shell/array")
+array.indexOf([1,2,3], 3) // 3
 
-    array.indexOf([1,2,3], 3) // 3
+var _ = require("prime/shell")
 
-    var _ = require("prime/shell")
-
-    _([1,2,3]).remove(1).each(function(number){
-        console.log(number)
-    })
-
+_([1,2,3]).remove(1).each(function(number){
+    console.log(number)
+})
+```
 ### prime/emitter
 
 The event emitter.
+```js
+var Emitter = require("prime/emitter")
 
-    var Emitter = require("prime/emitter")
+var Dog = prime({
+    inherits: Animal,
+    say: function(){
+        var word = "wuff" + Dog.parent.say.call(this)
+        this.emit("say", word)
+        return word
+    }
+})
 
-    var Dog = prime({
-        inherits: Animal,
-        say: function(){
-            var word = "wuff" + Dog.parent.say.call(this)
-            this.emit("say", word)
-            return word
-        }
-    })
+Dog.implement(new Emitter)
 
-    Dog.implement(new Emitter)
+var barkley = new Dog
 
-    var barkley = new Dog
-
-    barkley.on("say", function(word){
-        console.log("barkley barked", word)
-    })
-
+barkley.on("say", function(word){
+    console.log("barkley barked", word)
+})
+```
 ### prime/map
 
 Simple WeakMap implementation.
+```js
+var Map = require("prime/map")
 
-    var Map = require("prime/map")
+var map = new Map()
 
-    var map = new Map()
-
-    map.set(domElement, "header")
-    map.set(domElement2, "footer")
-    map.get(domElement) // "header"
-    map.get(domElement2) // "footer"
-
+map.set(domElement, "header")
+map.set(domElement2, "footer")
+map.get(domElement) // "header"
+map.get(domElement2) // "footer"
+```
 ### prime/type
 
 Type checker.
+```js
+var type = require("prime/type")
 
-    var type = require("prime/type")
+type("string") // "string"
+type([]) // "array"
+type(function(){}) // "function"
+type(/regexp/) // "regexp"
+type(new Date) // "date"
+type(10) // "number"
+type(false) // "boolean"
+type({}) // "object"
+type(arguments) // "object"
 
-    type("string") // "string"
-    type([]) // "array"
-    type(function(){}) // "function"
-    type(/regexp/) // "regexp"
-    type(new Date) // "date"
-    type(10) // "number"
-    type(false) // "boolean"
-    type({}) // "object"
-    type(arguments) // "object"
-
-    type(null) // "null"
-    type(undefined) // "null"
-    type(NaN) // "null"
-
+type(null) // "null"
+type(undefined) // "null"
+type(NaN) // "null"
+```
 ### prime/shell/array
 
 Array methods.
