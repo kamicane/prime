@@ -1,10 +1,8 @@
 .gitignore
 .tm_properties
-README.md
 Makefile
 doc/*
 bin/*
 test/*
-color/*
 .travis.yml
 .jshintrc
