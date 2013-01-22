@@ -1,8 +1,6 @@
 .gitignore
-.tm_properties
+.jshintrc
+.travis.yml
 Makefile
 doc/*
-bin/*
 test/*
-.travis.yml
-.jshintrc
