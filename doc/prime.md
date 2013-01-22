@@ -1523,7 +1523,7 @@ The module exports the emitter prime.
 
 ```js
 var prime = require('prime')
-var Emitter = require('prime/util/emitter')
+var Emitter = require('prime/emitter')
 
 var emitter = new Emitter()
 emitter.on('touch', function(){
@@ -1615,7 +1615,7 @@ exports
 map is a prime.
 
 ```js
-var map = require('prime/util/map')
+var map = require('prime/map')
 var myMap = map()
 
 myMap.set({a: 1}, {b: 1})
@@ -1903,7 +1903,7 @@ exports
 A function that determines the type of a value. The returned value is a string.
 
 ```js
-var type = require('prime/util/type')
+var type = require('prime/type')
 
 type([1, 2])        // array
 type("ciao")        // string
