@@ -3,7 +3,7 @@ object
  - object es5 shell
 */"use strict"
 
-var object = require("../shell/index")["object"]
+var object = require("../shell")["object"]
 
 var names = "hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")
 

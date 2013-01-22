@@ -2,7 +2,7 @@
 Emitter
 */"use strict"
 
-var prime = require("../prime/index"),
+var prime = require("./index"),
     slice = Array.prototype.slice
 
 var EID = 0

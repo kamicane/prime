@@ -3,7 +3,7 @@ regexp
  - regexp es5 shell
 */"use strict"
 
-var regexp = require("../shell/index")["regexp"]
+var regexp = require("../shell")["regexp"]
 
 var names = "exec,test,toString".split(",")
 

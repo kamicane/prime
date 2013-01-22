@@ -2,8 +2,8 @@
 shell
 */"use strict"
 
-var prime = require("../prime/index"),
-    type  = require("../util/type")
+var prime = require("./index"),
+    type  = require("./type")
 
 var slice = Array.prototype.slice
 
