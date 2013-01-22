@@ -21,7 +21,7 @@ if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix for stupid IE enume
         for (var key in object) if (method.call(context, object[key], key, object) === false) return object
         for (var i = 0; key = buggy[i]; i++){
             var value = object[key]
-            if (value !== proto[key] && method.call(context, value, key, object) === false) break
+            if ((value !== proto[key] || has(object, key)) && method.call(context, value, key, object) === false) break
         }
         return object
     }
@@ -34,14 +34,14 @@ var create = Object.create || function(self){
     return new constructor
 }
 
-var getOwnPropertyDescriptor, define
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
+var define = Object.defineProperty
 
-try { // fix for stupid IE getOwnPropertyDescriptor AND defineProperty bugs
-    Object.getOwnPropertyDescriptor({})
-    Object.defineProperty({}, "x", {})
-    getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-    define = Object.defineProperty
-} catch(e){
+try {
+    var obj = {a: 1}
+    getOwnPropertyDescriptor(obj, "a")
+    define(obj, "a", {value: 2})
+} catch (e){
     getOwnPropertyDescriptor = function(object, key){
         return {value: object[key]}
     }
