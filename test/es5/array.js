@@ -37,7 +37,7 @@ describe('es5/array', function(){
 
         it('should return the original item, and not any mutations.', function(){
 
-            var result = [0, 1, 2].filter(function(num, i, array){
+            var result = array.filter([0, 1, 2], function(num, i, array){
                 if (num == 1){
                     array[i] = 'mutation'
                     return true
@@ -85,13 +85,13 @@ describe('es5/array', function(){
         })
 
         it('should return an array with the same length', function(){
-            expect([1, 2, 3, undefined].map(function(v){
+            expect(array.map([1, 2, 3, undefined], function(v){
                 return v
             }).length).to.equal(4);
         })
 
         it('shoud return an empty array when the thisArg does not has a length property', function(){
-            expect([].map.call({}, function(){
+            expect(array.map({}, function(){
                 return 1
             })).to.eql([])
         })
@@ -181,11 +181,11 @@ describe('es5/array', function(){
 
     it('should accept thisArgs without length property', function(){
         var object = {}, fn = function(){}
-        expect([].every.call(object, fn)).to.be(true)
-        expect([].filter.call(object, fn)).to.eql([])
-        expect([].indexOf.call(object)).to.equal(-1)
-        expect([].map.call(object, fn)).to.eql([])
-        expect([].some.call(object, fn)).to.be(false)
+        expect(array.every(object, fn)).to.be(true)
+        expect(array.filter(object, fn)).to.eql([])
+        expect(array.indexOf(object)).to.equal(-1)
+        expect(array.map(object, fn)).to.eql([])
+        expect(array.some(object, fn)).to.be(false)
     })
 
     describe('Array.isArray', function(){

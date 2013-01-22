@@ -23,6 +23,7 @@ describe('function', function(){
         }, context, 1, 2)
     })
 
+    /*
     it('should implement .bind', function(){
         var context = {}, calls = 0
         var fun = function(){
@@ -33,6 +34,7 @@ describe('function', function(){
         bound()
         expect(calls).to.be(1)
     })
+    */
 
     // TODO implement all other .bind tests
 
