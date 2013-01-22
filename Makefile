@@ -44,7 +44,7 @@ coverage:
 	cp -R test cov/test
 	cp -R node_modules cov/node_modules
 	cp Makefile cov/Makefile
-	coverjs --recursive -o cov/ es5/ prime/ shell/ util/ --template node --result ./cov.json
+	coverjs --recursive -o cov/ es5/ shell/ emitter.js index.js map.js shell.js type.js --template node --result ./cov.json
 	cd cov; make test; cd ..
 	cat ./cov.json | coverjs-report -r html > cov.html
 	echo "open cov.html"
