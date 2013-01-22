@@ -1,8 +1,8 @@
 {
   "name": "prime",
   "homepage": "https://github.com/mootools/prime",
-  "version": "0.0.6",
-  "main": "./prime/index.js",
+  "version": "0.1.0-dev",
+  "main": "./index.js",
   "description": "prime, an OOP javascript library for node and the web.",
   "keywords": [
     "library",
