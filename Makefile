@@ -17,6 +17,9 @@ test-node:
 		./test/util/* \
 		./test/shell/*
 
+test-browser:
+	@./node_modules/wrapup/bin/wrup.js --require ./test/main.js --output ./test/browser.js
+
 doc/prime.html: doc/prime.md
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
 
