@@ -6,6 +6,11 @@ var Map = require('../../map')
 
 describe('map', function(){
 
+    // https://github.com/visionmedia/mocha/issues/502#issuecomment-7317552
+    beforeEach(function(done){
+        setTimeout(done, 0)
+    })
+
     describe('set / get', function(){
 
         it('should set and get a value from the map', function(){

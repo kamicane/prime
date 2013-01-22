@@ -6,6 +6,11 @@ var array = require('../../shell/array')
 
 describe('array', function(){
 
+    // https://github.com/visionmedia/mocha/issues/502#issuecomment-7317552
+    beforeEach(function(done){
+        setTimeout(done, 0)
+    })
+
     describe('set', function(){
         it('should set a value of the array', function(){
             var a = ['bar']
