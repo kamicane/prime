@@ -6,3 +6,4 @@ amd/
 dist/
 cov*
 doc/prime.html
+test/browser.js
