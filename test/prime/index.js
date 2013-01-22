@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var prime = require('../../prime')
+var prime = require('../../index')
 
 var Animal = prime({
 

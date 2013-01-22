@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var type = require('../../util/type')
+var type = require('../../type')
 
 describe('type', function(){
 

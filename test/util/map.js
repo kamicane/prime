@@ -2,7 +2,7 @@
 
 var expect = require('expect.js')
 
-var Map = require('../../util/map')
+var Map = require('../../map')
 
 describe('map', function(){
 
