@@ -13,7 +13,7 @@ No Native JavaScript Objects were harmed in the making of this library.
 
 ## Modules Overview
 
-A short overview of the available modules. For more information, refer to the documentation.
+A short overview of the available modules. For more information, refer to the [documentation](https://github.com/mootools/prime/blob/master/doc/prime.md).
 
 ### prime
 
