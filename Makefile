@@ -8,7 +8,7 @@ all: test doc/prime.html
 clean:
 	rm -rf ./cov*
 
-test: test-node
+test: test-node test-phantomjs
 
 test-node:
 	@./node_modules/mocha/bin/mocha \
@@ -19,6 +19,12 @@ test-node:
 
 test-browser:
 	@./node_modules/wrapup/bin/wrup.js --require ./test/main.js --output ./test/browser.js
+
+test-phantomjs: test-browser
+	@python -m SimpleHTTPServer & echo $$! > server.pid
+	@./node_modules/.bin/mocha-phantomjs http://localhost:8000/test/index.html
+	@kill `cat server.pid`
+	@rm server.pid
 
 doc/prime.html: doc/prime.md
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html

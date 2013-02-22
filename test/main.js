@@ -1,3 +1,7 @@
+/*global mocha:true mochaPhantomJS:true */
+/*jshint browser:true */
+"use strict";
+
 mocha.setup('bdd')
 
 require("./es5/array")
@@ -25,5 +29,6 @@ require("./util/map")
 require("./util/type")
 
 window.onload = function(){
-    mocha.run()
+    if (window.mochaPhantomJS) mochaPhantomJS.run()
+    else mocha.run()
 }
