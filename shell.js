@@ -36,7 +36,7 @@ var register = function(){
 
     var g = prime({inherits: ghost})
 
-    return prime({
+    var type = prime({
 
         constructor: function(self){
             return new g(self)
@@ -59,6 +59,28 @@ var register = function(){
         }
 
     })
+
+    type.implementGenerics = function(methods){
+        prime.each(methods, function(method, key){
+            prime.define(this, key, {
+                writable: true,
+                enumerable: true,
+                configurable: true,
+                value: method
+            })
+
+            this.prototype[key] = function(){
+                return arguments.length ? method.apply(this, [this].concat(slice.call(arguments))) : method.call(this, this)
+            }
+
+            g.prototype[key] = function(){
+                return shell(method.apply(this, [this.valueOf()].concat(slice.call(arguments))))
+            }
+        }, this)
+        return this
+    }
+
+    return type
 
 }
 
