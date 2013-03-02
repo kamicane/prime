@@ -62,19 +62,19 @@ var register = function(){
 
     type.implementGenerics = function(methods){
         prime.each(methods, function(method, key){
-            prime.define(this, key, {
-                writable: true,
-                enumerable: true,
-                configurable: true,
-                value: method
-            })
+            this[key] = method
 
             this.prototype[key] = function(){
-                return arguments.length ? method.apply(this, [this].concat(slice.call(arguments))) : method.call(this, this)
+                if (!arguments.length) return method.call(this, this)
+                var args = [this]
+                args.push.apply(args, arguments)
+                return method.apply(this, args)
             }
 
             g.prototype[key] = function(){
-                return shell(method.apply(this, [this.valueOf()].concat(slice.call(arguments))))
+                var args = [this.valueOf()]
+                args.push.apply(args, arguments)
+                return shell(method.apply(this, args))
             }
         }, this)
         return this
