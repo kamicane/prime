@@ -26,14 +26,6 @@ test-phantomjs: test-browser
 	@kill `cat server.pid`
 	@rm server.pid
 
-doc/prime.html: doc/prime.md
-	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
-
-docs: doc/prime.html
-
-docs-watch:
-	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html --watch
-
 coverage:
 	rm -rf ./cov
 	mkdir ./cov
