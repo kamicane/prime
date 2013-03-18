@@ -13,6 +13,31 @@ describe('shell', function(){
         setTimeout(done, 0)
     })
 
+    it('should implement generic functions', function(){
+        var a = [1, 2], b = []
+
+        var array = ghost.array.implementGenerics({
+            __justATestMethod: function(self){
+                self.push(1)
+                return self
+            },
+            __otherTestMethod: function(self, a, b){
+                self.push(a + b)
+                return self
+            }
+        })
+
+        expect(array == ghost.array).to.be.ok()
+
+        expect(array.__justATestMethod(a)).to.eql([1, 2, 1])
+        expect(array.prototype.__justATestMethod.call(a)).to.eql([1, 2, 1, 1])
+        expect(array(a).__justATestMethod().valueOf()).to.eql([1, 2, 1, 1, 1])
+
+        expect(array.__otherTestMethod(b, 2, 3)).to.eql([5])
+        expect(array.prototype.__otherTestMethod.call(b, 3, 3)).to.eql([5, 6])
+        expect(array(b).__otherTestMethod(3, 4).valueOf()).to.eql([5, 6, 7])
+    })
+
     it('should ghost types for chaining methods', function(){
         expect(ghost([1, 2, 3]).join().valueOf()).to.equal('1,2,3')
         expect(ghost('  1,A,F   ').trim().split(',').map(function(value){

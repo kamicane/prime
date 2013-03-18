@@ -5,36 +5,36 @@ string methods
 
 var string = require("../es5/string")
 
-string.implement({
+string.implementGenerics({
 
-    clean: function(){
-        return string.trim((this + "").replace(/\s+/g, " "))
+    clean: function(self){
+        return string.trim((self + "").replace(/\s+/g, " "))
     },
 
-    camelize: function(){
-        return (this + "").replace(/-\D/g, function(match){
+    camelize: function(self){
+        return (self + "").replace(/-\D/g, function(match){
             return match.charAt(1).toUpperCase()
         })
     },
 
-    hyphenate: function(){
-        return (this + "").replace(/[A-Z]/g, function(match){
+    hyphenate: function(self){
+        return (self + "").replace(/[A-Z]/g, function(match){
             return '-' + match.toLowerCase()
         })
     },
 
-    capitalize: function(){
-        return (this + "").replace(/\b[a-z]/g, function(match){
+    capitalize: function(self){
+        return (self + "").replace(/\b[a-z]/g, function(match){
             return match.toUpperCase()
         })
     },
 
-    escape: function(){
-        return (this + "").replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1")
+    escape: function(self){
+        return (self + "").replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1")
     },
 
-    number: function(){
-        return parseFloat(this)
+    number: function(self){
+        return parseFloat(self)
     }
 
 })

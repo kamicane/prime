@@ -7,42 +7,42 @@ var array = require("../es5/array")
 
 // set, get, count, each, map, filter, every, some, index, merge, remove, keys, values
 
-module.exports = array.implement({
+module.exports = array.implementGenerics({
 
-    set: function(i, value){
-        this[i] = value
-        return this
+    set: function(self, i, value){
+        self[i] = value
+        return self
     },
 
-    get: function(i){
-        return (i in this) ? this[i] : null
+    get: function(self, i){
+        return (i in self) ? self[i] : null
     },
 
-    count: function(){
-        return this.length
+    count: function(self){
+        return self.length
     },
 
-    each: function(method, context){
-        for (var i = 0, l = this.length; i < l; i++){
-            if (i in this && method.call(context, this[i], i, this) === false) break
+    each: function(self, method, context){
+        for (var i = 0, l = self.length; i < l; i++){
+            if (i in self && method.call(context, self[i], i, self) === false) break
         }
-        return this
+        return self
     },
 
-    backwards: function(method, context){
-        for (var i = this.length - 1; i >= 0; i--){
-            if (i in this && method.call(context, this[i], i, this) === false) break
+    backwards: function(self, method, context){
+        for (var i = self.length - 1; i >= 0; i--){
+            if (i in self && method.call(context, self[i], i, self) === false) break
         }
-        return this
+        return self
     },
 
-    index: function(value){
-        var index = array.indexOf(this, value)
+    index: function(self, value){
+        var index = array.indexOf(self, value)
         return index === -1 ? null : index
     },
 
-    remove: function(i){
-        return array.splice(this, i, 1)[0]
+    remove: function(self, i){
+        return array.splice(self, i, 1)[0]
     }
 
 })
