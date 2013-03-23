@@ -1,10 +1,9 @@
 /*
-map
- - must be instantiated
+Map
 */"use strict"
 
-var prime = require("./index"),
-    array = require("./es5/array")
+var prime   = require("./index"),
+    indexOf = require("./array/indexOf")
 
 // set, get, count, each, map, filter, some, every, index, remove, keys, values
 
@@ -18,7 +17,7 @@ var Map = prime({
     },
 
     set: function(key, value){
-        var index = array.indexOf(this._keys, key)
+        var index = indexOf(this._keys, key)
 
         if (index === -1){
             this._keys.push(key)
@@ -32,7 +31,7 @@ var Map = prime({
     },
 
     get: function(key){
-        var index = array.indexOf(this._keys, key)
+        var index = indexOf(this._keys, key)
         return (index === -1) ? null : this._values[index]
     },
 
@@ -87,12 +86,12 @@ var Map = prime({
     },
 
     index: function(value){
-        var index = array.indexOf(this._values, value)
+        var index = indexOf(this._values, value)
         return (index > -1) ? this._keys[index] : null
     },
 
     remove: function(key){
-        var index = array.indexOf(this._keys, key)
+        var index = indexOf(this._keys, key)
 
         if (index !== -1){
             this._keys.splice(index, 1)

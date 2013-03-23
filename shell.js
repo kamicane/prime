@@ -5,7 +5,8 @@ shell
 var prime = require("./index"),
     type  = require("./type")
 
-var slice = Array.prototype.slice
+var slice = Array.prototype.slice,
+    push  = Array.prototype.push
 
 var ghost = prime({
 
@@ -32,18 +33,45 @@ var shell = function(self){
     return (g) ? new g(self) : self
 }
 
-var register = function(){
+var register = function(methods){
 
     var g = prime({inherits: ghost})
 
-    return prime({
+    var s = prime(function(self){
+        return new g(self)
+    })
 
-        constructor: function(self){
-            return new g(self)
-        },
+    s.extend = function(object){
 
-        define: function(key, descriptor){
-            var method = descriptor.value
+        var self = this
+
+        forIn(object, function(method, key){
+
+            this[key] = method
+
+            this.prototype[key] = function(){
+                if (!arguments.length) return method.call(self, this)
+                var args = [this]
+                push.apply(args, arguments)
+                return method.apply(self, args)
+            }
+
+            g.prototype[key] = function(){
+                var value = this.valueOf()
+                if (!arguments.length) return method.call(self, value)
+                var args = [value]
+                push.apply(args, arguments)
+                return method.apply(self, args)
+            }
+
+        }, this)
+
+        return this
+    }
+
+    s.implement = function(object){
+
+        forIn(object, function(method, key){
 
             this[key] = function(self){
                 return (arguments.length > 1) ? method.apply(self, slice.call(arguments, 1)) : method.call(self)
@@ -53,12 +81,12 @@ var register = function(){
                 return shell(method.apply(this.valueOf(), arguments))
             }
 
-            prime.define(this.prototype, key, descriptor)
+            this.prototype[key] = method
 
-            return this
-        }
+        }, this)
 
-    })
+        return this
+    }
 
 }
 
