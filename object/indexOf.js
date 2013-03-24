@@ -1,10 +1,10 @@
 /*
-object:keyOf
+object:indexOf
 */"use strict"
 
 var forIn = require("./forIn")
 
-var keyOf = function(self, value){
+var indexOf = function(self, value){
     var key = null
     forIn(self, function(match, k){
         if (value === match){
@@ -15,4 +15,4 @@ var keyOf = function(self, value){
     return key
 }
 
-module.exports = keyOf
+module.exports = indexOf
