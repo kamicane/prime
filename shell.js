@@ -3,7 +3,8 @@ shell
 */"use strict"
 
 var prime = require("./index"),
-    type  = require("./type")
+    type  = require("./type"),
+    forIn = require("./object/forIn")
 
 var slice = Array.prototype.slice,
     push  = Array.prototype.push
