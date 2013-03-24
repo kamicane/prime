@@ -4,7 +4,7 @@ string:clean
 
 var trim = require("./trim")
 
-clean: function(self){
+var clean = function(self){
     return trim((self + "").replace(/\s+/g, " "))
 }
 
