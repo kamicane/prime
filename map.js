@@ -5,12 +5,10 @@ Map
 var prime   = require("./index"),
     indexOf = require("./array/indexOf")
 
-// set, get, count, each, map, filter, some, every, index, remove, keys, values
-
 var Map = prime({
 
     constructor: function(){
-        if (!this || this.constructor !== Map) return new Map
+        if (!this instanceof Map) return new Map
         this.length = 0
         this._values = []
         this._keys = []
@@ -39,15 +37,8 @@ var Map = prime({
         return this.length
     },
 
-    each: function(method, context){
+    forEach: function(method, context){
         for (var i = 0, l = this.length; i < l; i++){
-            if (method.call(context, this._values[i], this._keys[i], this) === false) break
-        }
-        return this
-    },
-
-    backwards: function(method, context){
-        for (var i = this.length - 1; i >= 0; i--){
             if (method.call(context, this._values[i], this._keys[i], this) === false) break
         }
         return this
@@ -85,12 +76,24 @@ var Map = prime({
         return some
     },
 
-    index: function(value){
+    indexOf: function(value){
         var index = indexOf(this._values, value)
         return (index > -1) ? this._keys[index] : null
     },
 
-    remove: function(key){
+    remove: function(value){
+        var index = indexOf(this._values, value)
+
+        if (index !== -1){
+            this._values.splice(index, 1)
+            this.length--
+            return this._keys.splice(index, 1)[0]
+        }
+
+        return null
+    },
+
+    unset: function(key){
         var index = indexOf(this._keys, key)
 
         if (index !== -1){
