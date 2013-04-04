@@ -35,17 +35,17 @@ var create = Object.create || function(self){
 }
 
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-var define = Object.defineProperty
+var defineP = Object.defineProperty
 
 try {
     var obj = {a: 1}
     getOwnPropertyDescriptor(obj, "a")
-    define(obj, "a", {value: 2})
+    defineP(obj, "a", {value: 2})
 } catch (e){
     getOwnPropertyDescriptor = function(object, key){
         return {value: object[key]}
     }
-    define = function(object, key, descriptor){
+    defineP = function(object, key, descriptor){
         object[key] = descriptor.value
         return object
     }
@@ -90,7 +90,7 @@ var prime = function(proto){
 
     // inherit (kindof inherit) define
     constructor.define = proto.define || (superprime && superprime.define) || function(key, descriptor){
-        define(this.prototype, key, descriptor)
+        defineP(this.prototype, key, descriptor)
         return this
     }
 
@@ -105,6 +105,6 @@ var prime = function(proto){
 prime.has    = has
 prime.each   = each
 prime.create = create
-prime.define = define
+prime.define = defineP
 
 module.exports = prime
