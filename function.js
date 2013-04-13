@@ -2,7 +2,7 @@
 function
 */"use strict"
 
-var function_ = require("../_shell")["function"]
+var function_ = require("./_shell")["function"]
 var proto = Function.prototype
 
 function_.implement({
