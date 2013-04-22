@@ -2,4 +2,4 @@
 array:lastIndexOf
 */"use strict"
 
-module.exports = lastIndexOf
+module.exports = function(){}

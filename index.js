@@ -72,8 +72,10 @@ var prime = function(proto){
     if (!constructor.implement) constructor.implement = implement
 
     var mixins = proto.mixin
-    if (type(mixins) !== "array") mixins = [mixins]
-    for (var i = 0, i < mixins.length; i++) constructor.implement(create(mixins[i].prototype))
+    if (mixins){
+        if (type(mixins) !== "array") mixins = [mixins]
+        for (var i = 0; i < mixins.length; i++) constructor.implement(create(mixins[i].prototype))
+    }
 
     // implement proto and return constructor
     return constructor.implement(filter(proto, function(value, key){
