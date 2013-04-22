@@ -10,3 +10,5 @@ regexp.implement({
     test: proto.test,
     toString: proto.toString
 })
+
+module.exports = regexp

@@ -102,6 +102,6 @@ var register = function(){
 
 }
 
-for (var types = "string,number,array,object,date,function,regexp".split(","), i = types.length; i--;) shell[types[i]] = register()
+for (var types = ["string", "number", "array", "object", "date", "function", "regexp"], i = types.length; i--;) shell[types[i]] = register()
 
 module.exports = shell
