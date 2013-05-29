@@ -309,7 +309,7 @@ All ES3 Array methods are added as generics as well:
 
 ### note
 
-`array` is a [shell](#module: shell).
+`array` is a [shell](#module-shell).
 
 method: filter
 --------------
@@ -586,7 +586,7 @@ array.isArray({length: 1, 0: 'hi'}) // also false for array-like objects
 ### note
 
 This function is a **static** function, not like other methods on this
-[shell](#module: shell), so chaining is not supported.
+[shell](#module-shell), so chaining is not supported.
 
 ### see also
 
@@ -614,7 +614,7 @@ console.log(date.getDate(new Date())) // logs something like "29"
 
 ### note
 
-`date` is a [shell](#module: shell).
+`date` is a [shell](#module-shell).
 
 ### see also
 
@@ -635,7 +635,7 @@ console.log(date.now()) // logs something like "1356793632564"
 ### note
 
 This function is a **static** function, not like other methods on this
-[shell](#module: shell), so chaining is not supported.
+[shell](#module-shell), so chaining is not supported.
 
 ### see also
 
@@ -669,7 +669,7 @@ fn.call(function(a, b, c){
 
 ### note
 
-`function` is a [shell](#module: shell).
+`function` is a [shell](#module-shell).
 
 ### see also
 
@@ -700,7 +700,7 @@ number.toFixed(3.14, 3) // "3.140"
 
 ### note
 
-`number` is a [shell](#module: shell).
+`number` is a [shell](#module-shell).
 
 ### see also
 
@@ -732,7 +732,7 @@ object.hasOwnProperty(test, 'decepticons') // false
 
 ### note
 
-`object` is a [shell](#module: shell).
+`object` is a [shell](#module-shell).
 
 ### see also
 
@@ -761,7 +761,7 @@ regexp.test(/\w+$/, '---abc') // true
 
 ### note
 
-`regexp` is a [shell](#module: shell).
+`regexp` is a [shell](#module-shell).
 
 ### see also
 
@@ -788,7 +788,7 @@ string.charAt('charAt', 4) // 'A'
 
 ### note
 
-`string` is a [shell](#module: shell).
+`string` is a [shell](#module-shell).
 
 ### see also
 
