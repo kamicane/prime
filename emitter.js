@@ -45,7 +45,9 @@ module.exports = prime({
         var listeners = this._listeners, events
         if (listeners && (events = listeners[event])){
             var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
-            for (var k in events) events[k].apply(this, args)
+            setTimeout(function(){
+                for (var k in events) events[k].apply(this, args)
+            }, 0)
         }
         return this
     }
