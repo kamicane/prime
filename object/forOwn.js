@@ -7,7 +7,7 @@ var forIn  = require("./forIn"),
 
 var forOwn = function(self, method, context){
     forIn(self, function(value, key){
-        if (hasOwn(self, key)) return method.call(context, value, key)
+        if (hasOwn(self, key)) return method.call(context, value, key, self)
     })
     return self
 }

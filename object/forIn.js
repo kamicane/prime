@@ -4,9 +4,9 @@ object:forIn
 
 var has = require("./hasOwn")
 
-var forIn = function(object, method, context){
-    for (var key in object) if (method.call(context, object[key], key, object) === false) break
-    return object
+var forIn = function(self, method, context){
+    for (var key in self) if (method.call(context, self[key], key, self) === false) break
+    return self
 }
 
 if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix for stupid IE enumeration bug
@@ -14,13 +14,13 @@ if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix for stupid IE enume
     var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(",")
     var proto = Object.prototype
 
-    forIn = function(object, method, context){
-        for (var key in object) if (method.call(context, object[key], key, object) === false) return object
+    forIn = function(self, method, context){
+        for (var key in self) if (method.call(context, self[key], key, self) === false) return self
         for (var i = 0; key = buggy[i]; i++){
-            var value = object[key]
-            if ((value !== proto[key] || has(object, key)) && method.call(context, value, key, object) === false) break
+            var value = self[key]
+            if ((value !== proto[key] || has(self, key)) && method.call(context, value, key, self) === false) break
         }
-        return object
+        return self
     }
 
 }
