@@ -3,6 +3,7 @@ Emitter
 */"use strict"
 
 var prime = require("./index"),
+    defer = require("./defer"),
     slice = Array.prototype.slice
 
 var EID = 0
@@ -47,9 +48,9 @@ module.exports = prime({
             var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
             var copy = {}
             for (var k in events) copy[k] = events[k]
-            setTimeout(function(){
+            defer(function(){
                 for (var k in copy) copy[k].apply(this, args)
-            }, 0)
+            })
         }
         return this
     }
