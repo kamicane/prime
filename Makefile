@@ -34,14 +34,15 @@ docs: doc/prime.html
 docs-watch:
 	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html --watch
 
-coverage:
+.PHONY: cov
+cov:
 	rm -rf ./cov
 	mkdir ./cov
 	echo "{}" > ./cov.json
 	cp -R test cov/test
 	cp -R node_modules cov/node_modules
 	cp Makefile cov/Makefile
-	coverjs --recursive -o cov/ es5/ shell/ emitter.js index.js map.js shell.js type.js --template node --result ./cov.json
-	cd cov; make test; cd ..
+	coverjs --recursive -o cov/ array/ date/ function/ number/ object/ string/ _shell.js array.js date.js defer.js emitter.js function.js index.js map.js number.js object.js regexp.js shell.js string.js type.js --template node --result ./cov.json
+	cd cov; make test-node; cd ..
 	cat ./cov.json | coverjs-report -r html > cov.html
 	echo "open cov.html"
