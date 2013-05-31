@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var date = require('../../shell/date')
+var date = require('../../date')
 
 describe('shell/date', function(){
 

@@ -2,6 +2,7 @@
 
 var expect = require('expect.js')
 var prime = require('../../index')
+var forIn = require('../../object/forIn')
 
 describe('prime.each', function(){
 
@@ -22,7 +23,7 @@ describe('prime.each', function(){
 
     var context = {b: 'b'}
 
-    prime.each(obj, function(value, key, object){
+    forIn(obj, function(value, key, object){
         values.push(value)
         keys.push(key)
         objects.push(object)

@@ -2,42 +2,42 @@
 
 var expect = require('expect.js')
 
-var hash = require('../../shell/object')
+var hash = require('../../object')
 
 describe('hash', function(){
 
-    describe('set', function(){
-        it('should set a value of the object', function(){
-            var object = {}
-            expect(object.name).to.be(undefined)
-            hash.set(object, 'name', 'John')
-            expect(object.name).to.be('John')
-        })
-    })
+    // describe('set', function(){
+    //     it('should set a value of the object', function(){
+    //         var object = {}
+    //         expect(object.name).to.be(undefined)
+    //         hash.set(object, 'name', 'John')
+    //         expect(object.name).to.be('John')
+    //     })
+    // })
 
-    describe('get', function(){
-        it('should get an value from the object', function(){
-            var object = {name: 'John'}
-            expect(hash.get(object, 'name')).to.be('John')
-        })
-        it('should return null if the property does not exist', function(){
-            var object = {name: 'John'}
-            expect(hash.get(object, 'firstName')).to.be(null)
-        })
-    })
+    // describe('get', function(){
+    //     it('should get an value from the object', function(){
+    //         var object = {name: 'John'}
+    //         expect(hash.get(object, 'name')).to.be('John')
+    //     })
+    //     it('should return null if the property does not exist', function(){
+    //         var object = {name: 'John'}
+    //         expect(hash.get(object, 'firstName')).to.be(null)
+    //     })
+    // })
 
-    describe('count', function(){
-        it('should count the number of items in the object', function(){
-            var object = {a: 1, b: 2, c: 3}
-            expect(hash.count(object)).to.be(3)
-        })
-    })
+    // describe('count', function(){
+    //     it('should count the number of items in the object', function(){
+    //         var object = {a: 1, b: 2, c: 3}
+    //         expect(hash.count(object)).to.be(3)
+    //     })
+    // })
 
     describe('each', function(){
         it('should iterate through the object, and stop when the function returns false', function(){
             var object = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6}
             var values = [], keys = [], objects = [], contexts = []
-            hash.each(object, function(value, key, obj){
+            hash.forIn(object, function(value, key, obj){
                 values.push(value)
                 keys.push(key)
                 objects.push(obj)
@@ -129,19 +129,20 @@ describe('hash', function(){
 
     describe('index', function(){
         it('should get the index of a specific item in the object', function(){
-            expect(hash.index({a: 1, b: 2, c: 3}, 2)).to.be('b')
+            expect(hash.indexOf({a: 1, b: 2, c: 3}, 2)).to.be('b')
         })
         it('should return null if the item is not in the object', function(){
-            expect(hash.index({a: 1, b: 2, c: 3}, 5)).to.be(null)
+            expect(hash.indexOf({a: 1, b: 2, c: 3}, 5)).to.be(null)
         })
     })
 
     describe('remove', function(){
-        it('should remove an item from the object', function(){
+        it('should remove an item from the object and return the key', function(){
             var object = {name: 'John'}
             expect(object.name).to.be('John')
-            hash.remove(object, 'name')
+            var ret = hash.remove(object, 'John')
             expect(object.name).to.be(undefined)
+            expect(ret).to.be('name')
         })
     })
 

@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var fn = require('../../shell/function')
+var fn = require('../../function')
 
 describe('shell/function', function(){
 

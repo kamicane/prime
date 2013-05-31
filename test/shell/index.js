@@ -2,8 +2,8 @@
 
 var expect = require('expect.js')
 var ghost = require("../../shell")
-var array = require('../../shell/array')
-var string = require('../../shell/string')
+var array = require('../../array')
+var string = require('../../string')
 var prime = require('../../index')
 
 describe('shell', function(){

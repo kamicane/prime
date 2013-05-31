@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var regexp = require('../../es5/regexp')
+var regexp = require('../../regexp')
 
 describe('regexp', function(){
 

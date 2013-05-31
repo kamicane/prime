@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var date = require('../../es5/date')
+var date = require('../../date')
 
 describe('es5/date', function(){
 
