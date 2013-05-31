@@ -46,9 +46,9 @@ module.exports = prime({
         var listeners = this._listeners, events
         if (listeners && (events = listeners[event])){
             var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
-            var copy = {}
-            for (var k in events) copy[k] = events[k]
             defer(function(){
+                var copy = {}
+                for (var k in events) copy[k] = events[k]
                 for (var k in copy) copy[k].apply(this, args)
             })
         }
