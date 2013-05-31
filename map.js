@@ -46,7 +46,7 @@ var Map = prime({
 
     map: function(method, context){
         var results = new Map
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             results.set(key, method.call(context, value, key, this))
         }, this)
         return results
@@ -54,7 +54,7 @@ var Map = prime({
 
     filter: function(method, context){
         var results = new Map
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (method.call(context, value, key, this)) results.set(key, value)
         }, this)
         return results
@@ -62,7 +62,7 @@ var Map = prime({
 
     every: function(method, context){
         var every = true
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (!method.call(context, value, key, this)) return (every = false)
         }, this)
         return every
@@ -70,7 +70,7 @@ var Map = prime({
 
     some: function(method, context){
         var some = false
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (method.call(context, value, key, this)) return !(some = true)
         }, this)
         return some
