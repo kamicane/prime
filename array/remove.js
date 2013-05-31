@@ -3,12 +3,11 @@ array:remove
 */"use strict"
 
 var splice = Array.prototype.splice
+var indexOf = require("./indexOf")
 
 var remove = function(self, item){
-    var io = -1
-    for (var i = 0, l = self.length >>> 0; i < l; i++){
-        if (self[i] === item) return !splice.call(self, io = i, 1)
-    }
+    var io = indexOf(self, item)
+    if (io !== -1) splice.call(self, io, 1)
     return io
 }
 
