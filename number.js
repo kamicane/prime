@@ -9,16 +9,13 @@ var proto = Number.prototype
 number.implement({
     toExponential: proto.toExponential,
     toFixed: proto.toFixed,
-    toLocaleString: proto.toLocaleString,
-    toPrecision: proto.toPrecision,
-    toString: proto.toString,
-    valueOf: proto.valueOf
+    toPrecision: proto.toPrecision
 })
 
 number.extend({
-    limit:  require("./number/limit")
-    random: require("./number/random")
-    round:  require("./number/round")
+    limit:  require("./number/limit"),
+    random: require("./number/random"),
+    round:  require("./number/round"),
     times:  require("./number/times")
 })
 
