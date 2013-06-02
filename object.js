@@ -25,7 +25,6 @@ object.extend({
     mixIn:   require("./object/mixIn"),
     remove:  require("./object/remove"),
     some:    require("./object/some"),
-    unset:   require("./object/unset"),
     values:  require("./object/values")
 })
 
