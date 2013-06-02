@@ -518,6 +518,12 @@ object.hasOwn(test, 'autobot') // true
 object.hasOwn(test, 'decepticons') // false
 ```
 
+This module's exported function is also a shell.
+
+```js
+object({autobot: 'optimus'}).hasOwn("autobot") //true
+```
+
 ### see also
 
 [MDN Object](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object)
@@ -857,6 +863,14 @@ Some ES3 Array methods are added as generics as well:
 })(1, 2, 3)
 ```
 
+This module's exported function is also a shell.
+
+```js
+array([1,2,3]).every(function(value){
+    return typeof value === 'number'
+}) //true
+```
+
 ## module: array/filter
 
 Returns a new array with the elements of the original array for which the
@@ -1171,6 +1185,14 @@ var number = require('prime/number')
 number.toFixed(3.14, 3) // "3.140"
 ```
 
+This module's exported function is also a shell.
+
+```js
+number(10).times(function(i){
+    console.log(i)
+})
+```
+
 ### see also
 
 [MDN Number](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Number)
@@ -1274,6 +1296,12 @@ string.trim('   i like cookies    ') // "i like cookies"
 string.charAt('charAt', 4) // 'A'
 ```
 
+This module's exported function is also a shell.
+
+```js
+string('   i like cookies    ').trim() // shell("i like cookies")
+```
+
 ### see also
 
 [MDN String](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String)
@@ -1342,6 +1370,14 @@ fn.call(function(a, b, c){
 }, "that", 1, 2, 3)
 ```
 
+This module's exported function is also a shell.
+
+```js
+fn(function(a, b, c){
+    console.log(this, a, b, c) // "context", 1, 2, 3
+}).call("context", 1, 2, 3)
+```
+
 ### see also
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
@@ -1363,8 +1399,6 @@ regexp.test(/\w+$/, '---abc') // true
 
 [MDN RegExp](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp)
 
-
-
 ## module: shell
 
 Shell exports a function that accepts one parameter, and returns a so called *ghost* object. This object contains all methods that are defined for this type of variable. Each method returns the
@@ -1378,8 +1412,7 @@ When the `implement` method is used, the method is implemented as generic on the
 shell object, on the prototype of the shell object, as well as on the ghost
 object.
 
-exports
--------
+### exports
 
 The module exports the `shell` function.
 
@@ -1390,8 +1423,10 @@ shell('  1,2,3  ').trim().split(',').forEach(function(value){
     console.log(value)
 }) // logs 1, 2, 3
 
-// we can add new methods with the implement method
-shell.array.implement({
+// we can add new methods to specific shells with the implement method
+var array = require("prime/array")
+
+array.implement({
     sum: function(){
         var sum = 0
         for (var i = 0; i < this.length; i++) sum += this[i]
@@ -1403,7 +1438,7 @@ shell([3, 4, 7]).sum().valueOf() // 14
 
 // alternatively the constructor of a shell returns a ghost object,
 // to 'cast' variables.
-shell.array(document.querySelectorAll('a')).each(function(node){
+array(document.querySelectorAll('a')).each(function(node){
     node.style.color = 'red'
 })
 ```
@@ -1436,10 +1471,9 @@ shell("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
 `toString` returns the string representation of the value of the ghost.
 
 ```js
-shell(40) // "40"
+shell(40).toString() // "40"
 shell("pri") + "me" // "prime"
 shell(4) + "5" // "45"
-shell(42).toString() // "42"
 ```
 
 [MDN toString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/toString)
