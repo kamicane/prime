@@ -27,8 +27,7 @@ array.extend({
     lastIndexOf: require("./array/lastIndexOf"),
     map:         require("./array/map"),
     remove:      require("./array/remove"),
-    some:        require("./array/some"),
-    unset:       require("./array/unset")
+    some:        require("./array/some")
 })
 
 module.exports = array
