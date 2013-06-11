@@ -1321,7 +1321,7 @@ trim('    i like cookies     ') // returns 'i like cookies'
 
 [MDN String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
-## module: string/camelize
+## module: string/hyphenate
 
 Converts a hyphenated string to a camelcased string.
 
