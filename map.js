@@ -7,7 +7,7 @@ var prime   = require("./index"),
 
 var Map = prime({
 
-    constructor: function(){
+    constructor: function Map(){
         if (!this instanceof Map) return new Map
         this.length = 0
         this._values = []

@@ -2,7 +2,7 @@
 string
 */"use strict"
 
-var string = require("./_shell")["string"]
+var string = require("./_shell").string
 var proto = String.prototype
 
 string.implement({

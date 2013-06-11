@@ -2,7 +2,7 @@
 regexp
 */"use strict"
 
-var regexp = require("./_shell")["regexp"]
+var regexp = require("./_shell").regexp
 var proto = RegExp.prototype
 
 regexp.implement({

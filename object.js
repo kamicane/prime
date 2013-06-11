@@ -2,7 +2,7 @@
 object
 */"use strict"
 
-var object = require("./_shell")["object"]
+var object = require("./_shell").object
 var proto = Object.prototype
 
 object.implement({

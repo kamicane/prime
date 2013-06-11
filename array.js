@@ -2,7 +2,7 @@
 array
 */"use strict"
 
-var array = require("./_shell")["array"]
+var array = require("./_shell").array
 var proto = Array.prototype
 
 array.implement({

@@ -32,12 +32,12 @@ var _defer = function(type, callback, arg){
 var iterate = function(collection){
     var time = new Date().getTime()
 
-    var exec = {}
-    for (var p in collection){
+    var exec = {}, p
+    for (p in collection){
         exec[p] = collection[p]
         delete collection[p]
     }
-    for (var p in exec) exec[p](time)
+    for (p in exec) exec[p](time)
 }
 
 var immediate = function(){

@@ -3,7 +3,7 @@ number
  - number es5 shell
 */"use strict"
 
-var number = require("./_shell")["number"]
+var number = require("./_shell").number
 var proto = Number.prototype
 
 number.implement({
