@@ -8,7 +8,7 @@ var prime = require("./index"),
 
 var EID = 0
 
-module.exports = prime({
+var Emitter = prime({
 
     on: function(event, fn){
         var listeners = this._listeners || (this._listeners = {}),
@@ -45,14 +45,26 @@ module.exports = prime({
     emit: function(event){
         var listeners = this._listeners, events
         if (listeners && (events = listeners[event])){
-            var args = (arguments.length > 1) ? slice.call(arguments, 1) : []
-            defer(function(){
-                var copy = {}
-                for (var k in events) copy[k] = events[k]
-                for (var k in copy) copy[k].apply(this, args)
-            })
+            var args = arguments.length > 1 ? slice.call(arguments, 1) : []
+
+            var emit = function(){
+                var copy = {}, k
+                for (k in events) copy[k] = events[k]
+                for (k in copy) copy[k].apply(this, args)
+            }
+
+            if (args[args.length - 1] === Emitter.EMIT_SYNC){
+                args.pop()
+                emit()
+            } else {
+                defer(emit)
+            }
         }
         return this
     }
 
 })
+
+Emitter.EMIT_SYNC = {}
+
+module.exports = Emitter
