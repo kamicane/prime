@@ -4,7 +4,7 @@ Emitter
 
 var prime = require("./index"),
     defer = require("./defer"),
-    slice = Array.prototype.slice
+    slice = require("./array/slice")
 
 var EID = 0
 
@@ -43,23 +43,25 @@ var Emitter = prime({
     },
 
     emit: function(event){
-        var listeners = this._listeners, events
-        if (listeners && (events = listeners[event])){
-            var args = arguments.length > 1 ? slice.call(arguments, 1) : []
+        var args = slice(arguments, 1)
 
-            var emit = function(){
+        var emit = function(){
+            var listeners = this._listeners, events
+            if (listeners && (events = listeners[event])){
                 var copy = {}, k
                 for (k in events) copy[k] = events[k]
                 for (k in copy) copy[k].apply(this, args)
             }
 
-            if (args[args.length - 1] === Emitter.EMIT_SYNC){
-                args.pop()
-                emit()
-            } else {
-                defer(emit)
-            }
         }
+
+        if (args[args.length - 1] === Emitter.EMIT_SYNC){
+            args.pop()
+            emit()
+        } else {
+            defer(emit)
+        }
+
         return this
     }
 
