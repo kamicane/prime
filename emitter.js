@@ -43,14 +43,15 @@ var Emitter = prime({
     },
 
     emit: function(event){
-        var args = slice(arguments, 1)
+        var self = this,
+            args = slice(arguments, 1)
 
         var emit = function(){
-            var listeners = this._listeners, events
+            var listeners = self._listeners, events
             if (listeners && (events = listeners[event])){
                 var copy = {}, k
                 for (k in events) copy[k] = events[k]
-                for (k in copy) copy[k].apply(this, args)
+                for (k in copy) copy[k].apply(self, args)
             }
 
         }
