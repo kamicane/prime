@@ -1,4 +1,3 @@
-
 #prime |prīm|
 
 1. fundamental, basic, essential.
@@ -42,6 +41,7 @@ var Cat = prime({
 ### prime/emitter
 
 The event emitter.
+
 ```js
 var Emitter = require("prime/emitter")
 
@@ -62,9 +62,11 @@ barkley.on("say", function(word){
     console.log("barkley barked", word)
 })
 ```
+
 ### prime/map
 
-Simple WeakMap implementation.
+Simple WeakMap-like object.
+
 ```js
 var Map = require("prime/map")
 
@@ -75,9 +77,11 @@ map.set(domElement2, "footer")
 map.get(domElement) // "header"
 map.get(domElement2) // "footer"
 ```
+
 ### prime/type
 
 Type checker.
+
 ```js
 var type = require("prime/type")
 
@@ -95,6 +99,18 @@ type(null) // "null"
 type(undefined) // "null"
 type(NaN) // "null"
 ```
+
+### prime/shell
+
+Wraps every type in a special function containing every available method.
+Use valueOf() / toString() to get the bare value.
+
+```js
+var _ = require("prime/shell")
+_([10, 20, 30]).indexOf(1).times(function(n){}).valueOf() // 10
+document.title = _(["hello-mootools"]).get(0).camelize()
+```
+
 ### prime/array
 
 A composite module of all the methods modules.
