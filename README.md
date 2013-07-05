@@ -155,7 +155,16 @@ A composite module of all the methods modules.
 Available methods: limit, random, round, times
 
 ```js
-require("prime/number")
+var fn = require("prime/number")
+number.times(10, function(n){})
+number(10).times(function(n){})
+```
+
+Requiring individual methods as generics:
+
+```js
+var times = require("prime/number/times")
+times(10, function(n){})
 ```
 
 ### prime/function
