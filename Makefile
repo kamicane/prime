@@ -3,7 +3,7 @@ OUTPUT ?= prime.wrup.js
 OUTPUT_MIN ?= prime.min.js
 AMD ?= amd
 
-all: test doc/prime.html
+all: test
 
 clean:
 	rm -rf ./cov*
@@ -25,14 +25,6 @@ test-phantomjs: test-browser
 	@./node_modules/.bin/mocha-phantomjs http://localhost:8000/test/index.html
 	@kill `cat server.pid`
 	@rm server.pid
-
-doc/prime.html: doc/prime.md
-	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html
-
-docs: doc/prime.html
-
-docs-watch:
-	@./node_modules/.bin/procs -f ./doc/prime.md -t ./doc/layout.html --watch
 
 .PHONY: cov
 cov:
