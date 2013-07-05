@@ -1382,6 +1382,28 @@ fn(function(a, b, c){
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
 
+## module: function/compose
+
+Compose two or more functions. It returns the composition of the given
+functions.  The composition of the functions *f()*, *g()* and *h()*
+(*f ∘ g ∘ h*) is *f(g(h()))*. The functions are executed from right to
+left, so the result of the last function is passed in the previous
+function.
+
+### samples
+
+```js
+var compose = require('prime/function/compose')
+
+function f(x){ return x + 3 }
+function g(x){ return x * 2 }
+function h(x){ return Math.pow(x, 2) }
+
+var k = compose(f, g, h)
+
+k(4) // 35
+```
+
 ## module: regexp
 
 A container module.
