@@ -22,7 +22,7 @@ describe('map', function(){
             expect(map.get('bar')).to.be(object)
         })
 
-        it('should overwrite an value', function(){
+        it('should overwrite a value', function(){
             var map = new Map()
             map.set('bar', 'foo')
             expect(map.get('bar')).to.be('foo')
@@ -44,7 +44,7 @@ describe('map', function(){
         it('Iterates over a map instance, and stop when false is returned', function(){
             var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
             map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
-            map.each(function(val, key, mp){
+            map.forEach(function(val, key, mp){
                 keys.push(key)
                 values.push(val)
                 ctxs.push(this)
@@ -58,23 +58,23 @@ describe('map', function(){
         })
     })
 
-    describe('backwards', function(){
-        it('Iterates over a map instance backwards, and stop when false is returned', function(){
-            var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
-            map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
-            map.backwards(function(val, key, mp){
-                keys.push(key)
-                values.push(val)
-                ctxs.push(this)
-                maps.push(mp)
-                if (key == 'foo') return false
-            }, ctx)
-            expect(keys).to.eql(['b', 'foo'])
-            expect(values).to.eql([1, 'bar'])
-            expect(ctxs).to.eql([ctx, ctx])
-            expect(maps).to.eql([map, map])
-        })
-    })
+    // describe('backwards', function(){
+    //     it('Iterates over a map instance backwards, and stop when false is returned', function(){
+    //         var map = new Map(), keys = [], values = [], ctxs = [], maps = [], ctx = {}
+    //         map.set('bar', 'foo').set('foo', 'bar').set('b', 1)
+    //         map.backwards(function(val, key, mp){
+    //             keys.push(key)
+    //             values.push(val)
+    //             ctxs.push(this)
+    //             maps.push(mp)
+    //             if (key == 'foo') return false
+    //         }, ctx)
+    //         expect(keys).to.eql(['b', 'foo'])
+    //         expect(values).to.eql([1, 'bar'])
+    //         expect(ctxs).to.eql([ctx, ctx])
+    //         expect(maps).to.eql([map, map])
+    //     })
+    // })
 
     describe('map', function(){
         it('map the values in the map', function(){
@@ -174,19 +174,19 @@ describe('map', function(){
     })
 
     describe('index', function(){
-        it('should return the key which is assiciated with an value', function(){
+        it('should return the key which is assiciated with a value', function(){
             var map = new Map(), obj = {}
             map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
-            expect(map.index(0)).to.be(obj)
+            expect(map.indexOf(0)).to.be(obj)
         })
     })
 
     describe('remove', function(){
-        it('should remove an value', function(){
-            var map = new Map(), obj = {}
-            map.set('bar', 2).set(obj, 0).set('moo', 0).set('b', 1)
-            expect(map.remove(obj)).to.be(0)
-            expect(map.remove(obj)).to.be(null)
+        it('should remove a value and return the key', function(){
+            var map = new Map(), obj1 = {}, obj2 = {}
+            map.set('bar', 2).set(obj1, obj2).set('moo', 0).set('b', 1)
+            expect(map.remove(obj2)).to.be(obj1)
+            expect(map.remove(obj2)).to.be(null)
         })
     })
 

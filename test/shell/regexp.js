@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var regexp = require('../../shell/regexp')
+var regexp = require('../../regexp')
 
 describe('shell/regexp', function(){
 

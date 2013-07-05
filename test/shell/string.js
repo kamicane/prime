@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var string = require('../../shell/string')
+var string = require('../../string')
 
 describe('types/string', function(){
 
@@ -44,12 +44,12 @@ describe('types/string', function(){
         })
     })
 
-    describe('number', function(){
-        it('should parse a string to a number', function(){
-            expect(string.number('10.11')).to.equal(10.11)
-            expect(string.number('10.55px')).to.equal(10.55)
-            expect(string.number('6.28deg')).to.equal(6.28)
-        })
-    })
+    // describe('number', function(){
+    //     it('should parse a string to a number', function(){
+    //         expect(string.number('10.11')).to.equal(10.11)
+    //         expect(string.number('10.55px')).to.equal(10.55)
+    //         expect(string.number('6.28deg')).to.equal(6.28)
+    //     })
+    // })
 
 })

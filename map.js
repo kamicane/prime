@@ -1,24 +1,21 @@
 /*
-map
- - must be instantiated
+Map
 */"use strict"
 
-var prime = require("./index"),
-    array = require("./es5/array")
-
-// set, get, count, each, map, filter, some, every, index, remove, keys, values
+var prime   = require("./index"),
+    indexOf = require("./array/indexOf")
 
 var Map = prime({
 
-    constructor: function(){
-        if (!this || this.constructor !== Map) return new Map
+    constructor: function Map(){
+        if (!this instanceof Map) return new Map
         this.length = 0
         this._values = []
         this._keys = []
     },
 
     set: function(key, value){
-        var index = array.indexOf(this._keys, key)
+        var index = indexOf(this._keys, key)
 
         if (index === -1){
             this._keys.push(key)
@@ -32,7 +29,7 @@ var Map = prime({
     },
 
     get: function(key){
-        var index = array.indexOf(this._keys, key)
+        var index = indexOf(this._keys, key)
         return (index === -1) ? null : this._values[index]
     },
 
@@ -40,15 +37,8 @@ var Map = prime({
         return this.length
     },
 
-    each: function(method, context){
+    forEach: function(method, context){
         for (var i = 0, l = this.length; i < l; i++){
-            if (method.call(context, this._values[i], this._keys[i], this) === false) break
-        }
-        return this
-    },
-
-    backwards: function(method, context){
-        for (var i = this.length - 1; i >= 0; i--){
             if (method.call(context, this._values[i], this._keys[i], this) === false) break
         }
         return this
@@ -56,7 +46,7 @@ var Map = prime({
 
     map: function(method, context){
         var results = new Map
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             results.set(key, method.call(context, value, key, this))
         }, this)
         return results
@@ -64,7 +54,7 @@ var Map = prime({
 
     filter: function(method, context){
         var results = new Map
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (method.call(context, value, key, this)) results.set(key, value)
         }, this)
         return results
@@ -72,7 +62,7 @@ var Map = prime({
 
     every: function(method, context){
         var every = true
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (!method.call(context, value, key, this)) return (every = false)
         }, this)
         return every
@@ -80,19 +70,31 @@ var Map = prime({
 
     some: function(method, context){
         var some = false
-        this.each(function(value, key){
+        this.forEach(function(value, key){
             if (method.call(context, value, key, this)) return !(some = true)
         }, this)
         return some
     },
 
-    index: function(value){
-        var index = array.indexOf(this._values, value)
+    indexOf: function(value){
+        var index = indexOf(this._values, value)
         return (index > -1) ? this._keys[index] : null
     },
 
-    remove: function(key){
-        var index = array.indexOf(this._keys, key)
+    remove: function(value){
+        var index = indexOf(this._values, value)
+
+        if (index !== -1){
+            this._values.splice(index, 1)
+            this.length--
+            return this._keys.splice(index, 1)[0]
+        }
+
+        return null
+    },
+
+    unset: function(key){
+        var index = indexOf(this._keys, key)
 
         if (index !== -1){
             this._keys.splice(index, 1)

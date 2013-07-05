@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var array = require('../../es5/array')
+var array = require('../../array')
 
 describe('es5/array', function(){
 
@@ -24,7 +24,7 @@ describe('es5/array', function(){
             expect(testArr).to.eql(arr.concat(4))
         })
 
-        it('filter should skip deleted elements', function(){
+        it('filter should not skip deleted elements', function(){
             var i = 0
 
             array.filter(getTestArray(), function(){
@@ -32,7 +32,7 @@ describe('es5/array', function(){
                 return true
             })
 
-            expect(i).to.equal(2)
+            expect(i).to.equal(4)
         })
 
         it('should return the original item, and not any mutations.', function(){
@@ -59,8 +59,8 @@ describe('es5/array', function(){
             expect(array.indexOf([1,2,3,0,0,0], 'not found')).to.equal(-1)
         })
 
-        it('should return -1 for undefined when the array is sparse', function(){
-            expect(array.indexOf(new Array(4), undefined)).to.equal(-1)
+        it('should not return -1 for undefined when the array is sparse', function(){
+            expect(array.indexOf(new Array(4), undefined)).to.equal(0)
         })
 
     })
@@ -75,13 +75,13 @@ describe('es5/array', function(){
             expect(arr).to.eql([2,3,4,1,1,1])
         })
 
-        it('should skip deleted elements', function(){
+        it('should not skip deleted elements', function(){
             var i = 0
             array.map(getTestArray(), function(){
                 return i++
             })
 
-            expect(i).to.equal(2)
+            expect(i).to.equal(4)
         })
 
         it('should return an array with the same length', function(){
@@ -120,7 +120,7 @@ describe('es5/array', function(){
             expect(daysArr).to.eql(['Sun','Mon','Tue'])
         })
 
-        it('should not iterate over deleted elements', function(){
+        it('should iterate over deleted elements', function(){
             var arr = [0, 1, 2, 3],
                 testArray = []
             delete arr[1]
@@ -130,7 +130,7 @@ describe('es5/array', function(){
                 testArray.push(value)
             })
 
-            expect(testArray).to.eql([0, 3])
+            expect(testArray).to.eql([0, undefined, undefined, 3])
         })
 
     })
@@ -142,14 +142,14 @@ describe('es5/array', function(){
             expect(array.every(['1',2,3,0], isNumber)).to.be(false)
         })
 
-        it('should skip deleted elements', function(){
+        it('should not skip deleted elements', function(){
             var i = 0
             array.every(getTestArray(), function(){
                 i++
                 return true
             })
 
-            expect(i).to.equal(2)
+            expect(i).to.equal(4)
         })
 
     })
@@ -163,18 +163,17 @@ describe('es5/array', function(){
             expect(array.some(arr, isNumber)).to.be(false)
         })
 
-        it('should skip deleted elements', function(){
+        it('should not skip deleted elements', function(){
             var i = 0
             var a = getTestArray()
             delete a[0]
 
-            // skips the first three elements
             array.some(a, function(value, index){
                 i = index
                 return true
             })
 
-            expect(i).to.equal(3)
+            expect(i).to.equal(0)
         })
 
     })
@@ -188,25 +187,25 @@ describe('es5/array', function(){
         expect(array.some(object, fn)).to.be(false)
     })
 
-    describe('Array.isArray', function(){
+    // describe('Array.isArray', function(){
 
-        it('should test if a value is an Array', function(){
-            expect(array.isArray([])).to.be(true)
-            expect(array.isArray(new Array())).to.be(true)
-            expect(array.isArray(Array())).to.be(true)
-            expect(array.isArray('abc'.match(/(a)*/g))).to.be(true)
-            expect((function(){ return array.isArray(arguments) })()).to.be(false)
-            expect(array.isArray()).to.be(false)
-            expect(array.isArray(null)).to.be(false)
-            expect(array.isArray(undefined)).to.be(false)
-            expect(array.isArray(true)).to.be(false)
-            expect(array.isArray(false)).to.be(false)
-            expect(array.isArray('a string')).to.be(false)
-            expect(array.isArray({})).to.be(false)
-            expect(array.isArray({length: 5})).to.be(false)
-            expect(array.isArray({__proto__: Array.prototype, length:1, 0:1, 1:2})).to.be(false)
-        })
+    //     it('should test if a value is an Array', function(){
+    //         expect(array.isArray([])).to.be(true)
+    //         expect(array.isArray(new Array())).to.be(true)
+    //         expect(array.isArray(Array())).to.be(true)
+    //         expect(array.isArray('abc'.match(/(a)*/g))).to.be(true)
+    //         expect((function(){ return array.isArray(arguments) })()).to.be(false)
+    //         expect(array.isArray()).to.be(false)
+    //         expect(array.isArray(null)).to.be(false)
+    //         expect(array.isArray(undefined)).to.be(false)
+    //         expect(array.isArray(true)).to.be(false)
+    //         expect(array.isArray(false)).to.be(false)
+    //         expect(array.isArray('a string')).to.be(false)
+    //         expect(array.isArray({})).to.be(false)
+    //         expect(array.isArray({length: 5})).to.be(false)
+    //         expect(array.isArray({__proto__: Array.prototype, length:1, 0:1, 1:2})).to.be(false)
+    //     })
 
-    })
+    // })
 
 })

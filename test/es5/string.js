@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('expect.js')
-var string = require('../../es5/string')
+var string = require('../../string')
 
 describe('string', function(){
 

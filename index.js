@@ -3,68 +3,47 @@ prime
  - prototypal inheritance
 */"use strict"
 
-var has = function(self, key){
-    return Object.hasOwnProperty.call(self, key)
-}
+var hasOwn = require("./object/hasOwn"),
+    forIn  = require("./object/forIn"),
+    mixIn  = require("./object/mixIn"),
+    filter = require("./object/filter"),
+    create = require("./object/create"),
+    type   = require("./type")
 
-var each = function(object, method, context){
-    for (var key in object) if (method.call(context, object[key], key, object) === false) break
-    return object
-}
-
-if (!({valueOf: 0}).propertyIsEnumerable("valueOf")){ // fix for stupid IE enumeration bug
-
-    var buggy = "constructor,toString,valueOf,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString".split(",")
-    var proto = Object.prototype
-
-    each = function(object, method, context){
-        for (var key in object) if (method.call(context, object[key], key, object) === false) return object
-        for (var i = 0; key = buggy[i]; i++){
-            var value = object[key]
-            if ((value !== proto[key] || has(object, key)) && method.call(context, value, key, object) === false) break
-        }
-        return object
-    }
-
-}
-
-var create = Object.create || function(self){
-    var constructor = function(){}
-    constructor.prototype = self
-    return new constructor
-}
-
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-var define = Object.defineProperty
+var defineProperty           = Object.defineProperty,
+    getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
 
 try {
-    var obj = {a: 1}
-    getOwnPropertyDescriptor(obj, "a")
-    define(obj, "a", {value: 2})
+    defineProperty({}, "~", {})
+    getOwnPropertyDescriptor({}, "~")
 } catch (e){
-    getOwnPropertyDescriptor = function(object, key){
-        return {value: object[key]}
-    }
-    define = function(object, key, descriptor){
-        object[key] = descriptor.value
-        return object
-    }
+    defineProperty = null
+    getOwnPropertyDescriptor = null
+}
+
+var define = function(value, key, from){
+    defineProperty(this, key, getOwnPropertyDescriptor(from, key) || {
+        writable: true,
+        enumerable: true,
+        configurable: true,
+        value: value
+    })
+}
+
+var copy = function(value, key){
+    this[key] = value
 }
 
 var implement = function(proto){
-    each(proto, function(value, key){
-        if (key !== "constructor" && key !== "define" && key !== "inherits")
-            this.define(key, getOwnPropertyDescriptor(proto, key) || {
-                writable: true,
-                enumerable: true,
-                configurable: true,
-                value: value
-            })
-    }, this)
+    forIn(proto, defineProperty ? define : copy, this.prototype)
     return this
 }
 
+var verbs = /^constructor|inherits|mixin$/
+
 var prime = function(proto){
+
+    if (type(proto) === "function") proto = {constructor: proto}
 
     var superprime = proto.inherits
 
@@ -72,11 +51,13 @@ var prime = function(proto){
     // then we proceed using a ghosting constructor that all it does is
     // call the parent's constructor if it has a superprime, else an empty constructor
     // proto.constructor becomes the effective constructor
-    var constructor = (has(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
+    var constructor = (hasOwn(proto, "constructor")) ? proto.constructor : (superprime) ? function(){
         return superprime.apply(this, arguments)
     } : function(){}
 
     if (superprime){
+
+        mixIn(constructor, superprime)
 
         var superproto = superprime.prototype
         // inherit from superprime
@@ -88,23 +69,19 @@ var prime = function(proto){
         cproto.constructor = constructor
     }
 
-    // inherit (kindof inherit) define
-    constructor.define = proto.define || (superprime && superprime.define) || function(key, descriptor){
-        define(this.prototype, key, descriptor)
-        return this
+    if (!constructor.implement) constructor.implement = implement
+
+    var mixins = proto.mixin
+    if (mixins){
+        if (type(mixins) !== "array") mixins = [mixins]
+        for (var i = 0; i < mixins.length; i++) constructor.implement(create(mixins[i].prototype))
     }
 
-    // copy implement (this should never change)
-    constructor.implement = implement
-
-    // finally implement proto and return constructor
-    return constructor.implement(proto)
+    // implement proto and return constructor
+    return constructor.implement(filter(proto, function(value, key){
+        return !key.match(verbs)
+    }))
 
 }
-
-prime.has    = has
-prime.each   = each
-prime.create = create
-prime.define = define
 
 module.exports = prime
