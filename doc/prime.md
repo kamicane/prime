@@ -1378,6 +1378,27 @@ fn(function(a, b, c){
 }).call("context", 1, 2, 3)
 ```
 
+The function modules have some functional functions:
+
+```js
+var compose = require('prime/function/compose')
+var curry = require('prime/function/curry')
+var partialLast = require('prime/function/partialLast')
+var filter = require('prime/array/filter')
+var map = require('prime/array/map')
+
+function between(n, min, max){ return n > min && n < max }
+var between4And40 = partialLast(between, 4, 40)
+var filterBetween4And40 = partialLast(filter, between4And40)
+
+function multiply(x, y){ return x * y }
+var times10 = curry(multiply, 10)
+var mapTimes10 = partialLast(map, times10)
+
+between4And40Times10 = compose(mapTimes10, filterBetween4And40)
+between4And40Times10([0, 2, 40, 20, 66, 31]) // [200, 310]
+```
+
 ### see also
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
@@ -1385,12 +1406,12 @@ fn(function(a, b, c){
 ## module: function/compose
 
 Compose two or more functions. It returns the composition of the given
-functions.  The composition of the functions *f()*, *g()* and *h()*
+functions. The composition of the functions *f()*, *g()* and *h()*
 (*f ∘ g ∘ h*) is *f(g(h()))*. The functions are executed from right to
 left, so the result of the last function is passed in the previous
 function.
 
-### samples
+### sample
 
 ```js
 var compose = require('prime/function/compose')
@@ -1402,6 +1423,64 @@ function h(x){ return Math.pow(x, 2) }
 var k = compose(f, g, h)
 
 k(4) // 35
+```
+
+## module: function/curry
+
+The curry module curries a function until all arguments are passed.
+If not all arguments are passed yet, it returns a new function which should
+be called with other arguments.
+
+### sample
+
+```js
+var curry = require('prime/function/curry')
+
+function add(x, y){ return x + y }
+var add3 = curry(add, 3)
+add3(2) // 5
+
+function volume(w, h, d){ return w * h * d }
+curry(volume, 10)(5)(5) // 250
+curry(volume, 10, 5)(5) // 250
+curry(volume, 10)(5, 5) // 250
+curry(volume, 10, 5, 5) // 250
+```
+
+## module: function/partial
+
+Partial is a module for what is called partial application. It returns new a
+function where the first arguments are already set. Eventually this function
+should be called with the remaining arguments to get the result.
+
+### sample
+
+```js
+var partial = require('prime/function/partial')
+
+function flow(width, height, time){ return width * height * time }
+var flowThroughPipe = partial(volume, 5, 6)
+vol(10) // 300
+```
+
+## module: function/partialLast
+
+partialLast is like partial, but leaves the first argument open. This is
+because many functions use the first argument for the data, for example
+functions like array/map, array/filter or number/limit.
+
+### sample
+
+```js
+var partialLast = require('prime/function/partialLast')
+var filter = require('prime/array/filter')
+
+function between(n, min, max){ return n > min && n < max }
+
+var between4And40 = partialLast(between, 4, 40)
+var filterBetween4And40 = partialLast(filter, between4And40)
+
+filterBetween4And40([0, 2, 40, 20, 66, 31]) // [20, 31]
 ```
 
 ## module: regexp
