@@ -28,28 +28,16 @@ var Animal = prime({
     }
 })
 
+var Emitter = require("prime/emitter")
+
 var Cat = prime({
     inherits: Animal,
+    mixin: Emitter,
     say: function(){
         return "meaow" + Cat.parent.say.call(this)
     }
 })
-```
-### prime/shell
 
-The base shell. As you require more shells, the base shell will be augmented.
-Requiring specific shells gives you access to generic methods as well.
-```js
-var array = require("prime/shell/array")
-
-array.indexOf([1,2,3], 3) // 3
-
-var _ = require("prime/shell")
-
-_([1,2,3]).remove(1).each(function(number){
-    console.log(number)
-})
-```
 ### prime/emitter
 
 The event emitter.
@@ -106,60 +94,85 @@ type(null) // "null"
 type(undefined) // "null"
 type(NaN) // "null"
 ```
-### prime/shell/array
+### prime/array
 
-Array methods.
+A composite module of all the methods modules.
+Available methods: every, filter, forEach, indexOf, map, remove, slice, some
 
 ```js
-require("prime/shell/array")
+var array = require("prime/array")
+array.indexOf([1,2,3], 1)
+array([1,2,3]).indexOf(1)
 ```
 
-### prime/shell/object
-
-Object methods.
+Requiring individual methods as generics:
 
 ```js
-require("prime/shell/object")
+var indexOf = require("prime/array/indexOf")
+indexOf([1,2,3], 1)
 ```
 
-### prime/shell/string
+### prime/object
 
-String methods.
+A composite module of all the methods modules.
+Available methods: count, create, every, filter, forIn, forOwn, indexOf, keys, map, mixIn, remove, some, values
 
 ```js
-require("prime/shell/string")
+var object = require("prime/object")
+object.count({a:1})
+object({a:1}).count()
 ```
 
-### prime/shell/number
-
-Number methods.
+Requiring individual methods as generics:
 
 ```js
-require("prime/shell/number")
+var count = require("prime/object/count")
+count({a:1})
 ```
 
-### prime/shell/function
+### prime/string
 
-Function methods.
+A composite module of all the methods modules.
+Available methods: camelize, capitalize, clean, escape, hyphenate, trim
 
 ```js
-require("prime/shell/function")
+var string = require("prime/string")
+string.trim("  asdfg  ")
+string("  asdfg  ").trim()
 ```
 
-### prime/shell/regexp
-
-Regexp methods.
+Requiring individual methods as generics:
 
 ```js
-require("prime/shell/regexp")
+var trim = require("prime/string/trim")
+trim(" asdfg ")
 ```
 
-### prime/shell/date
+### prime/number
 
-Date methods.
+A composite module of all the methods modules.
+Available methods: limit, random, round, times
 
 ```js
-require("prime/shell/date")
+require("prime/number")
+```
+
+### prime/function
+
+A composite module of all the methods modules.
+Available methods: bind
+
+```js
+require("prime/function")
+```
+
+### prime/date
+
+A composite module of all the methods modules.
+Available methods: now
+
+```js
+require("prime/date")
 ```
 
 
