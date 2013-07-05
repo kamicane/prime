@@ -10,7 +10,7 @@ describe("function/curry", function(){
     }
 
     function add3(x, y, z){
-        return x + y + x
+        return x + y + z
     }
 
     it('should curry div, so div :: int -> int -> int becomes div_curried :: int -> int', function(){
@@ -20,6 +20,11 @@ describe("function/curry", function(){
 
     it('shoud curry add3', function(){
         var added = curry(add3, 3)(4)(5)
+        expect(added).to.be(12)
+    })
+
+    it('shoud curry add3 with late binding', function(){
+        var added = curry(add3)(3)(4)(5)
         expect(added).to.be(12)
     })
 
