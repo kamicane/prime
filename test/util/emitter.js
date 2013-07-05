@@ -15,14 +15,13 @@ describe('emitter', function(){
         publisher.emit('publish')
     })
 
-    it('should allow unsubscription with off, async emit', function(done){
+    it('should allow unsubscriptions with off, async emit', function(done){
         var publisher = new emitter()
 
         publisher.on('publish', done)
-        publisher.emit('publish')
         publisher.off('publish', done)
-
         publisher.on('publish', done)
+
         publisher.emit('publish')
     })
 
