@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-module.exports = function(f){
+var compose = function(f){
     var fns = arguments, l = fns.length
     if (l == 1) return f
     return function(x){
@@ -10,3 +10,5 @@ module.exports = function(f){
         return x
     }
 }
+
+module.exports = compose

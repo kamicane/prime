@@ -24,7 +24,6 @@ array.extend({
     filter:      require("./array/filter"),
     forEach:     require("./array/forEach"),
     indexOf:     require("./array/indexOf"),
-    lastIndexOf: require("./array/lastIndexOf"),
     map:         require("./array/map"),
     remove:      require("./array/remove"),
     some:        require("./array/some")
