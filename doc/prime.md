@@ -1459,8 +1459,8 @@ should be called with the remaining arguments to get the result.
 var partial = require('prime/function/partial')
 
 function flow(width, height, time){ return width * height * time }
-var flowThroughPipe = partial(volume, 5, 6)
-vol(10) // 300
+var flowThroughPipe = partial(flow, 5, 6)
+flowThroughPipe(10) // 300
 ```
 
 ## module: function/partialLast
