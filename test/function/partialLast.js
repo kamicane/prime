@@ -16,17 +16,17 @@ describe("function/partialLast", function(){
     }
 
     it("should partially apply the last arguments", function(){
-        var data = [0, 1, 2, 3, 4, 5]
+        var data = [-6, 1, 2, 3, 4, 5]
         var filterEven = partialLast(filter, even)
         var evenNumbers = filterEven(data)
-        expect(evenNumbers).to.eql([0, 2, 4])
+        expect(evenNumbers).to.eql([-6, 2, 4])
     })
 
     it("should partially apply the last two arguments", function(){
-        var data = [0, 1, 2, 3, 4, 5]
+        var data = [-1, 1, 2, 3, 4, 5]
         var multiplyWith10 = partialLast(map, multByThis, 10)
         var multiplied = multiplyWith10(data)
-        expect(multiplied).to.eql([0, 10, 20, 30, 40, 50])
+        expect(multiplied).to.eql([-10, 10, 20, 30, 40, 50])
     })
 
 })
