@@ -164,7 +164,16 @@ A composite module of all the methods modules.
 Available methods: bind
 
 ```js
-require("prime/function")
+var fn = require("prime/function")
+fn.bind(function(){}, object)
+fn(function(){}).bind(object)
+```
+
+Requiring individual methods as generics:
+
+```js
+var bind = require("prime/function/bind")
+bind(function(){}, object)
 ```
 
 ### prime/date
@@ -173,7 +182,15 @@ A composite module of all the methods modules.
 Available methods: now
 
 ```js
-require("prime/date")
+var date = require("prime/date")
+date.now()
+```
+
+Requiring individual methods as generics:
+
+```js
+var now = require("date/now")
+now()
 ```
 
 
