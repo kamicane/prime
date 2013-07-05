@@ -37,6 +37,7 @@ var Cat = prime({
         return "meaow" + Cat.parent.say.call(this)
     }
 })
+```
 
 ### prime/emitter
 
