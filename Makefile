@@ -15,7 +15,8 @@ test-node:
 		./test/prime/* \
 		./test/es5/* \
 		./test/util/* \
-		./test/shell/*
+		./test/shell/* \
+		./test/function/*
 
 test-browser:
 	@./node_modules/wrapup/bin/wrup.js --require ./test/main.js --output ./test/browser.js
