@@ -1,9 +1,6 @@
-.tm_properties
+manifest.json
 node_modules/
-color/*
-prime.*
 amd/
 dist/
 cov*
-doc/prime.html
 test/browser.js
