@@ -1,3 +1,5 @@
+Makefile
+manifest.json
 .gitignore
 .jshintrc
 .travis.yml
