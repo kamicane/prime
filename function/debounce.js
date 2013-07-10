@@ -1,11 +1,13 @@
 "use strict"
 
+var defer = require('../defer')
+
 var debounce = function(fn, timeout, context){
-    var timer
+    var clear = function(){}
     return function(){
         var args = arguments
-        clearTimeout(timer)
-        timer = setTimeout(function(){
+        clear()
+        clear = defer.timeout(function(){
             fn.apply(context, args)
         }, timeout || 100)
     }
