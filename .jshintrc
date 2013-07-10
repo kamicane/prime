@@ -5,6 +5,7 @@
     "boss": true,
     "newcap": false,
     "supernew": true,
+    "validthis": true,
     "predef": [
         "describe",
         "beforeEach",

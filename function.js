@@ -12,8 +12,11 @@ function_.implement({
 })
 
 function_.extend({
-    bind:    require("./function/bind"),
-    compose: require("./function/compose")
+    bind:        require("./function/bind"),
+    compose:     require("./function/compose"),
+    curry:       require("./function/curry"),
+    partial:     require("./function/partial"),
+    partialLast: require("./function/partialLast"),
 })
 
 module.exports = function_
