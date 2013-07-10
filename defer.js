@@ -15,6 +15,10 @@ var _defer = function(type, callback, arg){
     var collection = deferred[type],
         method     = functions[type]
 
+    if (type == 'timeout'){
+        collection = collection[arg] || (collection[arg] = {})
+    }
+
     var empty = true
     for (var p in collection){
         empty = false;
@@ -89,10 +93,8 @@ functions.frame = function(){
 }
 
 functions.timeout = function(ms){
-    var timeout = deferred.timeout
-    var collection = timeout[ms] || (timeout[ms] = {})
     setTimeout(function(){
-       iterate(collection)
+        iterate(deferred.timeout[ms])
     }, ms)
 }
 
