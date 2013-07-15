@@ -4,6 +4,7 @@ Emitter
 
 var prime = require("./index"),
     defer = require("./defer"),
+    uid   = require("./uid"),
     slice = require("./array/slice")
 
 var EID = 0
@@ -16,7 +17,7 @@ var Emitter = prime({
 
         for (var k in events) if (events[k] === fn) return this
 
-        events[(EID++).toString(36)] = fn
+        events[uid()] = fn
         return this
     },
 
