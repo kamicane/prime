@@ -4,12 +4,12 @@ object:count
 
 var forIn = require("./forIn")
 
-var count = function(self){
+var count = function(self, n){
     var length = 0
     forIn(self, function(){
-        length++
+        if (++length === n || n === 0) return false
     })
-    return length
+    return (n != null) ? n === length : length
 }
 
 module.exports = count
