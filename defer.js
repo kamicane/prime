@@ -2,75 +2,91 @@
 defer
 */"use strict"
 
-var deferred = {
+var type  = require("./type"),
+    uid   = require("./uid"),
+    now   = require("./date/now"),
+    count = require("./object/count")
+
+var callbacks = {
     timeout: {},
     frame: {},
     immediate: {}
 }
 
-var UID = 0
+var push = function(collection, callback, context, defer){
+    var unique = uid()
 
-var _defer = function(type, callback, arg){
-
-    var collection = deferred[type],
-        method     = functions[type]
-
-    var empty = true
-    for (var p in collection){
-        empty = false;
-        break;
+    var iterator = function(){
+        iterate(collection)
     }
-    var uid = (UID++).toString(36)
-    if (empty) method(arg)
-    collection[uid] = callback
+
+    if (count(collection, 0)) defer(iterator)
+
+    collection[unique] = {
+        callback: callback,
+        context: context
+    }
+
     return function(){
-        delete collection[uid]
+        delete collection[unique]
     }
-
 }
 
 var iterate = function(collection){
-    var time = new Date().getTime()
+    var time = now()
 
-    var exec = {}, p
-    for (p in collection){
-        exec[p] = collection[p]
-        delete collection[p]
+    var exec = {}, key
+
+    for (key in collection){
+        exec[key] = collection[key]
+        delete collection[key]
     }
-    for (p in exec) exec[p](time)
+
+    for (key in exec){
+        var entry = exec[key]
+        entry.callback.call(entry.context, time)
+    }
 }
 
-var immediate = function(){
-    iterate(deferred.immediate)
+var defer = function(callback, argument, context){
+    return (type(argument) === "number") ? defer.timeout(callback, argument, context) : defer.immediate(callback, argument)
 }
-
-var functions = {}
 
 if (global.process && process.nextTick){
-    functions.immediate = function(){
-        process.nextTick(immediate)
+
+    defer.immediate = function(callback, context){
+        return push(callbacks.immediate, callback, context, process.nextTick)
     }
+
 } else if (global.setImmediate){
-    functions.immediate = function(){
-        setImmediate(immediate)
+
+    defer.immediate = function(callback, context){
+        return push(callbacks.immediate, callback, context, setImmediate)
     }
+
 } else if (global.postMessage && global.addEventListener){
 
     addEventListener("message", function(event){
         if (event.source === global && event.data === "@deferred"){
             event.stopPropagation()
-            immediate()
+            iterate(callbacks.immediate)
         }
     }, true)
 
-    functions.immediate = function(){
-        postMessage("@deferred", "*")
+    defer.immediate = function(callback, context){
+        return push(callbacks.immediate, callback, context, function(){
+            postMessage("@deferred", "*")
+        })
     }
 
 } else {
-    functions.immediate = function(){
-        setTimeout(immediate, 0)
+
+    defer.immediate = function(callback, context){
+        return push(callbacks.immediate, callback, context, function(iterator){
+            setTimeout(iterator, 0)
+        })
     }
+
 }
 
 var requestAnimationFrame = global.requestAnimationFrame ||
@@ -82,39 +98,23 @@ var requestAnimationFrame = global.requestAnimationFrame ||
         setTimeout(callback, 1e3 / 60)
     }
 
-functions.frame = function(){
-    requestAnimationFrame(function(){
-        iterate(deferred.frame)
+defer.frame = function(callback, context){
+    return push(callbacks.frame, callback, context, requestAnimationFrame)
+}
+
+var clear
+
+defer.timeout = function(callback, ms, context){
+    var ct = callbacks.timeout
+
+    if (!clear) clear = defer.immediate(function(){
+        clear = null
+        callbacks.timeout = {}
     })
-}
 
-functions.timeout = function(ms){
-    var timeout = deferred.timeout
-    var collection = timeout[ms] || (timeout[ms] = {})
-    setTimeout(function(){
-       iterate(collection)
-    }, ms)
-}
-
-/*
-export!
-*/
-
-var defer = function(callback, ms){
-    return (ms) ? _defer("timeout", callback, ms) : _defer("immediate", callback)
-}
-
-defer.immediate = function(callback){
-    return _defer("immediate", callback)
-}
-
-defer.timeout = function(callback, ms){
-    if (!ms) ms = 0
-    return _defer("timeout", callback, ms)
-}
-
-defer.frame = function(callback){
-    return _defer("frame", callback)
+    return push(ct[ms] || (ct[ms] = {}), callback, context, function(iterator){
+        setTimeout(iterator, ms)
+    })
 }
 
 module.exports = defer
