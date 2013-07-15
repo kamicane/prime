@@ -1,3 +1,7 @@
+/*
+uid
+*/"use strict"
+
 var UID = 0
 
 module.exports = function(){
