@@ -12,6 +12,9 @@ require("./es5/object")
 require("./es5/regexp")
 require("./es5/string")
 
+require("./function/bind")
+require("./function/compose")
+
 require("./prime/each")
 require("./prime/index")
 
@@ -24,13 +27,12 @@ require("./shell/regexp")
 require("./shell/string")
 require("./shell/index")
 
+require("./util/defer")
 require("./util/emitter")
 require("./util/map")
 require("./util/type")
 
-require("./util/defer")
-
 window.onload = function(){
-    if (window.mochaPhantomJS) mochaPhantomJS.run()
+    if (window.mochaPhantomJS) window.mochaPhantomJS.run()
     else mocha.run()
 }
