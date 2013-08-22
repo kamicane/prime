@@ -52,7 +52,10 @@ var Emitter = prime({
             if (listeners && (events = listeners[event])){
                 var copy = {}, k
                 for (k in events) copy[k] = events[k]
-                for (k in copy) copy[k].apply(self, args)
+                for (k in copy) {
+                    var res = copy[k].apply(self, args)
+                    if (res === false) break;
+                }
             }
 
         }
