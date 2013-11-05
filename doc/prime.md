@@ -1285,7 +1285,7 @@ number.random(5, 20); // returns a random number between 5 and 20.
 
 A container module.
 
-## exports
+### exports
 
 This module exports all available methods as generics.
 
