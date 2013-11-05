@@ -939,7 +939,7 @@ indexOf(['apple', 'lemon'], 'banana'); // returns -1
 
 [MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
 
-## method: map
+## module: array/map
 
 Creates and returns a new array with the results of calling a provided function
 on every element in the array.
