@@ -4,3 +4,4 @@ amd/
 dist/
 cov*
 test/browser.js
+.idea
