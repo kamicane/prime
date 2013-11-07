@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/mootools/prime/issues"
   },
-  "license": "MIT (http://mootools.net/license.txt)",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/mootools/prime.git"
