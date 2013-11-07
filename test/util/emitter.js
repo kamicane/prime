@@ -5,6 +5,31 @@ var emitter = require('../../emitter')
 
 describe('emitter', function(){
 
+    it('should keep the order on multiple async emits', function(done){
+        var publisher = new emitter(), called = 0
+
+        var magicNumber = 37
+
+        var array = []
+
+        var emitIt = function(index) {
+            publisher.emit('publish', index)
+        }
+
+        for (var i = 0; i < magicNumber; i++) emitIt(i)
+
+        publisher.on('publish', function(index){
+            array.push(index)
+            if (++called === magicNumber){
+                var expected = [];
+                for (var i = 0; i < magicNumber; i++) expected.push(i)
+                expect(array).to.eql(expected)
+                done()
+            }
+        })
+
+    })
+
     it('should allow subscriptions with on, async emit', function(done){
         var publisher = new emitter(), called = 0
         publisher.on('publish', function(){

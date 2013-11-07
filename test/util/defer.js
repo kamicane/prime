@@ -5,6 +5,28 @@ var defer = require('../../defer')
 
 describe('defer', function(){
 
+    it('should keep the order of multiple defer calls', function(done){
+        var array = []
+
+        var deferIt = function(index){
+            defer(function(){
+                array.push(index)
+            })
+        }
+
+        var magicNumber = 37
+
+        for (var i = 0; i < magicNumber; i++) deferIt(i)
+
+        defer(function(){
+            var expected = [];
+            for (var i = 0; i < magicNumber; i++) expected.push(i)
+            expect(array).to.eql(expected)
+            done()
+        })
+
+    })
+
     it('should allow deferring immediately with a context', function(done){
         var object = {}
 
