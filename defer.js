@@ -2,50 +2,44 @@
 defer
 */"use strict"
 
-var type  = require("./type"),
-    uid   = require("./uid"),
-    now   = require("./date/now"),
-    count = require("./object/count")
+var type    = require("./type"),
+    now     = require("./date/now"),
+    forEach = require("./array/forEach"),
+    indexOf = require("./array/indexOf")
 
 var callbacks = {
     timeout: {},
-    frame: {},
-    immediate: {}
+    frame: [],
+    immediate: []
 }
 
 var push = function(collection, callback, context, defer){
-    var unique = uid()
 
     var iterator = function(){
         iterate(collection)
     }
 
-    if (count(collection, 0)) defer(iterator)
+    if (!collection.length) defer(iterator)
 
-    collection[unique] = {
+    var entry = {
         callback: callback,
         context: context
     }
 
+    collection.push(entry)
+
     return function(){
-        delete collection[unique]
+        var io = indexOf(collection, entry)
+        if (io > -1) collection.splice(io, 1)
     }
 }
 
 var iterate = function(collection){
     var time = now()
 
-    var exec = {}, key
-
-    for (key in collection){
-        exec[key] = collection[key]
-        delete collection[key]
-    }
-
-    for (key in exec){
-        var entry = exec[key]
+    forEach(collection.splice(0), function(entry) {
         entry.callback.call(entry.context, time)
-    }
+    })
 }
 
 var defer = function(callback, argument, context){
@@ -112,7 +106,7 @@ defer.timeout = function(callback, ms, context){
         callbacks.timeout = {}
     })
 
-    return push(ct[ms] || (ct[ms] = {}), callback, context, function(iterator){
+    return push(ct[ms] || (ct[ms] = []), callback, context, function(iterator){
         setTimeout(iterator, ms)
     })
 }
