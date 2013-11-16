@@ -2,10 +2,11 @@
 Emitter
 */"use strict"
 
-var prime   = require("./index"),
-    defer   = require("./defer"),
-    indexOf = require("./array/indexOf"),
-    forEach = require("./array/forEach")
+var indexOf = require("mout/array/indexOf"),
+    forEach = require("mout/array/forEach")
+
+var prime = require("./index"),
+    defer = require("./defer")
 
 var slice = Array.prototype.slice;
 

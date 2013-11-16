@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var emitter = require('../../emitter')
+var emitter = require('../emitter')
 
 describe('emitter', function(){
 

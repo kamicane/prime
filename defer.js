@@ -2,10 +2,10 @@
 defer
 */"use strict"
 
-var type    = require("./type"),
-    now     = require("./date/now"),
-    forEach = require("./array/forEach"),
-    indexOf = require("./array/indexOf")
+var kindOf  = require("mout/lang/kindOf"),
+    now     = require("mout/time/now"),
+    forEach = require("mout/array/forEach"),
+    indexOf = require("mout/array/indexOf")
 
 var callbacks = {
     timeout: {},
@@ -43,7 +43,7 @@ var iterate = function(collection){
 }
 
 var defer = function(callback, argument, context){
-    return (type(argument) === "number") ? defer.timeout(callback, argument, context) : defer.immediate(callback, argument)
+    return (kindOf(argument) === "number") ? defer.timeout(callback, argument, context) : defer.immediate(callback, argument)
 }
 
 if (global.process && process.nextTick){

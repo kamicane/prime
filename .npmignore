@@ -1,8 +1,4 @@
-Makefile
-manifest.json
 .gitignore
 .jshintrc
 .travis.yml
-Makefile
 doc/*
-test/*

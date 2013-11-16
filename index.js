@@ -3,12 +3,12 @@ prime
  - prototypal inheritance
 */"use strict"
 
-var hasOwn = require("./object/hasOwn"),
-    forIn  = require("./object/forIn"),
-    mixIn  = require("./object/mixIn"),
-    filter = require("./object/filter"),
-    create = require("./object/create"),
-    type   = require("./type")
+var hasOwn = require("mout/object/hasOwn"),
+    forIn  = require("mout/object/forIn"),
+    mixIn  = require("mout/object/mixIn"),
+    filter = require("mout/object/filter"),
+    create = require("mout/lang/createObject"),
+    kindOf = require("mout/lang/kindOf")
 
 var defineProperty           = Object.defineProperty,
     getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
@@ -43,7 +43,7 @@ var verbs = /^constructor|inherits|mixin$/
 
 var prime = function(proto){
 
-    if (type(proto) === "function") proto = {constructor: proto}
+    if (kindOf(proto) === "Function") proto = {constructor: proto}
 
     var superprime = proto.inherits
 
@@ -73,7 +73,7 @@ var prime = function(proto){
 
     var mixins = proto.mixin
     if (mixins){
-        if (type(mixins) !== "array") mixins = [mixins]
+        if (kindOf(mixins) !== "Array") mixins = [mixins]
         for (var i = 0; i < mixins.length; i++) constructor.implement(create(mixins[i].prototype))
     }
 

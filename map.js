@@ -2,13 +2,13 @@
 Map
 */"use strict"
 
-var prime   = require("./index"),
-    indexOf = require("./array/indexOf")
+var indexOf = require("mout/array/indexOf")
+
+var prime = require("./index")
 
 var Map = prime({
 
     constructor: function Map(){
-        if (!this instanceof Map) return new Map
         this.length = 0
         this._values = []
         this._keys = []
@@ -115,4 +115,10 @@ var Map = prime({
 
 })
 
-module.exports = Map
+var map = function() {
+    return new Map
+}
+
+map.prototype = Map.prototype
+
+module.exports = map;

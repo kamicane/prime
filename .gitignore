@@ -1,7 +1,1 @@
-manifest.json
 node_modules/
-amd/
-dist/
-cov*
-test/browser.js
-.idea

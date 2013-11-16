@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require('expect.js')
-var defer = require('../../defer')
+var defer = require('../defer')
 
 describe('defer', function(){
 
