@@ -3,31 +3,31 @@ package: prime
 
 prime is an object-oriented JavaScript library.
 
-## module: prime
+# module: prime
 
-### exports
+## exports
 
 The prime module exports a function which can create new _primes_.
 The function returns a `constructor` method, extended with
 the `implements` method.
 
-### parameters
+## parameters
 
 1. properties - (*object*) An object containing methods and special properties
 that will be implemented on the constructor.
 
-#### property: constructor
+### property: constructor
 
 When a method with `constructor` as its key gets passed as a property, it will
 effectively become your prime. All subsequent properties (except specials)
 will be implemented on this constructor as prototypes.
 
-#### property: inherits
+### property: inherits
 
 When an object with `inherits` as its key gets passed as a property,
 your constructor will inherit the passed in object's prototypes.
 
-### sample
+## sample
 
 ```js
 // require prime
@@ -101,24 +101,24 @@ var rectangle = new Rectangle(point, 10, 20)
 rectangle.area() // 200
 ```
 
-### method: prime:implement
+## method: prime:implement
 
 The constructor returned by `prime()` is extended with an `implement` method.
 It implements new methods on a constructor's prototype. The function returns
 the constructor.
 
-#### syntax
+### syntax
 
 ```js
 MyPrime.implement(methods)
 ```
 
-#### parameters
+### parameters
 
 1. methods - (*object*) An object with keys representing prototype names and
 values representing prototype methods.
 
-#### sample
+### sample
 
 ```js
 Circle.implement({
@@ -132,11 +132,11 @@ Circle.implement({
 })
 ```
 
-## module: type
+# module: type
 
 The type module can use used to determine a type of a specified value.
 
-### exports
+## exports
 
 A function that determines the type of a value. The returned value is a string.
 
@@ -160,11 +160,11 @@ type(null)          // null
 type(undefined)     // null
 ```
 
-## module: util/emitter
+# module: util/emitter
 
 Emitter is a module for managing and emitting events.
 
-### exports
+## exports
 
 The module exports the emitter prime.
 
@@ -187,17 +187,17 @@ var MyPrime = prime({
 })
 ```
 
-### method: on
+## method: on
 
 Add a listener to the event emitter, with some specific name.
 It returns the emitter instance.
 
-#### parameters
+### parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
 
-#### sample
+### sample
 
 ```js
 emitter.on('complete', function(){
@@ -205,17 +205,17 @@ emitter.on('complete', function(){
 })
 ```
 
-### method: off
+## method: off
 
 Removes an listener from the emitter. It's the opposite operation of `on`.
 It returns the emitter instance.
 
-#### parameters
+### parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
 
-#### sample
+### sample
 
 ```js
 var listener = function(){
@@ -226,18 +226,18 @@ emitter.on('complete', listener)
 emitter.off('complete', listener)
 ```
 
-### method: emit
+## method: emit
 
 `emit` calls all registered listeners for a specific event name.
 It returns the emitter instance.
 
-#### parameters
+### parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. ...arguments - all arguments where `i > 0` are passed as arguments of the
 listeners.
 
-#### sample
+### sample
 
 ```js
 emitter.on('complete', function(a, b){
@@ -246,13 +246,13 @@ emitter.on('complete', function(a, b){
 emitter.emit('complete', 'completed', 'action')
 ```
 
-## module: map
+# module: map
 
 `map` is a constructor that returns an object that works like a object. Unlike a
 object however, map instances can have any type of object as keys, rather than
 just strings.
 
-### exports
+## exports
 
 map is a prime.
 
@@ -265,17 +265,17 @@ myMap.set({a: 2}, {b: 2})
 myMap.values() // [{b: 1}, {b: 2}]
 ```
 
-### method: set
+## method: set
 
 Set a new value, or replace an old value.
 It returns the map instance.
 
-#### parameters
+### parameters
 
 1. key - (*mixed*) the key to insert or modify the map.
 2. value - (*mixed*) the value to associate with the specified key.
 
-#### sample
+### sample
 
 ```js
 var myMap = map()
@@ -283,7 +283,7 @@ var key = {}
 myMap.set(key, 'Michelle')
 ```
 
-### method: get
+## method: get
 
 Returns the value associated with the given key.
 
@@ -294,7 +294,7 @@ myMap.set(key, 'Michelle')
 myMap.get(key) // 'Michell'
 ```
 
-### method: count
+## method: count
 
 Returns the number of items in the map.
 
@@ -304,26 +304,26 @@ myMap.set(1, 1).set(2, 2)
 myMap.count() // 2
 ```
 
-### method: forEach
+## method: forEach
 
 Calls a function for each key-value pair in the map. The returned value is
 the original map. If the passed function returns `false` the loop stops.
 
-#### parameters
+### parameters
 
 1. fn - (*function*) The function which should be executed on each item in the
 map. This function is passed the value and its key in the map.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-##### parameter: fn
+#### parameter: fn
 
-###### arguments
+##### arguments
 
 1. value - (*mixed*) The current value in the map.
 2. key   - (*mixed*) The current value's key in the map.
 3. map   - (*map*) The actual map.
 
-#### sample
+### sample
 
 ```js
 var myMap = map()
@@ -337,24 +337,24 @@ myMap.forEach(function(value, key){
 // false is returned so the loop stopped.
 ```
 
-### method: map
+## method: map
 
 Creates and returns a new map with the results of calling a provided function on
 every value in the map.
 
-#### parameters
+### parameters
 
 1. fn - (*function*) The function to produce a value of the new map from
 an value of the current one.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-##### parameter arguments of fn
+#### parameter arguments of fn
 
 1. value - (*mixed*) The current value in the map.
 2. key   - (*mixed*) The current value's key in the map.
 3. map   - (*map*) The actual map.
 
-#### sample
+### sample
 
 ```js
 var myMap = map()
@@ -364,24 +364,24 @@ var timesTwo = myMap.map(function(value, key){
 }) // timesTwo now holds a map where the values are multiplied by 2.
 ```
 
-### method: filter
+## method: filter
 
 Creates and returns a map with all of the elements of the map for
 which the provided filtering function returns `true`.
 
-#### parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-##### parameter arguments of fn
+#### parameter arguments of fn
 
 1. value - (*mixed*) The current value in the map.
 2. key   - (*mixed*) The current value's key in the map.
 3. map   - (*map*) The actual map.
 
-#### sample
+### sample
 
 ```js
 var myMap = map()
@@ -391,24 +391,24 @@ var biggerThanTwenty = myMap.filter(function(value, key){
 }) // biggerThanTwenty now holds a map with only the last value (30)
 ```
 
-### method: every
+## method: every
 
 Returns `true` if every value in the map satisfies the provided testing
 function, otherwise this method returns `false`.
 
-#### parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-##### parameter arguments of fn
+#### parameter arguments of fn
 
 1. value - (*mixed*) The current value in the map.
 2. key   - (*mixed*) The current value's key in the map.
 3. map   - (*map*) The actual map.
 
-#### sample
+### sample
 
 ```js
 myMap.set(1, 10).set(2, 20).set(3, 30)
@@ -417,24 +417,24 @@ var areAllBigEnough = myMap.every(function(value, key){
 }) // areAllBigEnough = false
 ```
 
-### method: some
+## method: some
 
 Returns `true` if at least one value in the map satisfies the provided
 testing function, otherwise `false` is returned.
 
-#### parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-##### parameter arguments of fn
+#### parameter arguments of fn
 
 1. value - (*mixed*) The current value in the map.
 2. key   - (*mixed*) The current value's key in the map.
 3. map   - (*map*) The actual map.
 
-#### sample
+### sample
 
 ```js
 myMap.set(1, 10).set(2, 20).set(3, 30)
@@ -443,16 +443,16 @@ var areAnyBigEnough = myMap.some(function(value, key){
 }) // isAnyBigEnough = true
 ```
 
-### method: indexOf
+## method: indexOf
 
 Returns the key which is associated with the first found value that is equal
 to the passed value. If no value found, `null` is returned.
 
-#### parameters
+### parameters
 
 1. item - (*mixed*) The item to search for in the map.
 
-#### sample
+### sample
 
 ```js
 myMap.set(1, 10).set(2, 20).set(3, 30)
@@ -460,16 +460,16 @@ myMap.index(10) // 1
 myMap.index(40) // null
 ```
 
-### method: remove
+## method: remove
 
 Removes the specified key from the map. Once the item is removed, the
 removed value is returned.
 
-#### parameters
+### parameters
 
 1. key - (*mixed*) The key to search for in the map.
 
-#### sample
+### sample
 
 ```js
 myMap = map()
@@ -478,11 +478,11 @@ myMap.remove(2) // 20
 myMap.get(2) // null
 ```
 
-### method: keys
+## method: keys
 
 Returns an array containing all the keys.
 
-#### sample
+### sample
 
 ```js
 myMap = map()
@@ -490,11 +490,11 @@ myMap.set(1, 10).set(2, 20).set(3, 30)
 myMap.keys() // [1, 2, 3]
 ```
 
-### method: values
+## method: values
 
 Returns an array containing all the values of the map.
 
-#### sample
+### sample
 
 ```js
 var myMap = map()
@@ -503,11 +503,11 @@ myMap.set({a: 2}, {b: 2})
 myMap.values() // [{b: 1}, {b: 2}]
 ```
 
-## module: object
+# module: object
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -524,30 +524,30 @@ This module's exported function is also a shell.
 object({autobot: 'optimus'}).hasOwn("autobot") //true
 ```
 
-### see also
+## see also
 
 [MDN Object](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object)
 
-## module: object/forIn
+# module: object/forIn
 
 Iterates all the properties of an object, including those properties not
 normally iterable in internet explorer, such as `toString` and `valueOf`.
 It returns the first `object` argument.
 
-### syntax
+## syntax
 
 ```js
 var forIn = require("prime/object/forIn")
 forIn(object, function)
 ```
 
-### parameters
+## parameters
 
 1. object - (*object*) The object to iterate.
 2. function - (*function*) The function called for each property.
 3. context - (*object*) The context of the passed function.
 
-### sample
+## sample
 
 ```js
 // alerts 'The first day of the week is Sunday'
@@ -558,26 +558,26 @@ forIn(days, function(value, key){
 })
 ```
 
-## module: object/forOwn
+# module: object/forOwn
 
 Iterates all the own properties of an object, including those properties not
 normally iterable in internet explorer, such as `toString` and `valueOf`.
 It returns the first `object` argument.
 
-### syntax
+## syntax
 
 ```js
 var forOwn = require("prime/object/forOwn")
 forOwn(object, function)
 ```
 
-### parameters
+## parameters
 
 1. object - (*object*) The object to iterate.
 2. function - (*function*) The function called for each property.
 3. context - (*object*) The context of the passed function.
 
-### sample
+## sample
 
 ```js
 // alerts 'The first day of the week is Sunday'
@@ -589,18 +589,18 @@ forOwn(days, function(value, key){
 }) //only alerts Wednesday
 ```
 
-## module: object/hasOwn
+# module: object/hasOwn
 
 Checks if the object has the specified key as one of its own properties (not
 including properties found in the prototype chain). Returns `true` if this is
 the case, otherwise it returns `false`.
 
-### parameters
+## parameters
 
 1. object - (*object*) The object.
 2. property - (*string*) The name of the property to check for.
 
-### sample
+## sample
 
 ```js
 var hasOwn = require("prime/object/hasOwn")
@@ -616,11 +616,11 @@ hasOwn(circle, 'circumference') // false (it is only on the prototype)
 'circumference' in circle // true
 ```
 
-### see also
+## see also
 
 [MDN Object.hasOwnProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
 
-## module: object/create
+# module: object/create
 
 Creates a new instance of an empty constructor whose prototype is set to the
 passed in object. This is mainly used for inheritance, to instantiate a prime
@@ -628,23 +628,23 @@ without having to invoke its constructor. Uses the native `Object.create`
 where available. Unless you have a very specific reason to use this, you should
 use `prime` instead, and its `inherits` metamethod.
 
-### syntax
+## syntax
 
 ```js
 var create = require("prime/object/create")
 create(proto)
 ```
 
-### parameters
+## parameters
 
 - proto - (*object*) The prototype of the instantiated empty constructor.
 created object
 
-### Returns
+## Returns
 
 - (*object*) An instance of the empty constructor.
 
-### sample
+## sample
 
 ```js
 var object = create({
@@ -669,28 +669,28 @@ var square = new Square(5)
 square.area() // 25
 ```
 
-### see also
+## see also
 
 [MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
 
-## module: object/map
+# module: object/map
 
 Creates and returns a new object with the results of calling a provided function
 on every value in the object.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to produce a value of the new object from
 an value of the current one.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter arguments of fn
+### parameter arguments of fn
 
 1. value  - (*mixed*) The current value in the object.
 2. key    - (*mixed*) The current value's key in the object.
 3. object - (*object*) The actual object.
 
-### sample
+## sample
 
 ```js
 var map = require("prime/object/map")
@@ -699,24 +699,24 @@ var timesTwo = map({a: 1, b: 2, c: 3}, function(value, key){
 }) // timesTwo now holds an object containing: {a: 2, b: 4, c: 6}
 ```
 
-## module: object/filter
+# module: object/filter
 
 Creates and returns a new object with all of the elements of the object for
 which the provided filtering function returns `true`.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the object. This
 function is passed the value and its key in the object.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter arguments of fn
+### parameter arguments of fn
 
 1. value  - (*mixed*) The current value in the object.
 2. key    - (*mixed*) The current value's key in the object.
 3. object - (*object*) The actual object.
 
-### sample
+## sample
 
 ```js
 var filter = require("prime/object/filter")
@@ -725,24 +725,24 @@ var biggerThanTwenty = filter({a: 10, b: 20, c: 30}, function(value, key){
 }) // biggerThanTwenty now holds an object containing: {c: 30}
 ```
 
-## module: object/every
+# module: object/every
 
 Returns `true` if every value in the object satisfies the provided testing
 function, otherwise this method returns `false`.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the object. This
 function is passed the value and its key in the object.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter arguments of fn
+### parameter arguments of fn
 
 1. value  - (*mixed*) The current value in the object.
 2. key    - (*mixed*) The current value's key in the object.
 3. object - (*object*) The actual object.
 
-### sample
+## sample
 
 ```js
 var every = require("prime/object/every")
@@ -751,24 +751,24 @@ var areAllBigEnough = every({a: 10, b: 4, c: 25}, function(value, key){
 }) // areAllBigEnough = false
 ```
 
-## module: object/some
+# module: object/some
 
 Returns `true` if at least one value in the object satisfies the provided
 testing function, otherwise `false` is returned.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the object. This
 function is passed the value and its key in the object.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter arguments of fn
+### parameter arguments of fn
 
 1. value  - (*mixed*) The current value in the object.
 2. key    - (*mixed*) The current value's key in the object.
 3. object - (*object*) The actual object.
 
-### sample
+## sample
 
 ```js
 var some = require("prime/object/some")
@@ -777,16 +777,16 @@ var areAnyBigEnough = some({a: 10, b: 4, c: 25}, function(value, key){
 }) // isAnyBigEnough = true
 ```
 
-## module: object/indexOf
+# module: object/indexOf
 
 Returns the key which is associated with the first found value that is equal
 to the passed value. If no value found, `null` is returned.
 
-### parameters
+## parameters
 
 1. item - (*mixed*) The item to search for in the object.
 
-### sample
+## sample
 
 ```js
 var indexOf = require("prime/object/indexOf")
@@ -796,15 +796,15 @@ indexOf(object, 'three') // c
 indexOf(object, 'four') // null
 ```
 
-## module: object/remove
+# module: object/remove
 
 Removes the specified value from the object and returns the key.
 
-### parameters
+## parameters
 
 1. value - (*mixed*) The value to search for in the object.
 
-### sample
+## sample
 
 ```js
 var remove = require("prime/object/remove")
@@ -813,11 +813,11 @@ remove(object, 'John') // returns 'name'
 // object now holds an object containing: { lastName: 'Doe' }
 ```
 
-## module: object/keys
+# module: object/keys
 
 Returns an array containing all the keys.
 
-### sample
+## sample
 
 ```js
 var keys = require("prime/object/keys")
@@ -825,15 +825,15 @@ var data = {name: 'John', lastName: 'Doe'}
 keys(data) // ['name', 'lastName']
 ```
 
-### see also
+## see also
 
 [MDN Object.keys](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys)
 
-## module: values
+# module: values
 
 Returns an array containing all the values of the object.
 
-### sample
+## sample
 
 ```js
 var values = require("prime/object/values")
@@ -841,11 +841,11 @@ var data = {name: 'John', lastName: 'Doe'}
 values(data) // ['John', 'Doe']
 ```
 
-## module: array
+# module: array
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -871,40 +871,40 @@ array([1,2,3]).every(function(value){
 }) //true
 ```
 
-## module: array/filter
+# module: array/filter
 
 Returns a new array with the elements of the original array for which the
 provided filtering function returns `true`.
 
-### syntax
+## syntax
 
 ```js
 var filter = require("prime/array/filter")
 var filteredArray = filter(myArray, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. myArray - (*array*) The array to filter.
 1. fn - (*function*) The function to test each element of the array. This
 function is passed the item and its index in the array.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter: fn
+### parameter: fn
 
-##### syntax
+#### syntax
 
 ```js
 fn(item, index, array)
 ```
 
-##### arguments
+#### arguments
 
 1. item   - (*mixed*) The current item in the array.
 2. index  - (*number*) The current item's index in the array.
 3. array  - (*array*) The actual array.
 
-### sample
+## sample
 
 ```js
 var biggerThanTwenty = array.filter([10, 3, 25, 100], function(item, index){
@@ -912,22 +912,22 @@ var biggerThanTwenty = array.filter([10, 3, 25, 100], function(item, index){
 }) // biggerThanTwenty = [25, 100]
 ```
 
-### see also:
+## see also:
 
 [MDN Array:filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
 
-## module: array/indexOf
+# module: array/indexOf
 
 Returns the index of the first element within the array equal to the specified
 value, or -1 if the value is not found.
 
-### parameters
+## parameters
 
 1. item - (*object*) The item to search for in the array.
 2. from - (*number*, optional: defaults to 0) The index of the array at which
 to begin the search.
 
-### samples
+## samples
 
 ```js
 var indexOf = require("prime/array/indexOf")
@@ -935,44 +935,44 @@ indexOf(['apple', 'lemon', 'banana'], 'lemon') // returns 1
 indexOf(['apple', 'lemon'], 'banana'); // returns -1
 ```
 
-### see also
+## see also
 
 [MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
 
-## module: array/map
+# module: array/map
 
 Creates and returns a new array with the results of calling a provided function
 on every element in the array.
 
-### syntax
+## syntax
 
 ```js
 var map = require("prime/array/map")
 var mappedArray = map(myArray, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. myArray - (*array*) Original array to map.
 2. fn - (*function*) The function to produce an element of the new Array from
 an element of the current one.
 3. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### argument: fn
+### argument: fn
 
-##### syntax
+#### syntax
 
 ```js
 fn(item, index, array)
 ```
 
-##### arguments
+#### arguments
 
 1. item   - (*mixed*) The current item in the array.
 2. index  - (*number*) The current item's index in the array.
 3. array  - (*array*) The actual array.
 
-### sample
+## sample
 
 ```js
 var timesTwo = map([1, 2, 3], function(item, index){
@@ -980,43 +980,43 @@ var timesTwo = map([1, 2, 3], function(item, index){
 }) // timesTwo = [2, 4, 6]
 ```
 
-### see also
+## see also
 
 [MDN Array:map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
-## module: array/every
+# module: array/every
 
 Returns true if every element in the array satisfies the provided testing
 function.
 
-### syntax
+## syntax
 
 ```js
 var every = require("prime/array/every")
 var allPassed = every(myArray, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. myArray - (*array*) The array with the elements that should be checked.
 2. fn - (*function*) The function to test for each element.
 3. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter: fn
+### parameter: fn
 
-##### syntax
+#### syntax
 
 ```js
 fn(item, index, array)
 ```
 
-##### arguments
+#### arguments
 
 1. item   - (*mixed*) The current item in the array.
 2. index  - (*number*) The current item's index in the array.
 3. array  - (*array*) The actual array.
 
-### samples
+## samples
 
 ```js
 var areAllBigEnough = every([10, 4, 25, 100], function(item, index){
@@ -1024,44 +1024,44 @@ var areAllBigEnough = every([10, 4, 25, 100], function(item, index){
 }) // areAllBigEnough = false
 ```
 
-### see also
+## see also
 
 [MDN Array:every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
 
-## module: array/some
+# module: array/some
 
 Returns true if at least one element in the array satisfies the provided
 testing function.
 
-### syntax
+## syntax
 
 ```js
 var some = require("prime/array/some")
 var somePassed = some(myArray, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. myArray - (*array*) The array with the elements that should be checked.
 2. fn - (*function*) The function to test for each element. This function is
 passed the item and its index in the array.
 3. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter: fn
+### parameter: fn
 
-##### syntax
+#### syntax
 
 ```js
 fn(item, index, array)
 ```
 
-##### arguments
+#### arguments
 
 1. item   - (*mixed*) The current item in the array.
 2. index  - (*number*) The current item's index in the array.
 3. array  - (*array*) The actual array.
 
-### samples
+## samples
 
 ```js
 var isAnyBigEnough = some([10, 4, 25, 100, function(item, index){
@@ -1069,47 +1069,47 @@ var isAnyBigEnough = some([10, 4, 25, 100, function(item, index){
 }); // isAnyBigEnough = true
 ```
 
-### see also
+## see also
 
 [MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
 
 
-## module: array/forEach
+# module: array/forEach
 
 Used to iterate through arrays, or iterables that are not regular arrays, such
 as built in getElementsByTagName calls or arguments of a function. This method
 doesn't return anything.
 
-### syntax
+## syntax
 
 ```js
 var forEach = require("prime/array/forEach")
 forEach(myArray, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. myArray - (*array*) The array to iterate through.
 2. fn - (*function*) The function to test for each element.
 3. context - (*object*, optional) The object to use as 'this' within the
 function.
 
-#### parameter: fn
+### parameter: fn
 
-##### syntax
+#### syntax
 
 ```js
 fn(item, index, object)
 ```
 
-##### arguments
+#### arguments
 
 1. item   - (*mixed*) The current item in the array.
 2. index  - (*number*) The current item's index in the array. In the case of an
 object, it is passed the key of that item rather than the index.
 3. object - (*mixed*) The actual array/object.
 
-### sample
+## sample
 
 ```js
 forEach(['Sun', 'Mon', 'Tue'], function(day, index){
@@ -1117,16 +1117,16 @@ forEach(['Sun', 'Mon', 'Tue'], function(day, index){
 }) // alerts 'name: Sun, index: 0', 'name: Mon, index: 1', etc.
 ```
 
-### see also
+## see also
 
 [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
-## module: array/remove
+# module: array/remove
 
 Remove a value from the array.
 The method returns the index of the removed value.
 
-### sample
+## sample
 
 ```js
 var cities = ['London', 'Rome', 'Amsterdam', 'San Francisco']
@@ -1134,11 +1134,11 @@ array.remove(cities, 'London') // returns 0
 // cities is now ['Rome', 'Amsterdam', 'San Francisco']
 ```
 
-## module: date
+# module: date
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -1147,35 +1147,35 @@ var date = require('prime/date')
 console.log(date.now()) // logs the current time in ms.
 ```
 
-### methods
+## methods
 
 `date` contains all methods which are defined on Date.prototype by ES5.
 
-### see also
+## see also
 
 [MDN Date](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date)
 
-## module: date/now
+# module: date/now
 
 `date.now` returns the numeric representation of the current time, as
 milliseconds.
 
-### sample
+## sample
 
 ```js
 var now = require("prime/date/now")
 console.log(now()) // logs something like "1356793632564"
 ```
 
-### see also
+## see also
 
 [MDN Date.now](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/now)
 
-## module: number
+# module: number
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -1193,28 +1193,28 @@ number(10).times(function(i){
 })
 ```
 
-### see also
+## see also
 
 [MDN Number](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Number)
 
-## module: number/limit
+# module: number/limit
 
 Returns the number limited between two bounds.
 
-### syntax
+## syntax
 
 ```js
 var limit = require("prime/number/limit")
 number.limit(myNumber, min, max);
 ```
 
-### parameters
+## parameters
 
 1. num - (*number*) The number that should be limited.
 2. min - (*number*) The minimum possible value.
 3. max - (*number*) The maximum possible value.
 
-### sample
+## sample
 
 ```js
 limit(12, 2, 6.5)  // returns 6.5
@@ -1222,17 +1222,17 @@ limit(-4, 2, 6.5)  // returns 2
 limit(4.3, 2, 6.5) // returns 4.3
 ```
 
-## module: number/round
+# module: number/round
 
 Returns this number rounded to the specified precision.
 
-### parameters
+## parameters
 
 1. num - (*number*) The number that should be rounded.
 2. precision - (*number*, optional: defaults to 0) The number of digits after
 the decimal place. This can also be an negative number.
 
-### sample
+## sample
 
 ```js
 var round = require("prime/number/round")
@@ -1241,51 +1241,51 @@ round(12.45, 1)  // returns 12.5
 round(12.45, -1) // returns 10
 ```
 
-## module: number/times
+# module: number/times
 
 Executes the function passed in the specified number of times.
 Returns the original number.
 
-### syntax
+## syntax
 
 ```js
 var times = require("prime/number/times")
 times(num, fn[, context])
 ```
 
-### parameters
+## parameters
 
 1. num - (*number*) The number of times the function should be executed.
 2. fn - (*function*) The function that should be executed on each iteration
 of the loop. This function is passed the current iteration's index.
 3. context - (*object*, optional) The object to use as 'this' in the function.
 
-### sample
+## sample
 
 ```js
 times(4, alert); // alerts "0", then "1", then "2", then "3".
 ```
 
-## module: number/random
+# module: number/random
 
 Returns a random integer between the two passed in values.
 
-### parameters
+## parameters
 
 1. min - (*number*) The minimum value (inclusive).
 2. max - (*number*) The maximum value (inclusive).
 
-### sample
+## sample
 
 ```js
 number.random(5, 20); // returns a random number between 5 and 20.
 ```
 
-## module: string
+# module: string
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -1302,30 +1302,30 @@ This module's exported function is also a shell.
 string('   i like cookies    ').trim() // shell("i like cookies")
 ```
 
-### see also
+## see also
 
 [MDN String](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String)
 
-## module: string/trim
+# module: string/trim
 
 Trims the leading and trailing spaces off a string.
 
-### sample
+## sample
 
 ```js
 var trim = require("prime/string/trim")
 trim('    i like cookies     ') // returns 'i like cookies'
 ```
 
-### see also
+## see also
 
 [MDN String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
-## module: string/hyphenate
+# module: string/hyphenate
 
 Converts a hyphenated string to a camelcased string.
 
-### sample
+## sample
 
 ```js
 var camelize = require("prime/string/camelize")
@@ -1336,29 +1336,29 @@ module: string/hyphenate
 
 Converts a camelcased string to a hyphenated string.
 
-### sample
+## sample
 
 ```js
 var hyphenate = require("prime/string/hyphenate")
 hyphenate('ILikeCookies') // returns '-i-like-cookies'
 ```
 
-## module: string/escape
+# module: string/escape
 
 Escape an string so it can safely be used in a regular expression.
 
-### sample
+## sample
 
 ```js
 var escapeRegExp = require("prime/string/escape")
 escapeRegExp('(un)believable') // "\(un\)believable"
 ```
 
-## module: function
+# module: function
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -1378,11 +1378,11 @@ fn(function(a, b, c){
 }).call("context", 1, 2, 3)
 ```
 
-### see also
+## see also
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
 
-## module: function/compose
+# module: function/compose
 
 Compose two or more functions. It returns the composition of the given
 functions.  The composition of the functions *f()*, *g()* and *h()*
@@ -1390,7 +1390,7 @@ functions.  The composition of the functions *f()*, *g()* and *h()*
 left, so the result of the last function is passed in the previous
 function.
 
-### samples
+## samples
 
 ```js
 var compose = require('prime/function/compose')
@@ -1404,11 +1404,11 @@ var k = compose(f, g, h)
 k(4) // 35
 ```
 
-## module: regexp
+# module: regexp
 
 A container module.
 
-### exports
+## exports
 
 This module exports all available methods as generics.
 
@@ -1417,11 +1417,11 @@ var regexp = require('prime/regexp')
 regexp.test(/\w+$/, '---abc') // true
 ```
 
-### see also
+## see also
 
 [MDN RegExp](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp)
 
-## module: shell
+# module: shell
 
 Shell exports a function that accepts one parameter, and returns a so called *ghost* object. This object contains all methods that are defined for this type of variable. Each method returns the
 ghost object of the value after the method is called, which creates chaining. To
@@ -1434,7 +1434,7 @@ When the `implement` method is used, the method is implemented as generic on the
 shell object, on the prototype of the shell object, as well as on the ghost
 object.
 
-### exports
+## exports
 
 The module exports the `shell` function.
 
@@ -1465,7 +1465,7 @@ array(document.querySelectorAll('a')).each(function(node){
 })
 ```
 
-### sample
+## sample
 
 ```js
 shell("some string") // returns a Ghost instance for strings
@@ -1476,7 +1476,7 @@ shell(null) // returns null, there is no Ghost object for null values
 `Ghost` is a wrapper around the value, returned by the `shell` function, which
 has the following methods:
 
-#### method: valueOf
+### method: valueOf
 
 `valueOf` returns the primitive value of the ghost.
 
@@ -1488,7 +1488,7 @@ shell("1,2,3,4").split(",").valueOf() // [1, 2, 3, 4]
 
 [MDN valueOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/valueOf)
 
-#### method: toString
+### method: toString
 
 `toString` returns the string representation of the value of the ghost.
 
@@ -1500,7 +1500,7 @@ shell(4) + "5" // "45"
 
 [MDN toString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/toString)
 
-#### method: is
+### method: is
 
 Checks if the value of the Ghost strictly equals another value.
 
@@ -1509,7 +1509,7 @@ shell(20).is(20) // true
 shell("20").is(20) // false
 ```
 
-#### method: get
+### method: get
 
 Gets a value from the original object.
 
@@ -1518,7 +1518,7 @@ shell({name: "John"}).get('name') // shell("John")
 shell({name: "John"}).get('last_name') // null
 ```
 
-#### method: set
+### method: set
 
 Sets a value on the original object.
 
@@ -1527,12 +1527,12 @@ shell({name: "John"}).set('last_name', "Doe")
 shell({name: "John"}).get('last_name') // shell("Doe")
 ```
 
-## module: defer
+# module: defer
 
 The module delays the execution of function to a later time.
 Deferring a function returns a method that cancels the function execution.
 
-### exports
+## exports
 
 A function object that provide different ways to delay the execution of a function.
 
@@ -1546,7 +1546,7 @@ var cancel = defer(function(){
 cancel()
 ```
 
-### method: immediate
+## method: immediate
 
 Defers the execution of a function in the next iteration loop, as soon as possible.
 In node.js environments it uses `process.nextTick`.
@@ -1561,12 +1561,12 @@ defer.immediate(function(){
 })
 ```
 
-#### note
+### note
 
 `defer()` is an alias for `defer.immediate()` (no second argument)
 and `defer.timeout()` (second argument as timeout in milliseconds).
 
-### method: frame
+## method: frame
 
 Like `defer.immediate`, however `defer.frame` defers the execution of a function on the next animation frame.
 If `requestAnimationFrame` is not available, `defer.frame` falls back to `setTimeout` with a 1000 / 60 delay (60 fps).
@@ -1578,13 +1578,13 @@ defer.frame(function(){
 })
 ```
 
-#### note
+### note
 
 This is more resource friendly and faster than simply stacking `requestAnimationFrame` calls
 (might depend on the native implementation), as every deferred function belonging
 to the same call stack gets executed inside the same `requestAnimationFrame` call.
 
-### method: timeout
+## method: timeout
 
 Defers the execution of a function on a specified interval.
 
@@ -1595,8 +1595,9 @@ defer.timeout(function(){
 }, 1000)
 ```
 
-#### note
+### note
 
 This is more resource friendly and faster than simply stacking `setTimeout` calls
 (might depend on the native implementation), as every deferred function belonging
 to the same call stack with the same timeout gets executed inside the same `setTimeout` call.
+
