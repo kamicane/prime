@@ -113,7 +113,7 @@ the constructor.
 MyPrime.implement(methods)
 ```
 
-### parameters
+## parameters
 
 1. methods - (*object*) An object with keys representing prototype names and
 values representing prototype methods.
@@ -192,7 +192,7 @@ var MyPrime = prime({
 Add a listener to the event emitter, with some specific name.
 It returns the emitter instance.
 
-### parameters
+## parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
@@ -210,7 +210,7 @@ emitter.on('complete', function(){
 Removes an listener from the emitter. It's the opposite operation of `on`.
 It returns the emitter instance.
 
-### parameters
+## parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. fn - (*function*) the function to execute.
@@ -231,7 +231,7 @@ emitter.off('complete', listener)
 `emit` calls all registered listeners for a specific event name.
 It returns the emitter instance.
 
-### parameters
+## parameters
 
 1. event - (*string*) the name of the event (e.g. 'complete').
 2. ...arguments - all arguments where `i > 0` are passed as arguments of the
@@ -270,7 +270,7 @@ myMap.values() // [{b: 1}, {b: 2}]
 Set a new value, or replace an old value.
 It returns the map instance.
 
-### parameters
+## parameters
 
 1. key - (*mixed*) the key to insert or modify the map.
 2. value - (*mixed*) the value to associate with the specified key.
@@ -309,13 +309,13 @@ myMap.count() // 2
 Calls a function for each key-value pair in the map. The returned value is
 the original map. If the passed function returns `false` the loop stops.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function which should be executed on each item in the
 map. This function is passed the value and its key in the map.
 2. context - (*object*, optional) The object to use as 'this' in the function.
 
-#### parameter: fn
+### parameter: fn
 
 ##### arguments
 
@@ -342,7 +342,7 @@ myMap.forEach(function(value, key){
 Creates and returns a new map with the results of calling a provided function on
 every value in the map.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to produce a value of the new map from
 an value of the current one.
@@ -369,7 +369,7 @@ var timesTwo = myMap.map(function(value, key){
 Creates and returns a map with all of the elements of the map for
 which the provided filtering function returns `true`.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
@@ -396,7 +396,7 @@ var biggerThanTwenty = myMap.filter(function(value, key){
 Returns `true` if every value in the map satisfies the provided testing
 function, otherwise this method returns `false`.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
@@ -422,7 +422,7 @@ var areAllBigEnough = myMap.every(function(value, key){
 Returns `true` if at least one value in the map satisfies the provided
 testing function, otherwise `false` is returned.
 
-### parameters
+## parameters
 
 1. fn - (*function*) The function to test each element of the map. This
 function is passed the value and its key in the map.
@@ -448,7 +448,7 @@ var areAnyBigEnough = myMap.some(function(value, key){
 Returns the key which is associated with the first found value that is equal
 to the passed value. If no value found, `null` is returned.
 
-### parameters
+## parameters
 
 1. item - (*mixed*) The item to search for in the map.
 
@@ -465,7 +465,7 @@ myMap.index(40) // null
 Removes the specified key from the map. Once the item is removed, the
 removed value is returned.
 
-### parameters
+## parameters
 
 1. key - (*mixed*) The key to search for in the map.
 
@@ -524,7 +524,7 @@ This module's exported function is also a shell.
 object({autobot: 'optimus'}).hasOwn("autobot") //true
 ```
 
-## see also
+#### see also:
 
 [MDN Object](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object)
 
@@ -616,7 +616,7 @@ hasOwn(circle, 'circumference') // false (it is only on the prototype)
 'circumference' in circle // true
 ```
 
-## see also
+#### see also:
 
 [MDN Object.hasOwnProperty](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
 
@@ -669,7 +669,7 @@ var square = new Square(5)
 square.area() // 25
 ```
 
-## see also
+#### see also:
 
 [MDN Object.create](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create)
 
@@ -825,7 +825,7 @@ var data = {name: 'John', lastName: 'Doe'}
 keys(data) // ['name', 'lastName']
 ```
 
-## see also
+#### see also:
 
 [MDN Object.keys](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys)
 
@@ -912,7 +912,7 @@ var biggerThanTwenty = array.filter([10, 3, 25, 100], function(item, index){
 }) // biggerThanTwenty = [25, 100]
 ```
 
-## see also:
+#### see also:
 
 [MDN Array:filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
 
@@ -935,7 +935,7 @@ indexOf(['apple', 'lemon', 'banana'], 'lemon') // returns 1
 indexOf(['apple', 'lemon'], 'banana'); // returns -1
 ```
 
-## see also
+#### see also:
 
 [MDN Array:indexOf](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf)
 
@@ -980,7 +980,7 @@ var timesTwo = map([1, 2, 3], function(item, index){
 }) // timesTwo = [2, 4, 6]
 ```
 
-## see also
+#### see also:
 
 [MDN Array:map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
@@ -1024,7 +1024,7 @@ var areAllBigEnough = every([10, 4, 25, 100], function(item, index){
 }) // areAllBigEnough = false
 ```
 
-## see also
+#### see also:
 
 [MDN Array:every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
 
@@ -1069,7 +1069,7 @@ var isAnyBigEnough = some([10, 4, 25, 100, function(item, index){
 }); // isAnyBigEnough = true
 ```
 
-## see also
+#### see also:
 
 [MDN Array:some](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/some)
 
@@ -1117,7 +1117,7 @@ forEach(['Sun', 'Mon', 'Tue'], function(day, index){
 }) // alerts 'name: Sun, index: 0', 'name: Mon, index: 1', etc.
 ```
 
-## see also
+#### see also:
 
 [MDN Array:forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
@@ -1151,7 +1151,7 @@ console.log(date.now()) // logs the current time in ms.
 
 `date` contains all methods which are defined on Date.prototype by ES5.
 
-## see also
+#### see also:
 
 [MDN Date](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date)
 
@@ -1167,7 +1167,7 @@ var now = require("prime/date/now")
 console.log(now()) // logs something like "1356793632564"
 ```
 
-## see also
+#### see also:
 
 [MDN Date.now](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/now)
 
@@ -1193,7 +1193,7 @@ number(10).times(function(i){
 })
 ```
 
-## see also
+#### see also:
 
 [MDN Number](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Number)
 
@@ -1302,7 +1302,7 @@ This module's exported function is also a shell.
 string('   i like cookies    ').trim() // shell("i like cookies")
 ```
 
-## see also
+#### see also:
 
 [MDN String](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String)
 
@@ -1317,7 +1317,7 @@ var trim = require("prime/string/trim")
 trim('    i like cookies     ') // returns 'i like cookies'
 ```
 
-## see also
+#### see also:
 
 [MDN String:trim](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/trim)
 
@@ -1378,7 +1378,7 @@ fn(function(a, b, c){
 }).call("context", 1, 2, 3)
 ```
 
-## see also
+#### see also:
 
 [MDN Function](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function)
 
@@ -1417,7 +1417,7 @@ var regexp = require('prime/regexp')
 regexp.test(/\w+$/, '---abc') // true
 ```
 
-## see also
+#### see also:
 
 [MDN RegExp](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp)
 
