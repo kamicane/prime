@@ -1,3 +1,5 @@
+[![](https://nodei.co/npm/prime.png)](https://npmjs.org/package/prime)
+
 #prime |prīm|
 
 1. fundamental, basic, essential.
