@@ -173,7 +173,7 @@ A composite module of all the methods modules.
 Available methods: limit, random, round, times
 
 ```js
-var fn = require("prime/number")
+var number = require("prime/number")
 number.times(10, function(n){})
 number(10).times(function(n){})
 ```
