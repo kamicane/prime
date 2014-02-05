@@ -101,4 +101,22 @@ describe('array', function(){
         })
     })
 
+    describe('include', function(){
+        it('should include an item to the array and return the index', function(){
+            var a = [1, 2, 3, 4]
+            var ret = array.include(a, 5)
+            console.log('RET', ret)
+            expect(a).to.eql([1, 2, 3, 4, 5])
+            expect(ret).to.be(4)
+        })
+
+        it('should the index of the item if it is already in the array', function(){
+            var a = [1, 2, 3, 4]
+            var ret = array.include(a, 4)
+            expect(a).to.eql([1, 2, 3, 4])
+            expect(ret).to.be(3)
+        })
+    })
+
+
 })

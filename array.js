@@ -26,6 +26,7 @@ array.extend({
     indexOf:     require("./array/indexOf"),
     map:         require("./array/map"),
     remove:      require("./array/remove"),
+    include:     require("./array/include"),
     some:        require("./array/some")
 })
 
