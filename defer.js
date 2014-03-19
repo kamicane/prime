@@ -43,7 +43,7 @@ var iterate = function(collection){
 }
 
 var defer = function(callback, argument, context){
-    return (kindOf(argument) === "number") ? defer.timeout(callback, argument, context) : defer.immediate(callback, argument)
+    return (kindOf(argument) === "Number") ? defer.timeout(callback, argument, context) : defer.immediate(callback, argument)
 }
 
 if (global.process && process.nextTick){
