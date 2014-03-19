@@ -115,10 +115,10 @@ var Map = prime({
 
 })
 
-var map = function() {
+var map = function(){
     return new Map
 }
 
 map.prototype = Map.prototype
 
-module.exports = map;
+module.exports = map

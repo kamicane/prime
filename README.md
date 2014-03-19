@@ -1,5 +1,10 @@
-[![](https://nodei.co/npm/prime.png)](https://npmjs.org/package/prime)
-[![Build Status](https://secure.travis-ci.org/mootools/prime.png?branch=master)](http://travis-ci.org/mootools/prime)
+[![Package Info](http://img.shields.io/badge/npm-prime-blue.svg)](https://npmjs.org/package/prime)
+[![NPM Version](http://img.shields.io/npm/v/prime.svg)](https://npmjs.org/package/prime)
+[![Coverage Status](http://img.shields.io/coveralls/jekyll/jekyll.svg)](https://coveralls.io/r/kamicane/prime)
+[![Build Status](http://img.shields.io/travis/kamicane/prime.svg)](http://travis-ci.org/kamicane/prime)
+[![Dependencies Status](https://david-dm.org/kamicane/prime.svg?theme=shields.io)](https://david-dm.org/kamicane/prime)
+[![DevDependencies Status](https://david-dm.org/kamicane/prime/dev-status.svg?theme=shields.io)](https://david-dm.org/kamicane/prime#info=devDependencies)
+
 
 #prime |prīm|
 
@@ -50,14 +55,13 @@ var Emitter = require("prime/emitter")
 
 var Dog = prime({
     inherits: Animal,
+    mixin: Emitter,
     say: function(){
         var word = "wuff" + Dog.parent.say.call(this)
         this.emit("say", word)
         return word
     }
 })
-
-Dog.implement(new Emitter)
 
 var barkley = new Dog
 
@@ -68,7 +72,7 @@ barkley.on("say", function(word){
 
 ### prime/map
 
-Simple WeakMap-like object.
+Map-like implementation.
 
 ```js
 var Map = require("prime/map")

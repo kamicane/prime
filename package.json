@@ -14,29 +14,27 @@
   ],
   "author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
   "contributors": [
-    "Arian Stolwijk <@arian> (http://aryweb.nl)",
-    "Cristian Carlesso <@kentaromiura> (http://github.com/kentaromiura)"
+    "Arian Stolwijk <@arian> (http://aryweb.nl)"
   ],
   "bugs": {
-    "url": "https://github.com/mootools/prime/issues"
+    "url": "https://github.com/kamicane/prime/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mootools/prime.git"
+    "url": "git://github.com/kamicane/prime.git"
   },
   "dependencies": {
     "mout": "~0.9"
   },
   "devDependencies": {
-    "mocha": ">=1.17.1 < 2.0.0",
-    "expect.js": "~0.2"
-  },
-  "optionalDependencies": {},
-  "engines": {
-    "node": "*"
+    "mocha": ">=1.18.2 < 2.0.0",
+    "expect.js": "~0.3.1",
+    "istanbul": "~0.2.6",
+    "coveralls": "~2.10.0",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./test"
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info |  ./node_modules/.bin/coveralls"
   }
 }
