@@ -113,6 +113,7 @@ describe("prime constructors", function(){
         var three = new Three();
         expect(three.id).to.be("TWO");
 
+        expect(One.prototype.constructor).to.be.a(Function)
         expect(Three.prototype.constructor).to.be.a(Function)
 
     })
@@ -148,30 +149,40 @@ describe('prime creation', function(){
         expect(leo.play()).to.be('cat:play:leo');
     });
 
-    // it("should implement another prime", function(){
-    //     var Dog = prime({mixin: Animal})
-    //
-    //     var rover = new Dog('rover');
-    //     expect(rover.name).to.be('rover');
-    //     expect(rover.initialized).to.be.ok();
-    //     expect(rover.eat()).to.be('animal:eat:rover');
-    // });
-    //
-    // it("should use 'Implements' property to implement any number of primes", function(){
-    //     var Dog = prime({
-    //         inherit: Animal,
-    //         mixin: [Actions, Attributes]
-    //     });
-    //
-    //     var rover = new Dog('rover');
-    //     expect(rover.initialized).to.be.ok();
-    //     expect(rover.eat()).to.be('animal:eat:rover');
-    //     expect(rover.say()).to.be('animal:say:rover');
-    //     expect(rover.jump()).to.be('actions:jump:rover');
-    //     expect(rover.sleep()).to.be('actions:sleep:rover');
-    //     expect(rover.size()).to.be('attributes:size:rover');
-    //     expect(rover.color()).to.be('attributes:color:rover');
-    // });
+    it("should accept functions as constructors", function(){
+        var Dog = prime(function(name) {
+            this.name = name;
+        });
+        var rover = new Dog('rover');
+        expect(rover.name).to.be('rover');
+    });
+
+    it("should use mixin to implement any number of primes", function(){
+        var Dog = prime({
+            inherits: Animal,
+            mixin: [Actions, Attributes]
+        });
+
+        var rover = new Dog('rover');
+
+        expect(rover.initialized).to.be.ok();
+        expect(rover.eat()).to.be('animal:eat:rover');
+        expect(rover.say()).to.be('animal:say:rover');
+        expect(rover.jump()).to.be('actions:jump:rover');
+        expect(rover.sleep()).to.be('actions:sleep:rover');
+        expect(rover.size()).to.be('attributes:size:rover');
+        expect(rover.color()).to.be('attributes:color:rover');
+
+        var Fox = prime({
+            inherits: Animal,
+            mixin: Actions
+        });
+
+        var roger = new Fox('roger');
+
+        expect(roger.jump()).to.be('actions:jump:roger');
+        expect(roger.sleep()).to.be('actions:sleep:roger');
+    });
 
     it("should alter the prime's prototype when implementing new methods", function(){
         var Dog = prime({
@@ -319,64 +330,3 @@ describe('prime toString', function(){
     });
 
 });
-
-// describe('prime Mutators', function(){
-//
-//     it('should inherit mutators', function(){
-//
-//         var Being = prime({});
-//         Being.defineMutator('Legs', function(legs){
-//             this.prototype.legs = legs;
-//         });
-//
-//         var Person = prime({
-//             inherits: Being,
-//             Legs: 2,
-//             BeerCapacity: 10
-//         });
-//         Person.defineMutator('BeerCapacity', function(beers){
-//             this.prototype.beers = beers;
-//         });
-//
-//         var Student = prime({
-//             inherits: Person,
-//             Legs: 2,
-//             BeerCapacity: 10
-//         });
-//
-//         var olmo = new Person();
-//
-//         expect(olmo.legs).to.be(2);
-//         expect(olmo.beer).to.beUndefined();
-//
-//         var arian = new Student();
-//
-//         expect(arian.legs).to.be(2);
-//         expect(arian.beers).to.be(10);
-//
-//     });
-//
-// });
-
-// describe('Protected methods', function(){
-//
-//     it('should throw an error when calling a protected method', function(){
-//         var Person = prime({
-//             'protected parse': function(){
-//                 this.parsed = true;
-//                 return 'parsing...';
-//             },
-//             get: function(){
-//                 return this.parse();
-//             }
-//         });
-//         var olmo = new Person;
-//
-//         expect(olmo.parse).toThrow();
-//         expect(olmo.parsed).to.beFalsy();
-//         expect(olmo.get()).to.be('parsing...');
-//         expect(olmo.parsed).to.be.ok();
-//
-//     });
-//
-// });

@@ -5,6 +5,21 @@ var defer = require('../defer')
 
 describe('defer', function(){
 
+    it('should be able to cancel with return function', function(done){
+
+        var cancel = defer(function(){
+            throw new Error('this is not working');
+        });
+
+        cancel();
+        cancel(); // should not affect anything
+
+        setTimeout(function() {
+            done();
+        }, 10);
+
+    })
+
     it('should keep the order of multiple defer calls', function(done){
         var array = []
 
@@ -52,7 +67,7 @@ describe('defer', function(){
             }
         }
 
-        defer.timeout(function(time){
+        defer(function(time){
             now1 = time
             expect(this).to.be(object)
             dones()
