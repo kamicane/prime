@@ -1,7 +1,7 @@
 [![Package Info](http://img.shields.io/badge/npm-prime-blue.svg)](https://npmjs.org/package/prime)
 [![NPM Version](http://img.shields.io/npm/v/prime.svg)](https://npmjs.org/package/prime)
-[![Coverage Status](http://img.shields.io/coveralls/jekyll/jekyll.svg)](https://coveralls.io/r/kamicane/prime)
-[![Build Status](http://img.shields.io/travis/kamicane/prime.svg)](http://travis-ci.org/kamicane/prime)
+[![Coverage Status](http://img.shields.io/coveralls/kamicane/prime/master.svg)](https://coveralls.io/r/kamicane/prime)
+[![Build Status](http://img.shields.io/travis/kamicane/prime/master.svg)](http://travis-ci.org/kamicane/prime)
 [![Dependencies Status](https://david-dm.org/kamicane/prime.svg?theme=shields.io)](https://david-dm.org/kamicane/prime)
 [![DevDependencies Status](https://david-dm.org/kamicane/prime/dev-status.svg?theme=shields.io)](https://david-dm.org/kamicane/prime#info=devDependencies)
 
