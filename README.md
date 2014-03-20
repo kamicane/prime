@@ -1,3 +1,5 @@
+# ![prime](http://kamicane.github.io/assets/prime.png)
+
 [![Package Info](http://img.shields.io/badge/npm-prime-blue.svg)](https://npmjs.org/package/prime)
 [![NPM Version](http://img.shields.io/npm/v/prime.svg)](https://npmjs.org/package/prime)
 [![Coverage Status](http://img.shields.io/coveralls/kamicane/prime/master.svg)](https://coveralls.io/r/kamicane/prime)
@@ -5,8 +7,6 @@
 [![Dependencies Status](https://david-dm.org/kamicane/prime.svg?theme=shields.io)](https://david-dm.org/kamicane/prime)
 [![DevDependencies Status](https://david-dm.org/kamicane/prime/dev-status.svg?theme=shields.io)](https://david-dm.org/kamicane/prime#info=devDependencies)
 
-
-#prime |prīm|
 
 1. fundamental, basic, essential.
 2. make (something) ready for use or action.
@@ -104,3 +104,5 @@ defer.timeout(function() {
     console.log('late');
 }, 500);
 ```
+
+When all else fails, read the [full documentation](https://github.com/kamicane/prime/blob/master/doc/prime.md).
