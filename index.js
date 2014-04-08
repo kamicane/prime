@@ -4,42 +4,47 @@ prime
 */"use strict"
 
 var hasOwn = require("mout/object/hasOwn"),
-    forIn  = require("mout/object/forIn"),
     mixIn  = require("mout/object/mixIn"),
-    filter = require("mout/object/filter"),
     create = require("mout/lang/createObject"),
     kindOf = require("mout/lang/kindOf")
 
-var defineProperty           = Object.defineProperty,
-    getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
+var hasDescriptors = true
 
 try {
-    defineProperty({}, "~", {})
-    getOwnPropertyDescriptor({}, "~")
+    Object.defineProperty({}, "~", {})
+    Object.getOwnPropertyDescriptor({}, "~")
 } catch (e){
-    defineProperty = null
-    getOwnPropertyDescriptor = null
+    hasDescriptors = false
 }
 
-var define = function(value, key, from){
-    defineProperty(this, key, getOwnPropertyDescriptor(from, key) || {
-        writable: true,
-        enumerable: true,
-        configurable: true,
-        value: value
-    })
-}
-
-var copy = function(value, key){
-    this[key] = value
-}
-
-var implement = function(proto){
-    forIn(proto, defineProperty ? define : copy, this.prototype)
-    return this
-}
+// we only need to be able to implement "toString" and "valueOf" in IE < 9
+var hasEnumBug = !({valueOf: 0}).propertyIsEnumerable("valueOf"),
+    buggy      = ["toString", "valueOf"]
 
 var verbs = /^constructor|inherits|mixin$/
+
+var implement = function(proto){
+    var prototype = this.prototype
+
+    for (var key in proto){
+        if (key.match(verbs)) continue
+        if (hasDescriptors){
+            var descriptor = Object.getOwnPropertyDescriptor(proto, key)
+            if (descriptor){
+                Object.defineProperty(prototype, key, descriptor)
+                continue
+            }
+        }
+        prototype[key] = proto[key]
+    }
+
+    if (hasEnumBug) for (var i = 0; (key = buggy[i]); i++){
+        var value = proto[key]
+        if (value !== Object.prototype[key]) prototype[key] = value
+    }
+
+    return this
+}
 
 var prime = function(proto){
 
@@ -78,9 +83,7 @@ var prime = function(proto){
     }
 
     // implement proto and return constructor
-    return constructor.implement(filter(proto, function(value, key){
-        return !key.match(verbs)
-    }))
+    return constructor.implement(proto)
 
 }
 
