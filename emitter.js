@@ -12,6 +12,10 @@ var slice = Array.prototype.slice;
 
 var Emitter = prime({
 
+    constructor: function(stoppable){
+        this._stoppable = stoppable
+    },
+
     on: function(event, fn){
         var listeners = this._listeners || (this._listeners = {}),
             events = listeners[event] || (listeners[event] = [])
@@ -42,7 +46,8 @@ var Emitter = prime({
             var listeners = self._listeners, events
             if (listeners && (events = listeners[event])){
                 forEach(events.slice(0), function(event){
-                    return event.apply(self, args)
+                    var result = event.apply(self, args)
+                    if (self._stoppable) return result
                 })
             }
         }
