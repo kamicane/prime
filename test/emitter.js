@@ -53,7 +53,13 @@ describe('emitter', function(){
 
     it('should not add the same listener twice', function(done){
         var events = new emitter(), called = 0
-        var listener = function(){ done() }
+        var listener = function(){
+            called++
+            defer(function() {
+                expect(called).to.be(1)
+                done()
+            })
+        }
         events.on('thing', listener)
         events.on('thing', listener)
         events.emit('thing')
