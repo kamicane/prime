@@ -2,6 +2,7 @@
 
 var expect = require('expect.js')
 var emitter = require('../emitter')
+var defer = require('../defer')
 
 describe('emitter', function(){
 
@@ -83,5 +84,35 @@ describe('emitter', function(){
         events.emit('thang')
     })
 
+    it('should not stop immediate propagation', function(done){
+        var publisher = new emitter()
+
+        publisher.on('publish', function(){
+            return false;
+        })
+
+        publisher.on('publish', function(){
+            done()
+        })
+
+        publisher.emit('publish')
+    })
+
+    it('should allow stopping immediate propagation', function(done){
+        var publisher = new emitter(true)
+
+        publisher.on('publish', function(){
+            defer(function() {
+                done();
+            })
+            return false;
+        })
+
+        publisher.on('publish', function(){
+            expect().fail()
+        })
+
+        publisher.emit('publish')
+    })
 })
 
