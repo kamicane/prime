@@ -26,7 +26,7 @@ var Emitter = prime({
     },
 
     off: function(event, fn){
-        var listeners = this._listeners, events, key, length = 0
+        var listeners = this._listeners, events
         if (listeners && (events = listeners[event])){
 
             var io = indexOf(events, fn)
