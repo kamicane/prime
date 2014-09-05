@@ -25,7 +25,7 @@
     "url": "git://github.com/kamicane/prime.git"
   },
   "dependencies": {
-    "mout": "~0.9"
+    "mout": "^0.10.0"
   },
   "devDependencies": {
     "mocha": ">=1.18.2 < 2.0.0",
