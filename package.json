@@ -25,16 +25,16 @@
     "url": "git://github.com/kamicane/prime.git"
   },
   "dependencies": {
-    "mout": "~0.9"
+    "mout": "^0.11.0"
   },
   "devDependencies": {
-    "mocha": ">=1.18.2 < 2.0.0",
+    "coveralls": "^2.11.2",
     "expect.js": "~0.3.1",
-    "istanbul": "~0.2.6",
-    "coveralls": "~2.10.0",
-    "mocha-lcov-reporter": "0.0.1"
+    "istanbul": "^0.3.13",
+    "mocha": "^2.2.4",
+    "mocha-lcov-reporter": "0.0.2"
   },
   "scripts": {
-    "test": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info |  ./node_modules/.bin/coveralls"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }
