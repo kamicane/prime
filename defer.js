@@ -89,7 +89,9 @@ var requestAnimationFrame = global.requestAnimationFrame ||
     global.oRequestAnimationFrame ||
     global.msRequestAnimationFrame ||
     function(callback) {
-        setTimeout(callback, 1e3 / 60)
+        setTimeout(function(){
+            callback(+new Date())
+        }, 1e3 / 60)
     }
 
 defer.frame = function(callback, context){
